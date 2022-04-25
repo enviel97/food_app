@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/pages/home/home.page.dart';
+import 'package:food_shop/theme/app_theme.dart';
+
+import 'pages/home/home.page.dart';
 
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
@@ -11,9 +13,11 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Home(),
+      theme: AppTheme.lightTheme(context),
+      darkTheme: AppTheme.darkTheme(context),
+      home: const Home(),
     );
   }
 }
