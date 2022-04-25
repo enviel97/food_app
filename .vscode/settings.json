@@ -1,0 +1,18 @@
+{
+  "files.exclude": {
+    "windows": true,
+    ".dart_tool": true,
+    ".flutter-plugins": true,
+    ".flutter-plugins-dependencies": true,
+    ".git": true,
+    ".gitignore": true,
+    ".idea": true,
+    ".metadata": true,
+    ".packages": true,
+    ".vscode": true,
+    "analysis_options.yaml": true,
+    "build": true,
+    "food_shop.iml": true,
+    "pubspec.lock": true
+  }
+}
