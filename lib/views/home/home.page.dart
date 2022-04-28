@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/home/styles/dimensions.dart';
+import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
 
 import 'ui/food_banner.dart';
+import 'ui/food_popular.dart';
 import 'ui/header.dart';
 
 class Home extends StatefulWidget {
@@ -11,18 +15,33 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final _controller = ScrollController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // modified
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: const Header(),
-      body: SingleChildScrollView(
+      body: KSingleChildScrollView(
+        controller: _controller,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            SizedBox(height: height * 2 / 5, child: const FoodBanner()),
+            SizedBox(
+              height: HomeDimensions.kFoodBanner,
+              child: const FoodBanner(),
+            ),
+            Spacing.vertical.xl,
+            SizedBox(
+              height: HomeDimensions.kFoodPopular,
+              child: const FoodPopular(),
+            ),
           ],
         ),
       ),

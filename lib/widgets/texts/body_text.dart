@@ -7,6 +7,7 @@ class BodyText extends StatelessWidget {
   final FontWeight? fontWeight;
   final TextOverflow? textOverflow;
   final bool? softWrap;
+  final int? maxLines;
 
   const BodyText(
     this.text, {
@@ -17,6 +18,7 @@ class BodyText extends StatelessWidget {
     this.lineSize = 1.2,
     this.textOverflow = TextOverflow.ellipsis,
     this.fontWeight = FontWeight.normal,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class BodyText extends StatelessWidget {
       text,
       softWrap: softWrap,
       overflow: textOverflow,
+      maxLines: maxLines,
       style: style,
     );
   }

@@ -21,7 +21,10 @@ class Notice extends StatelessWidget {
       children: [
         Icon(icon, color: iconColor),
         Spacing.horizantal.xs,
-        BodyText(explain),
+        BodyText(
+          explain,
+          fontWeight: FontWeight.w300,
+        ),
       ],
     );
   }

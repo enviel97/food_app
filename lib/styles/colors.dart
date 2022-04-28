@@ -16,11 +16,11 @@ const Color kDividerColor = Color(0xffc7c7c7);
 const Color kPlaceholderSuperDarkColor = Color(0xFF3a3a3a);
 
 const Color kDarkBackgroundColor = Color(0xFF35393F);
-const Color kLightBackgoundColor = Color(0xFFfafafa);
+const Color kLightBackgoundColor = Color(0xFFfafaf9);
 
 // color origin
 const Color kBlackColor = Color(0xFF010101);
-const Color kWhiteColor = Color(0xFFFAFAFA);
+const Color kWhiteColor = Color(0xFFffffff);
 const Color kErrorColor = Color(0xFFF20000);
 const Color kWarningColor = Color(0xFFffb300);
 const Color kSuccessColor = Color(0xFF07FF3D);
