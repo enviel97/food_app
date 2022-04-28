@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
-import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/food/popular_food_detail/widgets/quantity_numberic.dart';
 import 'package:food_shop/views/food/styles/dimensions.dart';

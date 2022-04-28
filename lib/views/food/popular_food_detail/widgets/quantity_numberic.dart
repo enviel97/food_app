@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
-import 'package:food_shop/widgets/texts/custom_text.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
 
 class QuantityNumberic extends StatefulWidget {
   final QuantityNumbericController? controller;

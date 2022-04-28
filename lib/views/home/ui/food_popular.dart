@@ -6,7 +6,7 @@ import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/views/home/widgets/food_infomation.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
 import 'package:food_shop/widgets/lists/custom_listview.dart';
-import 'package:food_shop/widgets/texts/custom_text.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
 
 class FoodPopular extends StatelessWidget {
   const FoodPopular({Key? key}) : super(key: key);

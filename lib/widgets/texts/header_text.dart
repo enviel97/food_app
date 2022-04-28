@@ -1,4 +1,6 @@
-part of './custom_text.dart';
+import 'package:flutter/material.dart';
+import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/styles/spacing.dart';
 
 class HeaderText extends StatelessWidget {
   final String text;
