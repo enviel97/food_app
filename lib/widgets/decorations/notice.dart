@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/widgets/texts/custom_text.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
 
 class Notice extends StatelessWidget {
   final String explain;

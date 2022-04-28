@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/widgets/buttons/neumorphism_button.dart';
-import 'package:food_shop/widgets/texts/custom_text.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
+import 'package:food_shop/widgets/texts/header_text.dart';
 
 class Header extends StatelessWidget with PreferredSizeWidget {
   final double size;
