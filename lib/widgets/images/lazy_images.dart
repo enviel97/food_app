@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:food_shop/extentions/double_extension.dart';
 import 'package:food_shop/styles/colors.dart';
 
 class LazzyImages extends StatelessWidget {
@@ -20,8 +21,8 @@ class LazzyImages extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius),
       child: CachedNetworkImage(
         imageUrl: url,
-        height: height,
-        width: width,
+        height: height.h,
+        width: width.h,
         fit: BoxFit.cover,
         errorWidget: (_, url, error) {
           debugPrint('Url: $url, Image Loadding error $error');

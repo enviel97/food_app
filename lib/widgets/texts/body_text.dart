@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/extentions/double_extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 
@@ -15,16 +16,18 @@ class BodyText extends StatelessWidget {
     this.text, {
     Key? key,
     this.softWrap,
-    this.color = kBlackColor,
-    this.fontSize = Spacing.s,
-    this.lineSize = 1.2,
-    this.textOverflow = TextOverflow.ellipsis,
-    this.fontWeight = FontWeight.normal,
+    this.color = kDefaultTextColor,
+    this.fontSize = Spacing.sm,
+    this.lineSize = 1.5,
+    this.textOverflow,
+    this.fontWeight,
     this.maxLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final fontSize = this.fontSize?.w;
+
     final style = DefaultTextStyle.of(context).style.copyWith(
           fontSize: fontSize,
           fontWeight: fontWeight,

@@ -63,10 +63,12 @@ class Food {
       finalRate: finalRate,
       timePrepare: timePrepaire,
       status: status,
-      description: food.random.string(20, min: 5),
+      description: faker.lorem
+          .sentences(faker.randomGenerator.integer(20, min: 10))
+          .join(' '),
       shortDecription: faker.lorem
           .sentences(faker.randomGenerator.integer(10, min: 2))
-          .join('. '),
+          .join(' '),
       price: double.tryParse(faker.randomGenerator.fromPattern(['##.##'])) ??
           99.99,
     );

@@ -18,6 +18,8 @@ const Color kPlaceholderSuperDarkColor = Color(0xFF3a3a3a);
 const Color kDarkBackgroundColor = Color(0xFF35393F);
 const Color kLightBackgoundColor = Color(0xFFfafaf9);
 
+const Color kDefaultTextColor = Color.fromARGB(255, 120, 120, 120);
+
 // color origin
 const Color kBlackColor = Color(0xFF010101);
 const Color kWhiteColor = Color(0xFFffffff);

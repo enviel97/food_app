@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/food/popular_food_detail/widgets/quantity_numberic.dart';
 import 'package:food_shop/views/food/styles/dimensions.dart';
@@ -28,7 +29,7 @@ class PurchaseHandlerBottom extends StatelessWidget {
           Spacing.horizantal.xxxl,
           Expanded(
             child: KTextButton(
-              'Add to cart 🛒',
+              'Add to cart $kCartSymbol',
               textColor: kWhiteColor,
               onPressed: () => onGetQuantity(controller.quantiyy),
             ),

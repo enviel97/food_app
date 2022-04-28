@@ -5,12 +5,13 @@ import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/food/styles/dimensions.dart';
 import 'package:food_shop/views/home/widgets/food_infomation.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
+import 'package:food_shop/widgets/texts/collapsable_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:star_rating/star_rating.dart';
 
-class PopularFoodDetailBody extends StatelessWidget {
+class Body extends StatelessWidget {
   final Food food;
-  const PopularFoodDetailBody({
+  const Body({
     required this.food,
     Key? key,
   }) : super(key: key);
@@ -57,10 +58,14 @@ class PopularFoodDetailBody extends StatelessWidget {
           Spacing.vertical.m,
           const BodyText(
             'Introduce',
+            color: kBlackColor,
             fontSize: Spacing.m,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
           ),
-          Spacing.vertical.xs,
+          Spacing.vertical.m,
+          Expanded(
+            child: CollapsableText(food.description),
+          ),
         ],
       ),
     );

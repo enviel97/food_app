@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/extentions/double_extension.dart';
 import 'package:food_shop/styles/colors.dart';
 
 enum IconButtonShape {
@@ -29,7 +30,7 @@ class KIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = this.size ?? 24.0;
+    final size = (this.size ?? 24.0).h;
     final radius = size * (shape == IconButtonShape.round ? 0.375 : 2);
 
     final backgroundColor = this.backgroundColor.withOpacity(

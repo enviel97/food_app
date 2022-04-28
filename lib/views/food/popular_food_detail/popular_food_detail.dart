@@ -4,7 +4,7 @@ import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/food/popular_food_detail/ui/header.dart';
 
 import 'ui/bottom_navigation.dart';
-import 'ui/popular_food_detail_body.dart';
+import 'ui/body.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final Food food;
@@ -30,7 +30,7 @@ class PopularFoodDetail extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Header(),
-              PopularFoodDetailBody(food: food),
+              Body(food: food),
             ],
           ),
         ),

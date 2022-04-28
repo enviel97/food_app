@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/extentions/double_extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 
@@ -14,7 +15,7 @@ class HeaderText extends StatelessWidget {
     this.text, {
     Key? key,
     this.softWrap,
-    this.textOverflow = TextOverflow.fade,
+    this.textOverflow,
     this.fontWeight = FontWeight.bold,
     this.color = kPrimaryDarkColor,
     this.fontSize = Spacing.lg,
@@ -22,6 +23,7 @@ class HeaderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fontSize = this.fontSize?.h;
     final style = DefaultTextStyle.of(context)
         .style
         .copyWith(fontSize: fontSize, fontWeight: fontWeight, color: color);
