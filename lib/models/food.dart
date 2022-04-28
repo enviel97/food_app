@@ -4,9 +4,9 @@ import 'package:food_shop/models/comment.dart';
 enum FoodStatus { empty, normal, little }
 
 class Food {
-  final String name, banner;
+  final String name, banner, shortDecription, description;
   final List<Comment> comments;
-  final double finalRate;
+  final double finalRate, price;
   final List<String> images;
   final FoodStatus status;
   final int timePrepare;
@@ -19,6 +19,9 @@ class Food {
     required this.finalRate,
     required this.timePrepare,
     required this.status,
+    required this.shortDecription,
+    required this.description,
+    required this.price,
   });
 
   factory Food.faker() {
@@ -60,6 +63,12 @@ class Food {
       finalRate: finalRate,
       timePrepare: timePrepaire,
       status: status,
+      description: food.random.string(20, min: 5),
+      shortDecription: faker.lorem
+          .sentences(faker.randomGenerator.integer(10, min: 2))
+          .join('. '),
+      price: double.tryParse(faker.randomGenerator.fromPattern(['##.##'])) ??
+          99.99,
     );
   }
 }
