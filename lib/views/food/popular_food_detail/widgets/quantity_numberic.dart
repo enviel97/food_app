@@ -94,7 +94,10 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
 
   void _notification() {
     if (widget.controller != null) {
-      widget.controller!.quantiyy = quantity;
+      widget.controller!.quantity = quantity;
+    }
+    if (widget.onChanged != null) {
+      widget.onChanged!(quantity);
     }
   }
 }
@@ -102,7 +105,7 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
 class QuantityNumbericController {
   final int initQuanity;
   late _QuantityNumbericState? _state;
-  int quantiyy = 1;
+  int quantity = 1;
 
   QuantityNumbericController({this.initQuanity = 1});
 

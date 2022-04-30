@@ -31,7 +31,7 @@ class PurchaseHandlerBottom extends StatelessWidget {
             child: KTextButton(
               'Add to cart $kCartSymbol',
               textColor: kWhiteColor,
-              onPressed: () => onGetQuantity(controller.quantiyy),
+              onPressed: () => onGetQuantity(controller.quantity),
             ),
           )
         ],

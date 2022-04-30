@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/dimensions.dart';
+import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 
@@ -9,6 +10,8 @@ class CollapsableText extends StatefulWidget {
   final String text;
   final bool hidden;
   final double? minimumHeight;
+  final Color? color;
+  final double fontSize;
   final void Function(bool isHidden)? onShowText;
 
   const CollapsableText(
@@ -20,6 +23,8 @@ class CollapsableText extends StatefulWidget {
     // default height: screens / 2
     this.minimumHeight,
     this.onShowText,
+    this.color,
+    this.fontSize = Spacing.m,
   }) : super(key: key);
 
   @override
@@ -63,12 +68,18 @@ class _CollapsableTextState extends State<CollapsableText> {
       controller: _controller,
       child: Container(
         child: secondHalf.isEmpty
-            ? BodyText(firstHalf)
+            ? BodyText(
+                firstHalf,
+                color: widget.color,
+                fontSize: widget.fontSize,
+              )
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   BodyText(
                     hindden ? (firstHalf + ' ...') : (firstHalf + secondHalf),
+                    color: widget.color,
+                    fontSize: widget.fontSize,
                   ),
                   InkWell(
                     onTap: _showMore,

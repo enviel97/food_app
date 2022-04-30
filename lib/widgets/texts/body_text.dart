@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double_extension.dart';
-import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 
 class BodyText extends StatelessWidget {
@@ -16,7 +15,7 @@ class BodyText extends StatelessWidget {
     this.text, {
     Key? key,
     this.softWrap,
-    this.color = kDefaultTextColor,
+    this.color,
     this.fontSize = Spacing.sm,
     this.lineSize = 1.5,
     this.textOverflow,

@@ -5,24 +5,24 @@ import 'package:food_shop/styles/colors.dart';
 
 class LazzyImages extends StatelessWidget {
   final String url;
-  final double height, width, radius;
+  final double? height, width, radius;
 
   const LazzyImages(
     this.url, {
     Key? key,
-    this.height = 320.0,
+    this.height,
     this.width = double.infinity,
-    this.radius = 0.0,
+    this.radius,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(radius),
+      borderRadius: BorderRadius.circular(radius ?? 0),
       child: CachedNetworkImage(
         imageUrl: url,
-        height: height.h,
-        width: width.h,
+        height: height?.h,
+        width: width?.h,
         fit: BoxFit.cover,
         errorWidget: (_, url, error) {
           debugPrint('Url: $url, Image Loadding error $error');
