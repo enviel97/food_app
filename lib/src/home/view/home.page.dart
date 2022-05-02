@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/src/home/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
 
-import 'ui/food_banner.dart';
 import 'ui/food_popular.dart';
 import 'ui/header.dart';
+import 'ui/food_banner.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

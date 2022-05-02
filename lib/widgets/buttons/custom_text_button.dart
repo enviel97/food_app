@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/extentions/double_extension.dart';
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 

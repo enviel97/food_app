@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/styles/colors.dart';
-
-import '../../../widgets/decorations/notice.dart';
+import 'package:food_shop/widgets/decorations/notice.dart';
 
 class FoodInfomation extends StatelessWidget {
   final FoodStatus status;

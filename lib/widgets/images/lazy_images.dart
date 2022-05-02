@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:food_shop/extentions/double_extension.dart';
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 
 class LazzyImages extends StatelessWidget {

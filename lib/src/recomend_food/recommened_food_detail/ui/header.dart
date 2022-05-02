@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/src/recomend_food/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
-import 'package:food_shop/views/food/styles/dimensions.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/bordered_text.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -45,7 +45,7 @@ class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      expandedHeight: FoodDimensions.kRecommendFoodAppBarExpanded,
+      expandedHeight: RecommendFoodDimensions.kRecommendFoodAppBarExpanded,
       leading: buttonActionBuilder(Icons.arrow_back_ios_new_rounded),
       actions: [
         buttonActionBuilder(Icons.shopping_cart_rounded),

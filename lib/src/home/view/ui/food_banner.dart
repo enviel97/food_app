@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Slider;
 import 'package:food_shop/models/food.dart';
+import 'package:food_shop/src/home/view/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/home/widgets/food_infomation.dart';
 import 'package:food_shop/widgets/lists/slider.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';

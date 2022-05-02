@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/food/popular_food_detail/ui/header.dart';
 
 import 'ui/bottom_navigation.dart';
 import 'ui/body.dart';
+import 'ui/header.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   final Food food;
