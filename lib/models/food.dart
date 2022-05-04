@@ -1,17 +1,19 @@
 import 'package:faker/faker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:food_shop/models/comment.dart';
 
 enum FoodStatus { empty, normal, little }
 
 class Food {
-  final String name, banner, shortDecription, description;
+  final String name, banner, description, id;
   final List<Comment> comments;
   final double finalRate, price;
   final List<String> images;
   final FoodStatus status;
   final int timePrepare;
 
-  const Food({
+  const Food(
+    this.id, {
     required this.name,
     required this.images,
     required this.banner,
@@ -19,10 +21,25 @@ class Food {
     required this.finalRate,
     required this.timePrepare,
     required this.status,
-    required this.shortDecription,
     required this.description,
     required this.price,
   });
+
+  factory Food.fromJson(Map<String, dynamic> json) {
+    final faker = Food.faker();
+    return Food(
+      '${json['id']}',
+      name: json['name'],
+      images: faker.images,
+      banner: faker.banner, // getImageUrl(json['img']) ?? ,
+      comments: faker.comments,
+      finalRate: faker.finalRate,
+      timePrepare: faker.timePrepare,
+      status: faker.status,
+      description: json['description'],
+      price: (json['price'] as int).toDouble(),
+    );
+  }
 
   factory Food.faker() {
     final faker = Faker();
@@ -56,6 +73,7 @@ class Food {
         .element([FoodStatus.normal, FoodStatus.little, FoodStatus.empty]);
 
     return Food(
+      UniqueKey().toString(),
       name: food.dish(),
       images: images,
       banner: banner,
@@ -65,9 +83,6 @@ class Food {
       status: status,
       description: faker.lorem
           .sentences(faker.randomGenerator.integer(20, min: 10))
-          .join(' '),
-      shortDecription: faker.lorem
-          .sentences(faker.randomGenerator.integer(10, min: 2))
           .join(' '),
       price: double.tryParse(faker.randomGenerator.fromPattern(['##.##'])) ??
           99.99,

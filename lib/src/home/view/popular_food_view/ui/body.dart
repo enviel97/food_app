@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/src/home/view/widgets/food_infomation.dart';
-import 'package:food_shop/src/popular_food/styles/dimensions.dart';
+import 'package:food_shop/src/home/styles/dimensions.dart';
+import 'package:food_shop/src/home/view/home_view/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
@@ -19,7 +19,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: PopularFoodDimensions.kPopularFoodCard,
+      height: HomeDimensions.kPopularFoodCard,
       decoration: const BoxDecoration(
           color: kWhiteColor,
           borderRadius: BorderRadius.vertical(

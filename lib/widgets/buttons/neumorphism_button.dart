@@ -30,34 +30,37 @@ class _NeumorphismButtonState extends State<NeumorphismButton> {
     final offset = isPressed ? const Offset(5, 5) : const Offset(10, 10);
     final blur = isPressed ? 2.0 : 15.0;
 
-    return Listener(
-      onPointerUp: (_) => setState(() => isPressed = false),
-      onPointerDown: (_) => setState(() => isPressed = true),
-      child: AnimatedContainer(
-        height: widget.size,
-        width: widget.size,
-        alignment: Alignment.center,
-        duration: const Duration(milliseconds: 100),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15.0),
-            color: widget.backgroundColor,
-            boxShadow: [
-              BoxShadow(
-                blurRadius: blur,
-                offset: -offset,
-                color: backgroundColor,
-                inset: isPressed,
-              ),
-              BoxShadow(
-                blurRadius: blur,
-                offset: offset,
-                color: isDarkMode
-                    ? const Color(0xff23262a)
-                    : const Color(0xFFa7a9af),
-                inset: isPressed,
-              )
-            ]),
-        child: widget.child,
+    return GestureDetector(
+      onTap: widget.onPressed,
+      child: Listener(
+        onPointerUp: (_) => setState(() => isPressed = false),
+        onPointerDown: (_) => setState(() => isPressed = true),
+        child: AnimatedContainer(
+          height: widget.size,
+          width: widget.size,
+          alignment: Alignment.center,
+          duration: const Duration(milliseconds: 100),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              color: widget.backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: blur,
+                  offset: -offset,
+                  color: backgroundColor,
+                  inset: isPressed,
+                ),
+                BoxShadow(
+                  blurRadius: blur,
+                  offset: offset,
+                  color: isDarkMode
+                      ? const Color(0xff23262a)
+                      : const Color(0xFFa7a9af),
+                  inset: isPressed,
+                )
+              ]),
+          child: widget.child,
+        ),
       ),
     );
   }

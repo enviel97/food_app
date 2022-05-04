@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_shop/styles/colors.dart';
 
-import 'repository/dependencies.dart';
+import 'dependencies.dart' as dep;
 import 'src/app.dart';
 
 Future<void> main() async {
@@ -11,6 +11,7 @@ Future<void> main() async {
   ));
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Dependencies.init();
+
+  await dep.init();
   runApp(const App());
 }

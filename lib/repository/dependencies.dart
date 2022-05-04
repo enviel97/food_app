@@ -1,38 +1,13 @@
-import 'package:flutter/material.dart';
+import 'package:food_shop/src/home/repository/popular_food.repo.dart';
+import 'package:food_shop/src/home/repository/recommended_food.repo.dart';
 import 'package:get/get.dart';
 
-import 'api_client.dart';
+class RepositoryDependencies {
+  const RepositoryDependencies();
 
-class Routes {
-  final String name;
-  final GetxController? controller;
-  final GetxService? repo;
-
-  const Routes(
-    this.name, {
-    this.controller,
-    this.repo,
-  });
-}
-
-class Dependencies {
-  const Dependencies();
-
-  static final Map<String, dynamic> _routes = {};
-
-  static void inject(Routes route) {
-    if (_routes.containsKey(route.name)) {
-      throw Exception('Inject Exception: ${route.name} is already');
-    }
-    _routes[route.name] = UniqueKey().toString();
-    if (route.controller != null) Get.lazyPut(() => route.controller);
-    if (route.repo != null) Get.lazyPut(() => route.repo);
-  }
-
-  static Future<void> init() async {
-    const baseUrl = '';
-
-    Get.lazyPut(() => ApiClient(baseUrl));
-    // inject
+  static void inject() {
+    // inject dependencies
+    Get.lazyPut(() => PopularFoodRepo(client: Get.find()));
+    Get.lazyPut(() => RecommendedFoodRepo(client: Get.find()));
   }
 }

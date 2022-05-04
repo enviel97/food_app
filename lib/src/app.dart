@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/models/food.dart';
+import 'package:food_shop/src/home/view/home_view/home.page.dart';
 import 'package:food_shop/theme/app_theme.dart';
 import 'package:get/get.dart';
 
-import 'recomend_food/recommened_food_detail/recommened_food_detail.page.dart';
+import 'home/view/popular_food_view/popular_food_detail.dart';
+import 'home/view/recomend_food_view/recommened_food_detail.page.dart';
 
-// import 'home/home.page.dart';
+part 'routes.dart';
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -17,9 +18,7 @@ class App extends StatelessWidget {
       theme: AppTheme.lightTheme(context),
       darkTheme: AppTheme.darkTheme(context),
       title: 'Food App',
-      home: RecommenedFoodDetail(
-        food: Food.faker(),
-      ),
+      getPages: RouteHelper._routes,
     );
   }
 }

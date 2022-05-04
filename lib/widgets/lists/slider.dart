@@ -7,7 +7,7 @@ class Slider<T> extends StatefulWidget {
   final List<T> data;
   final Widget Function(T item) itemBuilder;
   final bool automation, reverse;
-
+  final EdgeInsets? paddingImage;
   // Indicate config
   final double indicateSize,
       // padding
@@ -21,6 +21,7 @@ class Slider<T> extends StatefulWidget {
     this.reverse = true,
     this.indicateSize = 12.0,
     this.paddingIndicate = 5.0,
+    this.paddingImage,
   }) : super(key: key);
 
   @override
@@ -61,12 +62,15 @@ class _SliderState<T> extends State<Slider<T>> {
     return Stack(
       fit: StackFit.expand,
       children: [
-        PageView.builder(
-          controller: _controller,
-          pageSnapping: true,
-          itemCount: widget.data.length,
-          itemBuilder: _itemBuilder,
-          onPageChanged: _onPageChanged,
+        Container(
+          padding: widget.paddingImage,
+          child: PageView.builder(
+            controller: _controller,
+            pageSnapping: true,
+            itemCount: widget.data.length,
+            itemBuilder: _itemBuilder,
+            onPageChanged: _onPageChanged,
+          ),
         ),
         Align(
           alignment: Alignment.bottomCenter,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/popular_food/popular_food_detail/widgets/quantity_numberic.dart';
-import 'package:food_shop/src/popular_food/styles/dimensions.dart';
+import 'package:food_shop/src/home/styles/dimensions.dart';
+import 'package:food_shop/src/home/view/popular_food_view/widgets/quantity_numberic.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
@@ -17,10 +17,10 @@ class PurchaseHandlerBottom extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24.0)),
-        color: kPlaceholderSuperDarkColor.withOpacity(.2),
+        color: kPlaceholderSuperDarkColor.withOpacity(.07),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      height: PopularFoodDimensions.kPopularFoodPurchase,
+      height: HomeDimensions.kPopularFoodPurchase,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,

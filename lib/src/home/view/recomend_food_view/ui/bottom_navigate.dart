@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/recomend_food/recommened_food_detail/widgets/favorite_button.dart';
-import 'package:food_shop/src/recomend_food/recommened_food_detail/widgets/quantity_price.dart';
-import 'package:food_shop/src/recomend_food/styles/dimensions.dart';
+import 'package:food_shop/src/home/styles/dimensions.dart';
+import 'package:food_shop/src/home/view/recomend_food_view/widgets/favorite_button.dart';
+import 'package:food_shop/src/home/view/recomend_food_view/widgets/quantity_price.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
@@ -29,7 +29,7 @@ class RecommendFoodPurchase extends StatelessWidget {
             color: kPlaceholderSuperDarkColor.withOpacity(.2),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          height: RecommendFoodDimensions.kPopularFoodPurchase,
+          height: HomeDimensions.kPopularFoodPurchase,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

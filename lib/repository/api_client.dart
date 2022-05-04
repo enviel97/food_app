@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/helpers/constants.dart';
 import 'package:get/get.dart';
 
 class ApiClient extends GetConnect implements GetxService {
@@ -10,17 +11,17 @@ class ApiClient extends GetConnect implements GetxService {
   ApiClient(this.appBaseUrl) {
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
-    token = '______________________________';
+    token = AppConstants.TOKEN;
     _mainHeader = {
       'Content-type': 'application/json; charset=UTF-8',
-      'Authorization': 'Enviel $token'
+      'Authorization': 'Bearer $token'
     };
   }
 
-  Future<Response> getData<T>(String uri) async {
+  Future<Response> getData(String uri) async {
     try {
       final response = await get(
-        '$appBaseUrl/$uri',
+        uri,
         headers: _mainHeader,
       );
       return response;
