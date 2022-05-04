@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/home/view/popular_food_view/widgets/quantity_numberic.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
+
+import '../../popular_food_view/widgets/quantity_numberic.dart';
 
 class QuantityPrice extends StatefulWidget {
   final String name;

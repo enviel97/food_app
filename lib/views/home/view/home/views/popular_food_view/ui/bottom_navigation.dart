@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/home/styles/dimensions.dart';
-import 'package:food_shop/src/home/view/popular_food_view/widgets/quantity_numberic.dart';
+import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
+
+import '../widgets/quantity_numberic.dart';
 
 class PurchaseHandlerBottom extends StatelessWidget {
   final void Function(int quantity) onGetQuantity;

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/home/view/home_view/home.page.dart';
+import 'package:food_shop/views/home/view/home/home.page.dart';
 import 'package:food_shop/theme/app_theme.dart';
 import 'package:get/get.dart';
 
-import 'home/view/popular_food_view/popular_food_detail.dart';
-import 'home/view/recomend_food_view/recommened_food_detail.page.dart';
+import 'home/view/home/views/recomend_food_view/recommened_food_detail.page.dart';
+import 'home/view/home/views/popular_food_view/popular_food_detail.dart';
 
 part 'routes.dart';
 

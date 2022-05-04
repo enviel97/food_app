@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart' hide Slider;
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/src/app.dart';
-import 'package:food_shop/src/home/controllers/popular_product.controller.dart';
-import 'package:food_shop/src/home/view/home_view/widgets/food_infomation.dart';
+import 'package:food_shop/views/app.dart';
+import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
+import 'package:food_shop/views/home/view/home/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/lists/slider.dart';
@@ -71,47 +71,42 @@ class _FoodBannerState extends State<FoodBanner> {
         final height = constrain.maxHeight;
         return GestureDetector(
           onTap: () => Get.toNamed(RouteHelper.getPopularFood(item.id)),
-          child: Container(
-            margin: const EdgeInsets.only(bottom: 35.0),
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 35.0),
             child: Stack(
               children: [
                 LazzyImages(item.banner, radius: 25.0, height: height * .85),
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    height: height * .2,
                     margin: const EdgeInsets.symmetric(horizontal: 25.0),
                     padding: const EdgeInsets.all(12.0),
                     decoration: _decoration,
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         BodyText(item.name, maxLines: 1, fontSize: Spacing.m),
+                        Spacing.vertical.xs,
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             StarRating(
                               length: 5,
                               rating: item.finalRate,
                               color: kPrimaryDarkColor,
                             ),
-                            Spacing.horizantal.xs,
                             BodyText(
-                              item.finalRate.toStringAsFixed(2),
+                              '${item.finalRate.toStringAsFixed(2)} ~'
+                              ' ${item.comments.length} cmts',
                               fontSize: Spacing.s,
                               fontWeight: FontWeight.bold,
                               color: kPlaceholderDarkColor,
                             ),
-                            Spacing.horizantal.xs,
-                            BodyText(
-                              '${item.comments.length} cmts',
-                              fontSize: Spacing.s,
-                              fontWeight: FontWeight.bold,
-                              color: kPlaceholderDarkColor,
-                            )
                           ],
                         ),
+                        Spacing.vertical.xs,
                         FoodInfomation(
                           status: item.status,
                           timePrepare: '${item.timePrepare}',

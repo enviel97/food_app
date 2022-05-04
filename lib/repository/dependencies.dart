@@ -1,5 +1,5 @@
-import 'package:food_shop/src/home/repository/popular_food.repo.dart';
-import 'package:food_shop/src/home/repository/recommended_food.repo.dart';
+import 'package:food_shop/views/home/repository/popular_food.repo.dart';
+import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
 import 'package:get/get.dart';
 
 class RepositoryDependencies {

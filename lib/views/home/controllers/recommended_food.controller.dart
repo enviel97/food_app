@@ -1,7 +1,7 @@
 import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/models/pagination.dart';
-import 'package:food_shop/src/home/repository/recommended_food.repo.dart';
+import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
 
 class RecommendedFoodConroller extends BaseController {
   final RecommendedFoodRepo repo;

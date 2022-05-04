@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/home/styles/dimensions.dart';
-import 'package:food_shop/src/home/view/recomend_food_view/widgets/favorite_button.dart';
-import 'package:food_shop/src/home/view/recomend_food_view/widgets/quantity_price.dart';
+import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
+
+import '../widgets/favorite_button.dart';
+import '../widgets/quantity_price.dart';
 
 class RecommendFoodPurchase extends StatelessWidget {
   final String id, name;

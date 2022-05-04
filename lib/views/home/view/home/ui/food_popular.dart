@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/src/app.dart';
-import 'package:food_shop/src/home/controllers/recommended_food.controller.dart';
-import 'package:food_shop/src/home/styles/dimensions.dart';
-import 'package:food_shop/src/home/view/home_view/widgets/food_infomation.dart';
+import 'package:food_shop/views/app.dart';
+import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
+import 'package:food_shop/views/home/styles/dimensions.dart';
+import 'package:food_shop/views/home/view/home/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';

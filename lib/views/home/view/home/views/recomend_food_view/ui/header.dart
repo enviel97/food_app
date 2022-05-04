@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:food_shop/src/home/styles/dimensions.dart';
+import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/bordered_text.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -29,33 +30,26 @@ class _HeaderState extends State<Header> {
     _updatePalete();
   }
 
-  Widget buttonActionBuilder(IconData iconData, {void Function()? onPressed}) {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: KIconButton(
-        size: 24.0,
-        icon: iconData,
-        backgroundColor: kWhiteColor.withOpacity(.7),
-        shape: IconButtonShape.circle,
-        onPressed: () {
-          if (onPressed != null) {
-            onPressed();
-          }
-        },
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: HomeDimensions.kRecommendFoodAppBarExpanded,
-      leading: buttonActionBuilder(
-        Icons.arrow_back_ios_new_rounded,
-        onPressed: Navigator.of(context).maybePop,
+      leading: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: KBackButton(),
       ),
+      automaticallyImplyLeading: false,
       actions: [
-        buttonActionBuilder(Icons.shopping_cart_rounded),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: KIconButton(
+            size: 24.0,
+            icon: Icons.shopping_cart_rounded,
+            backgroundColor: kWhiteColor.withOpacity(.7),
+            shape: IconButtonShape.circle,
+            onPressed: () {},
+          ),
+        ),
       ],
       backgroundColor: backgroundColor,
       shape: const ContinuousRectangleBorder(
