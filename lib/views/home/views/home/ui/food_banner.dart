@@ -2,7 +2,6 @@ import 'package:flutter/material.dart' hide Slider;
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
-import 'package:food_shop/views/home/view/home/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/lists/slider.dart';
@@ -12,20 +11,10 @@ import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
 import 'package:star_rating/star_rating.dart';
 
-class FoodBanner extends StatefulWidget {
+import '../widgets/food_infomation.dart';
+
+class FoodBanner extends StatelessWidget {
   const FoodBanner({Key? key}) : super(key: key);
-
-  @override
-  State<FoodBanner> createState() => _FoodBannerState();
-}
-
-class _FoodBannerState extends State<FoodBanner> {
-  @override
-  void initState() {
-    super.initState();
-    Get.find<PopularFoodConroller>().getPopularFoodList();
-  }
-
   BoxDecoration get _decoration {
     return const BoxDecoration(
       color: kWhiteColor,

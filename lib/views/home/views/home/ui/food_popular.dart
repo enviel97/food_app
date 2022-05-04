@@ -3,7 +3,6 @@ import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
-import 'package:food_shop/views/home/view/home/widgets/food_infomation.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
@@ -12,21 +11,10 @@ import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
 
-class FoodPopular extends StatefulWidget {
+import '../widgets/food_infomation.dart';
+
+class FoodPopular extends StatelessWidget {
   const FoodPopular({Key? key}) : super(key: key);
-
-  @override
-  State<FoodPopular> createState() => _FoodPopularState();
-}
-
-class _FoodPopularState extends State<FoodPopular> {
-  @override
-  void initState() {
-    super.initState();
-
-    Get.find<RecommendedFoodConroller>().getRecommendedFoodList();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
