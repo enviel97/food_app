@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
+import 'package:get/get.dart';
 
 import '../widgets/favorite_button.dart';
 import '../widgets/quantity_price.dart';
 
 class RecommendFoodPurchase extends StatelessWidget {
-  final String id, name;
-  final double price;
+  final String id;
+  final String? name;
+  final double? price;
   const RecommendFoodPurchase({
     required this.id,
-    required this.price,
-    required this.name,
+    this.price,
+    this.name,
     Key? key,
   }) : super(key: key);
 
@@ -41,6 +44,7 @@ class RecommendFoodPurchase extends StatelessWidget {
                 child: KTextButton(
                   'Add to cart $kCartSymbol',
                   textColor: kWhiteColor,
+                  disabled: price == null || (name?.isEmpty ?? true),
                   onPressed: () => _showAddCartModel(context),
                 ),
               )
@@ -60,9 +64,10 @@ class RecommendFoodPurchase extends StatelessWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
       ),
-      builder: (_) => QuantityPrice(name: name, price: price),
+      builder: (_) => QuantityPrice(name: name!, price: price!),
     );
-
-    print(quantity);
+    if (quantity != null) {
+      print(quantity);
+    }
   }
 }

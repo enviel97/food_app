@@ -4,6 +4,7 @@ import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/lists/slider.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
@@ -40,15 +41,31 @@ class FoodBanner extends StatelessWidget {
           );
         }
         if (controller.isError) {
-          return const Center(
-            child: HeaderText('Service error'),
+          return Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const HeaderText('Service error'),
+                Spacing.horizantal.xs,
+                KIconButton(
+                  icon: Icons.refresh_rounded,
+                  onPressed: () async {
+                    await controller.getPopularFoodList();
+                  },
+                )
+              ],
+            ),
           );
         }
-        return Slider(
-          automation: false,
-          data: controller.popularFoodList,
-          itemBuilder: _itemBuilder,
-          paddingImage: const EdgeInsets.only(bottom: 20.0),
+        return Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 25.0),
+          child: Slider(
+            automation: false,
+            data: controller.popularFoodList,
+            itemBuilder: _itemBuilder,
+            paddingImage: const EdgeInsets.only(bottom: 20.0),
+          ),
         );
       },
     );
@@ -60,52 +77,60 @@ class FoodBanner extends StatelessWidget {
         final height = constrain.maxHeight;
         return GestureDetector(
           onTap: () => Get.toNamed(RouteHelper.getPopularFood(item.id)),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 35.0),
-            child: Stack(
-              children: [
-                LazzyImages(item.banner, radius: 25.0, height: height * .85),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 25.0),
-                    padding: const EdgeInsets.all(12.0),
-                    decoration: _decoration,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        BodyText(item.name, maxLines: 1, fontSize: Spacing.m),
-                        Spacing.vertical.xs,
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            StarRating(
-                              length: 5,
-                              rating: item.finalRate,
-                              color: kPrimaryDarkColor,
-                            ),
-                            BodyText(
-                              '${item.finalRate.toStringAsFixed(2)} ~'
-                              ' ${item.comments.length} cmts',
-                              fontSize: Spacing.s,
-                              fontWeight: FontWeight.bold,
-                              color: kPlaceholderDarkColor,
-                            ),
-                          ],
-                        ),
-                        Spacing.vertical.xs,
-                        FoodInfomation(
-                          status: item.status,
-                          timePrepare: '${item.timePrepare}',
-                        ),
-                      ],
-                    ),
+          child: Stack(
+            fit: StackFit.expand,
+            alignment: Alignment.center,
+            children: [
+              Container(
+                alignment: Alignment.topCenter,
+                padding: const EdgeInsets.only(bottom: 25.0),
+                child: LazzyImages(
+                  item.banner,
+                  radius: 25.0,
+                  height: height * .90,
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  margin: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.all(12.0),
+                  decoration: _decoration,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      BodyText(item.name, maxLines: 1, fontSize: Spacing.m),
+                      Spacing.vertical.xs,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          StarRating(
+                            length: 5,
+                            rating: item.finalRate,
+                            color: kPrimaryDarkColor,
+                          ),
+                          BodyText(
+                            '${item.finalRate.toStringAsFixed(2)} ~'
+                            ' ${item.comments.length} cmts',
+                            fontSize: Spacing.s,
+                            fontWeight: FontWeight.bold,
+                            color: kPlaceholderDarkColor,
+                          ),
+                        ],
+                      ),
+                      Spacing.vertical.xs,
+                      FoodInfomation(
+                        status: item.status,
+                        timePrepare: '${item.timePrepare}',
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         );
       },

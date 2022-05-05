@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
@@ -85,7 +86,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
 
   void _onPageChange(int pageIndex) {
     _currentPage = pageIndex;
-    if (pageIndex == 0) {
+    if (_iconController.isCompleted) {
       _iconController.reverse();
     } else {
       _iconController.forward();

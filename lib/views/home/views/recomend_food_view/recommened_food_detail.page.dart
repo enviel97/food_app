@@ -21,30 +21,27 @@ class RecommenedFoodDetail extends StatelessWidget {
         Get.find<RecommendedFoodConroller>().getRecommendedFodd(foodId);
 
     return Scaffold(
-      body: (food == null)
-          ? const Center(child: HeaderText('Error on get food'))
-          : CustomScrollView(
-              scrollBehavior: RemoveGrow(),
-              slivers: [
-                Header(
-                  imageFood: food.images[0],
-                  nameFood: food.name,
-                ),
-                Body(
-                  decription: food.description,
-                  price: food.price,
-                  rating: food.finalRate,
-                  comments: food.comments,
-                ),
-              ],
-            ),
-      bottomNavigationBar: food != null
-          ? RecommendFoodPurchase(
-              id: foodId,
-              price: food.price,
-              name: food.name,
-            )
-          : null,
-    );
+        body: (food == null)
+            ? const Center(child: HeaderText('Error on get food'))
+            : CustomScrollView(
+                scrollBehavior: RemoveGrow(),
+                slivers: [
+                  Header(
+                    imageFood: food.images[0],
+                    nameFood: food.name,
+                  ),
+                  Body(
+                    decription: food.description,
+                    price: food.price,
+                    rating: food.finalRate,
+                    comments: food.comments,
+                  ),
+                ],
+              ),
+        bottomNavigationBar: RecommendFoodPurchase(
+          id: foodId,
+          // price: food?.price,
+          // name: food?.name,
+        ));
   }
 }

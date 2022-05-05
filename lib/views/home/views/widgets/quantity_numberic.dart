@@ -5,14 +5,19 @@ import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
+import 'package:get/get.dart';
 
 class QuantityNumberic extends StatefulWidget {
   final QuantityNumbericController? controller;
   final void Function(int number)? onChanged;
+  final int maxQuantity, minQuantity, step;
   const QuantityNumberic({
     Key? key,
     this.controller,
     this.onChanged,
+    this.maxQuantity = 99,
+    this.minQuantity = 1,
+    this.step = 1,
   }) : super(key: key);
 
   @override
@@ -21,7 +26,7 @@ class QuantityNumberic extends StatefulWidget {
 
 class _QuantityNumbericState extends State<QuantityNumberic> {
   int quantity = 1;
-
+  bool isSnackBarActive = false;
   @override
   void initState() {
     super.initState();
@@ -64,7 +69,7 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
         children: [
           _buttonControlBuilder(
             icon: Icons.arrow_back_ios_rounded,
-            onPressed: _decrease,
+            onPressed: () => _decrease(step: widget.step),
           ),
           Spacing.horizantal.m,
           BodyText(
@@ -75,20 +80,45 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
           Spacing.horizantal.m,
           _buttonControlBuilder(
             icon: Icons.arrow_forward_ios_rounded,
-            onPressed: _increase,
+            onPressed: () => _increase(step: widget.step),
           ),
         ],
       ),
     );
   }
 
+  void showSnackBar(String title, String message) {
+    if (!isSnackBarActive) {
+      Get.snackbar(
+        title,
+        message,
+        duration: const Duration(seconds: 1),
+        isDismissible: true,
+        snackbarStatus: (status) {
+          if (status == SnackbarStatus.OPENING) {
+            isSnackBarActive = true;
+          }
+          if (status == SnackbarStatus.CLOSED) {
+            isSnackBarActive = false;
+          }
+        },
+      );
+    }
+  }
+
   void _increase({int step = 1}) {
-    quantity += step;
+    quantity = min(widget.maxQuantity, quantity + step);
+    if (quantity + step > widget.maxQuantity) {
+      showSnackBar('Item count', "You can't reduce less than 1");
+    }
     _notification();
   }
 
   void _decrease({int step = 1}) {
-    quantity = max(1, quantity - step);
+    quantity = max(widget.minQuantity, quantity - step);
+    if (quantity - step < widget.minQuantity) {
+      showSnackBar('Item count', "You can't reduce less than 1");
+    }
     _notification();
   }
 

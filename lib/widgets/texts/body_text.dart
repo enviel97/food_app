@@ -25,7 +25,7 @@ class BodyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final fontSize = this.fontSize?.w;
+    final fontSize = this.fontSize?.h;
 
     final style = DefaultTextStyle.of(context).style.copyWith(
           fontSize: fontSize,

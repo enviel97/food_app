@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/widgets/buttons/neumorphism_button.dart';
@@ -71,5 +72,5 @@ class Header extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(size);
+  Size get preferredSize => Size.fromHeight(size.h);
 }

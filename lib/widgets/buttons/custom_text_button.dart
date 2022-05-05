@@ -10,6 +10,7 @@ class KTextButton extends StatelessWidget {
   final Color textColor, backgroundColor;
   final void Function()? onPressed;
   final Alignment textAlign;
+  final bool disabled;
 
   const KTextButton(
     this.text, {
@@ -23,6 +24,7 @@ class KTextButton extends StatelessWidget {
     this.width = 82,
     this.radius = 12,
     this.fontSize = Spacing.sm,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -34,10 +36,6 @@ class KTextButton extends StatelessWidget {
       padding: padding,
       elevation: 5.0,
       alignment: textAlign,
-      textStyle: TextStyle(
-        fontSize: fontSize.h,
-        fontWeight: FontWeight.w600,
-      ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(radius),
       ),
@@ -45,9 +43,14 @@ class KTextButton extends StatelessWidget {
 
     return TextButton(
       style: flatButtonStyle,
-      onPressed: onPressed,
+      onPressed: disabled ? null : onPressed,
       child: Text(
         text,
+        style: TextStyle(
+          color: kWhiteColor.withOpacity(disabled ? .85 : 1),
+          fontSize: fontSize.h,
+          fontWeight: FontWeight.w600,
+        ),
       ),
     );
   }

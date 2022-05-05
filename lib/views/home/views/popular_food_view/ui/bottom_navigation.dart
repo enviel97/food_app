@@ -3,14 +3,17 @@ import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/home/views/widgets/quantity_numberic.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
-
-import '../widgets/quantity_numberic.dart';
 
 class PurchaseHandlerBottom extends StatelessWidget {
   final void Function(int quantity) onGetQuantity;
-  const PurchaseHandlerBottom({required this.onGetQuantity, Key? key})
-      : super(key: key);
+  final bool disabled;
+  const PurchaseHandlerBottom({
+    required this.onGetQuantity,
+    Key? key,
+    this.disabled = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,7 @@ class PurchaseHandlerBottom extends StatelessWidget {
             child: KTextButton(
               'Add to cart $kCartSymbol',
               textColor: kWhiteColor,
+              disabled: disabled,
               onPressed: () => onGetQuantity(controller.quantity),
             ),
           )
