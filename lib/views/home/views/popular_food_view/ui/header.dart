@@ -1,8 +1,12 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/controllers/cart.controller.dart';
+import 'package:food_shop/views/home/views/widgets/cart_button.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
+import 'package:get/get.dart';
 
 class Header extends StatelessWidget {
   const Header({Key? key}) : super(key: key);
@@ -16,12 +20,13 @@ class Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const KBackButton(),
-          KIconButton(
-            size: Spacing.xxl,
-            icon: Icons.shopping_cart_outlined,
-            iconColor: kPlaceholderSuperDarkColor,
-            backgroundColor: kWhiteColor.withOpacity(0.6),
-            onPressed: () {},
+          GetBuilder<CartController>(
+            builder: (CartController controller) {
+              return CartButton(
+                isShowBadge: controller.size != 0,
+                quantity: controller.size,
+              );
+            },
           ),
         ],
       ),

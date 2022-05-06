@@ -8,6 +8,7 @@ class BodyText extends StatelessWidget {
   final double? fontSize, lineSize;
   final FontWeight? fontWeight;
   final TextOverflow? textOverflow;
+  final TextAlign? textAlign;
   final bool? softWrap;
   final int? maxLines;
 
@@ -21,6 +22,7 @@ class BodyText extends StatelessWidget {
     this.textOverflow,
     this.fontWeight,
     this.maxLines,
+    this.textAlign,
   }) : super(key: key);
 
   @override
@@ -37,6 +39,7 @@ class BodyText extends StatelessWidget {
       text,
       softWrap: softWrap,
       overflow: textOverflow,
+      textAlign: textAlign,
       maxLines: maxLines,
       style: style,
     );

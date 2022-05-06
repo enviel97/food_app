@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
+import 'package:food_shop/models/food.dart';
+import 'package:food_shop/views/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';
@@ -11,13 +12,9 @@ import '../widgets/favorite_button.dart';
 import '../widgets/quantity_price.dart';
 
 class RecommendFoodPurchase extends StatelessWidget {
-  final String id;
-  final String? name;
-  final double? price;
+  final Food? food;
   const RecommendFoodPurchase({
-    required this.id,
-    this.price,
-    this.name,
+    required this.food,
     Key? key,
   }) : super(key: key);
 
@@ -44,7 +41,8 @@ class RecommendFoodPurchase extends StatelessWidget {
                 child: KTextButton(
                   'Add to cart $kCartSymbol',
                   textColor: kWhiteColor,
-                  disabled: price == null || (name?.isEmpty ?? true),
+                  disabled: (food?.name.isEmpty ?? false) ||
+                      (food?.price ?? -1.0).isNegative,
                   onPressed: () => _showAddCartModel(context),
                 ),
               )
@@ -56,18 +54,22 @@ class RecommendFoodPurchase extends StatelessWidget {
   }
 
   void _showAddCartModel(BuildContext context) async {
-    final quantity = await showModalBottomSheet<int?>(
-      context: context,
+    if (food == null) return;
+    final quantity = await Get.bottomSheet<int?>(
+      QuantityPrice(name: food!.name, price: food!.price),
       backgroundColor: kLightBackgoundColor,
       enableDrag: true,
       elevation: 10.0,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
       ),
-      builder: (_) => QuantityPrice(name: name!, price: price!),
     );
-    if (quantity != null) {
-      print(quantity);
+    if (quantity == null) return;
+    if (quantity == 0) {
+      await Get.find<CartController>().removeItem(food!.id, food!.name);
+      return;
     }
+
+    await Get.find<CartController>().addItem(food!, quantity: quantity);
   }
 }

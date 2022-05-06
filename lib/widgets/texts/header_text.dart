@@ -9,6 +9,7 @@ class HeaderText extends StatelessWidget {
   final double? fontSize;
   final FontWeight fontWeight;
   final TextOverflow? textOverflow;
+  final TextAlign? textAlign;
   final bool? softWrap;
 
   const HeaderText(
@@ -19,6 +20,7 @@ class HeaderText extends StatelessWidget {
     this.fontWeight = FontWeight.bold,
     this.color = kPrimaryDarkColor,
     this.fontSize = Spacing.lg,
+    this.textAlign,
   }) : super(key: key);
 
   @override
@@ -31,6 +33,7 @@ class HeaderText extends StatelessWidget {
       text,
       softWrap: softWrap,
       maxLines: 1,
+      textAlign: textAlign,
       overflow: textOverflow,
       style: style,
     );

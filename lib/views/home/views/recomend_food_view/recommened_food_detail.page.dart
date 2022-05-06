@@ -38,10 +38,6 @@ class RecommenedFoodDetail extends StatelessWidget {
                   ),
                 ],
               ),
-        bottomNavigationBar: RecommendFoodPurchase(
-          id: foodId,
-          // price: food?.price,
-          // name: food?.name,
-        ));
+        bottomNavigationBar: RecommendFoodPurchase(food: food));
   }
 }

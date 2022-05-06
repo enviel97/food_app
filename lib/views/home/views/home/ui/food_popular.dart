@@ -63,7 +63,7 @@ class FoodPopular extends StatelessWidget {
     final size = HomeDimensions.kListFoodImages;
     const radius = 15.0;
     return GestureDetector(
-      onTap: () => Get.toNamed(RouteHelper.getRecommendedFood(data.id)),
+      onTap: () => RouteHelper.goTo(RouteHelper.getRecommendedFood(data.id)),
       child: Padding(
         padding: const EdgeInsets.only(bottom: 8.0),
         child: Row(

@@ -9,15 +9,17 @@ import 'package:food_shop/widgets/buttons/custom_text_button.dart';
 class PurchaseHandlerBottom extends StatelessWidget {
   final void Function(int quantity) onGetQuantity;
   final bool disabled;
+  final int quantity;
   const PurchaseHandlerBottom({
     required this.onGetQuantity,
     Key? key,
     this.disabled = false,
+    this.quantity = 0,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final controller = QuantityNumbericController();
+    final controller = QuantityNumbericController(initQuanity: quantity);
     return Container(
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(24.0)),

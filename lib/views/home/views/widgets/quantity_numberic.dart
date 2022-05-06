@@ -16,7 +16,7 @@ class QuantityNumberic extends StatefulWidget {
     this.controller,
     this.onChanged,
     this.maxQuantity = 99,
-    this.minQuantity = 1,
+    this.minQuantity = 0,
     this.step = 1,
   }) : super(key: key);
 
@@ -88,37 +88,32 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
   }
 
   void showSnackBar(String title, String message) {
-    if (!isSnackBarActive) {
+    if (!Get.isSnackbarOpen) {
       Get.snackbar(
         title,
         message,
+        backgroundColor: kPrimaryColor.withOpacity(0.7),
         duration: const Duration(seconds: 1),
         isDismissible: true,
-        snackbarStatus: (status) {
-          if (status == SnackbarStatus.OPENING) {
-            isSnackBarActive = true;
-          }
-          if (status == SnackbarStatus.CLOSED) {
-            isSnackBarActive = false;
-          }
-        },
       );
     }
   }
 
   void _increase({int step = 1}) {
-    quantity = min(widget.maxQuantity, quantity + step);
     if (quantity + step > widget.maxQuantity) {
       showSnackBar('Item count', "You can't reduce less than 1");
+      return;
     }
+    quantity = min(widget.maxQuantity, quantity + step);
     _notification();
   }
 
   void _decrease({int step = 1}) {
-    quantity = max(widget.minQuantity, quantity - step);
     if (quantity - step < widget.minQuantity) {
       showSnackBar('Item count', "You can't reduce less than 1");
+      return;
     }
+    quantity = max(widget.minQuantity, quantity - step);
     _notification();
   }
 

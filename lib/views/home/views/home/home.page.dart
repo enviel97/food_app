@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/models/cart.dart';
+import 'package:food_shop/views/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
@@ -27,10 +29,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _controller = PageController(initialPage: _currentPage);
     _iconController = AnimationController(duration: _duration, vsync: this);
     super.initState();
-
     Future.wait([
       Get.find<PopularFoodConroller>().getPopularFoodList(),
-      Get.find<RecommendedFoodConroller>().getRecommendedFoodList()
+      Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
     ]);
   }
 
@@ -38,6 +39,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   void dispose() {
     _controller.dispose();
     _iconController.dispose();
+    Get.find<RecommendedFoodConroller>().dispose();
     super.dispose();
   }
 
@@ -49,10 +51,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         pageIndex: _currentPage,
         iconController: _iconController,
       ),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          PageView(
+      body: GetBuilder<CartController>(
+        builder: (CartController controller) {
+          return PageView(
             scrollDirection: Axis.vertical,
             scrollBehavior: RemoveGrow(),
             controller: _controller,
@@ -64,8 +65,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               ),
               const FoodPopular(),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }

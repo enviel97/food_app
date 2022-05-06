@@ -73,7 +73,7 @@ class Food {
         .element([FoodStatus.normal, FoodStatus.little, FoodStatus.empty]);
 
     return Food(
-      UniqueKey().toString(),
+      faker.randomGenerator.fromPatternToHex(['##########']),
       name: food.dish(),
       images: images,
       banner: banner,

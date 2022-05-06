@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/dimensions.dart';
+import 'package:food_shop/views/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
@@ -46,8 +47,14 @@ class PopularFoodDetail extends StatelessWidget {
             ),
       bottomNavigationBar: PurchaseHandlerBottom(
         disabled: food == null,
-        onGetQuantity: (int quantity) {
-          print('${food?.name}: $quantity x ${food?.price}');
+        quantity: Get.find<CartController>().getQuantity(foodId),
+        onGetQuantity: (int quantity) async {
+          if (food == null) return;
+          if (quantity == 0) {
+            await Get.find<CartController>().removeItem(foodId, food.name);
+            return;
+          }
+          await Get.find<CartController>().addItem(food, quantity: quantity);
         },
       ),
     );

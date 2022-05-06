@@ -76,7 +76,7 @@ class FoodBanner extends StatelessWidget {
       builder: (context, constrain) {
         final height = constrain.maxHeight;
         return GestureDetector(
-          onTap: () => Get.toNamed(RouteHelper.getPopularFood(item.id)),
+          onTap: () => RouteHelper.goTo(RouteHelper.getPopularFood(item.id)),
           child: Stack(
             fit: StackFit.expand,
             alignment: Alignment.center,

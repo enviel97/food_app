@@ -27,4 +27,14 @@ class RouteHelper {
           return RecommenedFoodDetail(foodId: foodId);
         }),
   ];
+
+  // Methods
+
+  static Future<T?>? goTo<T>(String name) {
+    return Get.toNamed(name);
+  }
+
+  static void goBack(String name) {
+    return Get.back();
+  }
 }

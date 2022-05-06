@@ -5,13 +5,14 @@ abstract class BaseController extends GetxController {
   bool get isLoaded => _isLoaded;
   bool get isError => _isError;
 
-  Future<void> connect(
-    Response res, {
+  void connect(
+    Future<Response> Function() connect, {
     required Function(Response res) onSuccess,
     Function()? onError,
   }) async {
     _isLoaded = false;
     _isError = false;
+    final res = await connect();
     if (res.isOk) {
       await onSuccess(res);
       _isLoaded = true;
@@ -23,6 +24,7 @@ abstract class BaseController extends GetxController {
       }
       _isLoaded = true;
       _isError = true;
+      update();
     }
   }
 }

@@ -8,7 +8,7 @@ import 'repository/api_client.dart';
 Future<void> init() async {
   const baseUrl = AppConstants.BASE_URL;
   // inject
-  Get.lazyPut(() => ApiClient(baseUrl));
+  Get.lazyPut(() => ApiClient(baseUrl), fenix: true);
 
   // repository
   RepositoryDependencies.inject();

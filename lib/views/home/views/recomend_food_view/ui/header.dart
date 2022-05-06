@@ -1,10 +1,14 @@
+import 'package:badges/badges.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/views/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/views/home/views/widgets/cart_button.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/bordered_text.dart';
+import 'package:get/get.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 class Header extends StatefulWidget {
@@ -42,12 +46,13 @@ class _HeaderState extends State<Header> {
       actions: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: KIconButton(
-            size: 24.0,
-            icon: Icons.shopping_cart_rounded,
-            backgroundColor: kWhiteColor.withOpacity(.7),
-            shape: IconButtonShape.circle,
-            onPressed: () {},
+          child: GetBuilder<CartController>(
+            builder: (CartController controller) {
+              return CartButton(
+                isShowBadge: controller.size != 0,
+                quantity: controller.size,
+              );
+            },
           ),
         ),
       ],
