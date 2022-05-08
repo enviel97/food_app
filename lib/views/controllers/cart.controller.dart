@@ -15,6 +15,8 @@ class CartController extends GetxController {
 
   int get size => _foods.values.length;
 
+  bool get isEmpty => _foods.isEmpty;
+
   int getQuantity(String foodId) {
     if (_foods.isEmpty || !_foods.containsKey(foodId)) {
       return 1;

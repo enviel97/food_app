@@ -1,5 +1,4 @@
 import 'package:faker/faker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:food_shop/models/comment.dart';
 
 enum FoodStatus { empty, normal, little }

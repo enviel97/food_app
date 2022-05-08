@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 
 class NeumorphismButton extends StatefulWidget {
-  final double size;
+  final double size, radius;
   final Function()? onPressed;
   final Widget? child;
   final Color backgroundColor;
+
   const NeumorphismButton({
     Key? key,
     this.onPressed,
     this.child,
     this.size = 48.0,
+    this.radius = 15.0,
     this.backgroundColor = kPrimaryColor,
   }) : super(key: key);
 
@@ -36,12 +39,12 @@ class _NeumorphismButtonState extends State<NeumorphismButton> {
         onPointerUp: (_) => setState(() => isPressed = false),
         onPointerDown: (_) => setState(() => isPressed = true),
         child: AnimatedContainer(
-          height: widget.size,
-          width: widget.size,
+          height: widget.size.h,
+          width: widget.size.w,
           alignment: Alignment.center,
           duration: const Duration(milliseconds: 100),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(widget.radius.h),
               color: widget.backgroundColor,
               boxShadow: [
                 BoxShadow(
