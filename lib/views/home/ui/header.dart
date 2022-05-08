@@ -1,13 +1,10 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/controllers/cart.controller.dart';
 import 'package:food_shop/widgets/buttons/neumorphism_button.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
-import 'package:get/get.dart';
 
 class Header extends StatelessWidget with PreferredSizeWidget {
   final double size;
@@ -46,39 +43,12 @@ class Header extends StatelessWidget with PreferredSizeWidget {
     );
   }
 
-  Widget _cartButton() {
-    return GetBuilder<CartController>(builder: (controller) {
-      return Badge(
-        showBadge: !controller.isEmpty,
-        toAnimate: false,
-        badgeContent: Text(
-          '${controller.size}',
-          style: const TextStyle(
-            color: kWhiteColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        child: NeumorphismButton(
-          backgroundColor: kSecondaryColor,
-          radius: Spacing.lg,
-          onPressed: () {},
-          child: const Icon(
-            Icons.shopping_cart_rounded,
-            color: kBlackColor,
-          ),
-        ),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final actions = <Widget>[
       _scrollControllerButton(),
       Spacing.horizantal.xs,
       _searchButton(),
-      Spacing.horizantal.xs,
-      _cartButton(),
     ];
 
     return SafeArea(

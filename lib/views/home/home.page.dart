@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/views/controllers/cart.controller.dart';
+import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/home/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
+import 'package:food_shop/views/home/views/widgets/cart_button.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:get/get.dart';
 
@@ -66,7 +69,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           );
         },
       ),
+      floatingActionButton: _cartButton,
     );
+  }
+
+  Widget get _cartButton {
+    return GetBuilder<CartController>(builder: (controller) {
+      return CartButton(
+        backgroundColor: kSecondaryColor,
+        size: Spacing.xxxl,
+        isShowBadge: !controller.isEmpty,
+        quantity: controller.size,
+      );
+    });
   }
 
   void _onPressed() {

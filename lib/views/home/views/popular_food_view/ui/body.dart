@@ -3,12 +3,11 @@ import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/home/widgets/food_infomation.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:food_shop/widgets/texts/collapsable_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:star_rating/star_rating.dart';
-
-import '../../home/widgets/food_infomation.dart';
 
 class Body extends StatelessWidget {
   final Food food;

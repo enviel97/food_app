@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/dimensions.dart';
-import 'package:food_shop/views/controllers/cart.controller.dart';
+import 'package:food_shop/views/home/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
