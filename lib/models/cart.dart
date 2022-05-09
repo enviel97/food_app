@@ -2,28 +2,33 @@ import 'package:food_shop/helpers/functions.dart';
 import 'package:food_shop/models/food.dart';
 
 class FoodInCart {
-  final String id, name, image;
+  final String id, name, image, options, pageId;
   final double price;
+  final int time;
   late int quantity;
 
   FoodInCart(
     this.id, {
     required this.name,
     required this.image,
+    required this.options,
     this.price = 0.0,
     this.quantity = 0,
+    this.time = 0,
+    this.pageId = '',
   });
 
-  factory FoodInCart.fromFood(
-    Food food, {
-    required int quantity,
-  }) {
+  factory FoodInCart.fromFood(Food food,
+      {int quantity = 1, int time = 0, String pageId = ''}) {
     return FoodInCart(
       food.id,
       name: food.name,
       image: food.images.first,
       price: food.price,
       quantity: quantity,
+      options: 'Spicy',
+      time: time,
+      pageId: pageId,
     );
   }
 
@@ -34,6 +39,8 @@ class FoodInCart {
       image: json['image'],
       quantity: json['quantity'] ?? -1,
       price: json['price'] ?? -1.0,
+      options: json['options'],
+      time: json['time'] ?? 0,
     );
   }
 }

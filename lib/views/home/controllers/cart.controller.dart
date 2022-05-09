@@ -20,34 +20,37 @@ class CartController extends GetxController {
 
   double get totalPrice => _totalPrice;
 
+  List<FoodInCart> get getFoods => _foods.values.toList();
+
   FoodInCart? getFoodById(String id) => _foods[id];
 
   Future<void> changeQuantityById(String id, {required int quantity}) async {
     if (!_foods.containsKey(id)) throw Exception('@FoodId $id is not exits');
+    final int prevQuantity = _foods[id]!.quantity;
     _foods[id]!.quantity = quantity;
-    _calculatorTotalPrice(id, quantity);
+    _calculatorTotalPrice(id, prevQuantity);
+    update();
   }
 
-  Future<void> changeQuantity(Food food, {required int quantity}) async {
+  Future<void> changeQuantity(
+    Food food, {
+    required int quantity,
+    String pageId = '',
+  }) async {
     if (quantity.isNegative) throw Exception('Quantity is negative');
     int prevQuantity = 0;
     if (_foods.containsKey(food.id)) {
       prevQuantity = _foods[food.id]!.quantity;
       _foods[food.id]!.quantity = quantity;
     } else {
-      _foods[food.id] = FoodInCart.fromFood(food, quantity: quantity);
+      _foods[food.id] = FoodInCart.fromFood(
+        food,
+        quantity: quantity,
+        pageId: pageId,
+      );
     }
     _calculatorTotalPrice(food.id, prevQuantity);
     update();
-  }
-
-  Future<void> _calculatorTotalPrice(String foodId, int quantity) async {
-    int diff = 0;
-    final food = _foods[foodId];
-    if ((food?.quantity ?? 0) != quantity) {
-      diff = (food?.quantity ?? 0) - quantity;
-    }
-    _totalPrice += diff * (food?.price ?? 0.0);
   }
 
   Future<void> removeItem(String foodId, String name) async {
@@ -66,5 +69,12 @@ class CartController extends GetxController {
     }
   }
 
-  List<FoodInCart> getFoods() => _foods.values.toList();
+  Future<void> _calculatorTotalPrice(String foodId, int quantity) async {
+    int diff = 0;
+    final food = _foods[foodId];
+    if ((food?.quantity ?? 0) != quantity) {
+      diff = (food?.quantity ?? 0) - quantity;
+    }
+    _totalPrice += diff * (food?.price ?? 0.0);
+  }
 }

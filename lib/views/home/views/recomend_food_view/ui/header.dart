@@ -47,6 +47,9 @@ class _HeaderState extends State<Header> {
           padding: const EdgeInsets.all(8.0),
           child: GetBuilder<CartController>(
             builder: (CartController controller) {
+              if (Get.previousRoute == RouteId.cart) {
+                return const SizedBox.shrink();
+              }
               return CartButton(
                 isShowBadge: !controller.isEmpty,
                 quantity: controller.size,

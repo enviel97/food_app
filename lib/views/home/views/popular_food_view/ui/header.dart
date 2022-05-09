@@ -19,6 +19,9 @@ class Header extends StatelessWidget {
           const KBackButton(),
           GetBuilder<CartController>(
             builder: (CartController controller) {
+              if (Get.previousRoute == RouteId.cart) {
+                return const SizedBox.shrink();
+              }
               return CartButton(
                 isShowBadge: !controller.isEmpty,
                 quantity: controller.size,

@@ -5,16 +5,19 @@ import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/views/home/widgets/quantity_numberic.dart';
+import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 
 class FoodInCartItem extends StatelessWidget {
   final FoodInCart food;
   final void Function(int quantity) onQuanityChange;
+  final void Function() removeItem;
 
   const FoodInCartItem({
     required this.onQuanityChange,
     required this.food,
+    required this.removeItem,
     Key? key,
   }) : super(key: key);
 
@@ -55,22 +58,33 @@ class FoodInCartItem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  BodyText(
-                    food.name,
-                    maxLines: 1,
-                    fontSize: Spacing.m,
-                    textOverflow: TextOverflow.fade,
-                    softWrap: false,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      BodyText(
+                        food.name,
+                        maxLines: 1,
+                        fontSize: Spacing.m,
+                        textOverflow: TextOverflow.fade,
+                        softWrap: false,
+                      ),
+                      KIconButton(
+                        icon: Icons.remove_shopping_cart_rounded,
+                        backgroundColor: kNone,
+                        size: Spacing.lg,
+                        onPressed: removeItem,
+                      ),
+                    ],
                   ),
                   BodyText(
-                    food.name,
+                    food.options,
                     maxLines: 1,
                     color: kPlaceholderDarkColor,
                     fontSize: Spacing.s,
                     textOverflow: TextOverflow.ellipsis,
                   ),
                   Expanded(
-                    // color: kErrorColor,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

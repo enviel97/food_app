@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
+import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
@@ -75,7 +76,12 @@ class RecommendFoodPurchase extends StatelessWidget {
     if (quantity == null) return;
     if (quantity == 0) {
       controller.removeItem(food.id, food.name);
+      return;
     }
-    controller.changeQuantity(food, quantity: quantity);
+    controller.changeQuantity(
+      food,
+      quantity: quantity,
+      pageId: RouteId.recommended,
+    );
   }
 }

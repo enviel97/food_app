@@ -35,6 +35,18 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
     if (widget.controller != null) {
       widget.controller!._setState(this);
     }
+    _initQuantity();
+  }
+
+  @override
+  void didUpdateWidget(QuantityNumberic oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initQuantity != widget.initQuantity) {
+      _initQuantity();
+    }
+  }
+
+  void _initQuantity() {
     quantity = widget.controller?.initQuanity ?? widget.initQuantity ?? 1;
   }
 

@@ -1,5 +1,6 @@
 import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
@@ -15,7 +16,7 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: HomeDimensions.kHeader100,
+      height: HomeDimensions.kHeader100 * 0.75.h,
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
       alignment: Alignment.centerRight,
       decoration: const BoxDecoration(
@@ -33,7 +34,7 @@ class Bottom extends StatelessWidget {
             strokeColor: kBlackColor,
             strokeWidth: 5.0,
             child: Text(
-              '$totalPrice \$',
+              '${totalPrice.toStringAsFixed(2)} \$',
               style: const TextStyle(
                 color: kWhiteColor,
                 fontSize: Spacing.lg,
