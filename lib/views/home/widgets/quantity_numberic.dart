@@ -11,6 +11,7 @@ class QuantityNumberic extends StatefulWidget {
   final QuantityNumbericController? controller;
   final void Function(int number)? onChanged;
   final int maxQuantity, minQuantity, step;
+  final int? initQuantity;
   const QuantityNumberic({
     Key? key,
     this.controller,
@@ -18,6 +19,7 @@ class QuantityNumberic extends StatefulWidget {
     this.maxQuantity = 99,
     this.minQuantity = 0,
     this.step = 1,
+    this.initQuantity = 1,
   }) : super(key: key);
 
   @override
@@ -32,8 +34,8 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
     super.initState();
     if (widget.controller != null) {
       widget.controller!._setState(this);
-      quantity = widget.controller!.initQuanity;
     }
+    quantity = widget.controller?.initQuanity ?? widget.initQuantity ?? 1;
   }
 
   Widget _buttonControlBuilder({

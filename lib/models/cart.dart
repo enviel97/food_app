@@ -49,13 +49,15 @@ class Cart {
     this.createDate,
   });
 
-  factory Cart.create({required List<FoodInCart> foods}) {
+  static String get _generatorCartIs {
     final now = DateTime.now();
-    final id =
-        'CART${now.microsecondsSinceEpoch}A${now.month}${now.year % 100}';
+    return 'CART${now.microsecondsSinceEpoch}A${now.month}${now.year % 100}';
+  }
+
+  factory Cart.create({required List<FoodInCart> foods}) {
     return Cart(
-      id,
-      foods: [],
+      Cart._generatorCartIs,
+      foods: foods,
       createDate: DateTime.now(),
     );
   }
@@ -65,7 +67,7 @@ class Cart {
     return foods.fold(0.0, (sum, food) => sum + (food.quantity * food.price));
   }
 
-  int get quantity => foods.fold(0, (sum, food) => sum + food.quantity);
+  // int get quantity => foods.fold(0, (sum, food) => sum + food.quantity);
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     final foods = mapToList<FoodInCart>(json['foods'], FoodInCart.fromJson);

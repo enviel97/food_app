@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/cart.controller.dart';
-import 'package:food_shop/views/home/views/widgets/cart_button.dart';
+import 'package:food_shop/views/home/widgets/cart_button.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +20,11 @@ class Header extends StatelessWidget {
           GetBuilder<CartController>(
             builder: (CartController controller) {
               return CartButton(
-                isShowBadge: controller.size != 0,
+                isShowBadge: !controller.isEmpty,
                 quantity: controller.size,
+                onPressed: () {
+                  RouteHelper.goTo(RouteId.cart);
+                },
               );
             },
           ),

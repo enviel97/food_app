@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/home/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
-import 'package:food_shop/views/home/views/widgets/cart_button.dart';
+import 'package:food_shop/views/home/widgets/cart_button.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/texts/bordered_text.dart';
 import 'package:get/get.dart';
@@ -47,8 +48,11 @@ class _HeaderState extends State<Header> {
           child: GetBuilder<CartController>(
             builder: (CartController controller) {
               return CartButton(
-                isShowBadge: controller.size != 0,
+                isShowBadge: !controller.isEmpty,
                 quantity: controller.size,
+                onPressed: () {
+                  RouteHelper.goTo(RouteId.cart);
+                },
               );
             },
           ),

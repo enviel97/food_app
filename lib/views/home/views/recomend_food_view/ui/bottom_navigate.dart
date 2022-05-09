@@ -38,13 +38,14 @@ class RecommendFoodPurchase extends StatelessWidget {
               const FavoriteButton(foodId: '@user', isFavorite: false),
               Spacing.horizantal.xxxl,
               Expanded(
-                child: KTextButton(
-                  'Add to cart $kCartSymbol',
-                  textColor: kWhiteColor,
-                  disabled: (food?.name.isEmpty ?? false) ||
-                      (food?.price ?? -1.0).isNegative,
-                  onPressed: () => _showAddCartModel(context),
-                ),
+                child: GetBuilder<CartController>(builder: (controller) {
+                  return KTextButton(
+                    'Add to cart $kCartSymbol',
+                    textColor: kWhiteColor,
+                    disabled: food == null,
+                    onPressed: () => _showAddCartModel(context, controller),
+                  );
+                }),
               )
             ],
           ),
@@ -53,10 +54,17 @@ class RecommendFoodPurchase extends StatelessWidget {
     );
   }
 
-  void _showAddCartModel(BuildContext context) async {
-    if (food == null) return;
+  void _showAddCartModel(
+    BuildContext context,
+    CartController controller,
+  ) async {
+    final food = this.food!;
     final quantity = await Get.bottomSheet<int?>(
-      QuantityPrice(name: food!.name, price: food!.price),
+      QuantityPrice(
+        name: food.name,
+        price: food.price,
+        quantity: controller.getFoodById(food.id)?.quantity ?? 1,
+      ),
       backgroundColor: kLightBackgoundColor,
       enableDrag: true,
       elevation: 10.0,
@@ -66,10 +74,8 @@ class RecommendFoodPurchase extends StatelessWidget {
     );
     if (quantity == null) return;
     if (quantity == 0) {
-      await Get.find<CartController>().removeItem(food!.id, food!.name);
-      return;
+      controller.removeItem(food.id, food.name);
     }
-
-    await Get.find<CartController>().addItem(food!, quantity: quantity);
+    controller.changeQuantity(food, quantity: quantity);
   }
 }

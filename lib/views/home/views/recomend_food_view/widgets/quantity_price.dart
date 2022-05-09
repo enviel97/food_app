@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/home/views/widgets/quantity_numberic.dart';
+import 'package:food_shop/views/home/widgets/quantity_numberic.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
@@ -9,8 +9,13 @@ import 'package:food_shop/widgets/texts/header_text.dart';
 class QuantityPrice extends StatefulWidget {
   final String name;
   final double price;
-  const QuantityPrice({required this.name, required this.price, Key? key})
-      : super(key: key);
+  final int quantity;
+  const QuantityPrice({
+    required this.name,
+    required this.price,
+    required this.quantity,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<QuantityPrice> createState() => _QuantityPriceState();

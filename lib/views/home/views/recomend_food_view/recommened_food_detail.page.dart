@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/views/home/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
@@ -17,27 +18,37 @@ class RecommenedFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final food =
-        Get.find<RecommendedFoodConroller>().getRecommendedFodd(foodId);
-
     return Scaffold(
-        body: (food == null)
-            ? const Center(child: HeaderText('Error on get food'))
-            : CustomScrollView(
-                scrollBehavior: RemoveGrow(),
-                slivers: [
-                  Header(
-                    imageFood: food.images[0],
-                    nameFood: food.name,
-                  ),
-                  Body(
-                    decription: food.description,
-                    price: food.price,
-                    rating: food.finalRate,
-                    comments: food.comments,
-                  ),
-                ],
+      body: GetBuilder<RecommendedFoodConroller>(
+        builder: (controller) {
+          final food = controller.getRecommendedFodd(foodId);
+          if (food == null) {
+            return const Center(child: HeaderText('Error on get food'));
+          }
+          return CustomScrollView(
+            scrollBehavior: RemoveGrow(),
+            slivers: [
+              Header(
+                imageFood: food.images[0],
+                nameFood: food.name,
               ),
-        bottomNavigationBar: RecommendFoodPurchase(food: food));
+              Body(
+                decription: food.description,
+                price: food.price,
+                rating: food.finalRate,
+                comments: food.comments,
+              ),
+            ],
+          );
+        },
+      ),
+      bottomNavigationBar: GetBuilder<RecommendedFoodConroller>(
+        builder: (controller) {
+          return RecommendFoodPurchase(
+            food: controller.getRecommendedFodd(foodId),
+          );
+        },
+      ),
+    );
   }
 }

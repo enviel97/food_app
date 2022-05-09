@@ -1,13 +1,10 @@
 // responsive
 
+import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/dimensions.dart';
 
 class HomeDimensions {
   const HomeDimensions();
-
-  // static double kFoodBanner = Dimensions.kHeight * 0.4;
-  // static double kFoodPopularMin = Dimensions.kHeight * 0.5;
-  // static double kFoodPopularMax = Dimensions.kHeight * 0.8;
 
   static double kListFoodImages = Dimensions.kHeight * 0.128041;
 
@@ -15,4 +12,7 @@ class HomeDimensions {
   static final kPopularFoodPurchase = Dimensions.kHeight * .12;
 
   static final kRecommendFoodAppBarExpanded = Dimensions.kHeight * 1 / 3;
+
+  static final kHeader100 = 100.0.h;
+  static final kHeader125 = 125.0.h;
 }

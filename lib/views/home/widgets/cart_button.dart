@@ -2,7 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/app.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:get/get.dart';
 
@@ -11,10 +10,12 @@ class CartButton extends StatelessWidget {
   final int quantity;
   final Color? backgroundColor, iconColor;
   final double? size;
+  final void Function() onPressed;
 
   const CartButton({
     required this.isShowBadge,
     required this.quantity,
+    required this.onPressed,
     Key? key,
     this.backgroundColor,
     this.iconColor,
@@ -46,7 +47,18 @@ class CartButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         shadowColor: backgroundColor,
         onPressed: () {
-          RouteHelper.goTo(RouteHelper.getCart());
+          if (isShowBadge) {
+            onPressed();
+            return;
+          }
+
+          if (!Get.isSnackbarOpen) {
+            Get.snackbar(
+              'Notice',
+              "Don't have any item in cart",
+              snackPosition: SnackPosition.BOTTOM,
+            );
+          }
         },
       ),
     );

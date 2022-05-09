@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/views/app.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 
 class KBackButton<T> extends StatelessWidget {
@@ -30,13 +31,12 @@ class KBackButton<T> extends StatelessWidget {
   }
 
   void _onPressed(BuildContext context) {
-    final nav = Navigator.of(context);
     // have prevent
     if (onGoBack != null && onGoBack!()) {
-      nav.maybePop<T>(agruments);
+      RouteHelper.goBack(result: agruments);
     }
     if (onGoBack == null) {
-      nav.maybePop<T>(agruments);
+      RouteHelper.goBack(result: agruments);
     }
   }
 }

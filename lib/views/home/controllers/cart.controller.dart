@@ -10,6 +10,7 @@ class CartController extends GetxController {
   CartController({required this.repo});
 
   final Map<String, FoodInCart> _foods = {};
+  double _totalPrice = 0.0;
 
   Cart get cart => Cart.create(foods: _foods.values.toList());
 
@@ -17,23 +18,36 @@ class CartController extends GetxController {
 
   bool get isEmpty => _foods.isEmpty;
 
-  int getQuantity(String foodId) {
-    if (_foods.isEmpty || !_foods.containsKey(foodId)) {
-      return 1;
-    }
-    return _foods[foodId]!.quantity;
+  double get totalPrice => _totalPrice;
+
+  FoodInCart? getFoodById(String id) => _foods[id];
+
+  Future<void> changeQuantityById(String id, {required int quantity}) async {
+    if (!_foods.containsKey(id)) throw Exception('@FoodId $id is not exits');
+    _foods[id]!.quantity = quantity;
+    _calculatorTotalPrice(id, quantity);
   }
 
-  Future<void> addItem(Food food, {required int quantity}) async {
-    if (quantity.isNegative) {
-      throw Exception('Quantity is negative');
-    }
+  Future<void> changeQuantity(Food food, {required int quantity}) async {
+    if (quantity.isNegative) throw Exception('Quantity is negative');
+    int prevQuantity = 0;
     if (_foods.containsKey(food.id)) {
+      prevQuantity = _foods[food.id]!.quantity;
       _foods[food.id]!.quantity = quantity;
     } else {
       _foods[food.id] = FoodInCart.fromFood(food, quantity: quantity);
     }
+    _calculatorTotalPrice(food.id, prevQuantity);
     update();
+  }
+
+  Future<void> _calculatorTotalPrice(String foodId, int quantity) async {
+    int diff = 0;
+    final food = _foods[foodId];
+    if ((food?.quantity ?? 0) != quantity) {
+      diff = (food?.quantity ?? 0) - quantity;
+    }
+    _totalPrice += diff * (food?.price ?? 0.0);
   }
 
   Future<void> removeItem(String foodId, String name) async {
@@ -45,9 +59,12 @@ class CartController extends GetxController {
         content: 'You want to reject $name out of cart',
       ));
       if (isConfirm ?? false) {
-        _foods.remove(foodId);
+        final food = _foods.remove(foodId);
+        _totalPrice -= (food?.quantity ?? 0) * (food?.price ?? 0);
         update();
       }
     }
   }
+
+  List<FoodInCart> getFoods() => _foods.values.toList();
 }
