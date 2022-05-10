@@ -3,18 +3,21 @@ import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/home/repository/popular_food.repo.dart';
 import 'package:get/get.dart';
 
-class PopularFoodConroller extends BaseController {
+const popularFoodListID = 'PopularFoodList';
+
+class PopularFoodConroller extends ApiBaseController {
   final PopularFoodRepo repo;
 
-  PopularFoodConroller({required this.repo}) : super();
+  PopularFoodConroller({required this.repo}) : super(connects: {});
 
   final List<Food> _popularFoodList = [];
 
   List<Food> get popularFoodList => _popularFoodList;
 
   Future<void> getPopularFoodList() async {
-    connect(
-      () async => const Response(
+    inject(
+      popularFoodListID,
+      connect: () async => const Response(
         statusCode: 200,
         statusText: 'faker',
       ), // repo.getPopularFoodList,

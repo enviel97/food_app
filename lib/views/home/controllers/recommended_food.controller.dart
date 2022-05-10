@@ -3,18 +3,21 @@ import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
 import 'package:get/get.dart';
 
-class RecommendedFoodConroller extends BaseController {
+const recommendedFoodListId = 'RecommendedFoodList';
+
+class RecommendedFoodConroller extends ApiBaseController {
   final RecommendedFoodRepo repo;
 
-  RecommendedFoodConroller({required this.repo});
+  RecommendedFoodConroller({required this.repo}) : super(connects: {});
 
   final List<Food> _recommendedFoodList = [];
 
   List<Food> get recommendedFoodList => _recommendedFoodList;
 
-  Future<void> getRecommendedFoodList() async {
-    connect(
-      () async => const Response(
+  Future<void> getRecommendedFoodList({bool isRefresh = false}) async {
+    inject(
+      recommendedFoodListId,
+      connect: () async => const Response(
         statusCode: 200,
         statusText: 'faker',
       ), // repo.getPopularFoodList,
@@ -25,14 +28,6 @@ class RecommendedFoodConroller extends BaseController {
         // _recommendedFoodList.addAll(paginate.datas);
       },
     );
-    // connect(
-    //   repo.getRecommendedFoodList,
-    //   onSuccess: (res) {
-    //     _recommendedFoodList.clear();
-    //     final paginate = Pagination<Food>.fromJson(res.body, Food.fromJson);
-    //     _recommendedFoodList.addAll(paginate.datas);
-    //   },
-    // );
   }
 
   Food? getRecommendedFodd(String foodId) {

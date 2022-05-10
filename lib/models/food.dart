@@ -43,17 +43,18 @@ class Food {
   factory Food.faker() {
     final faker = Faker();
 
-    final food = faker.food;
+    final food = faker.food.dish();
+
     final banner = faker.image.image(
       width: 336,
       height: 280,
-      keywords: ['food', 'foods', 'culinary'],
+      keywords: ['food', 'foods', 'culinary', food],
       random: true,
     );
     final images = List<String>.generate(
       faker.randomGenerator.integer(5, min: 3),
       (index) => faker.image.image(
-        keywords: ['food', 'foods', 'culinary'],
+        keywords: ['food', 'foods', 'culinary', food],
         random: true,
       ),
     );
@@ -73,7 +74,7 @@ class Food {
 
     return Food(
       faker.randomGenerator.fromPatternToHex(['##########']),
-      name: food.dish(),
+      name: food,
       images: images,
       banner: banner,
       comments: comments,

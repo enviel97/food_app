@@ -1,6 +1,6 @@
 import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/home/repository/cart.repo.dart';
+import 'package:food_shop/views/cart/repository/cart.repo.dart';
 import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
 import 'package:get/get.dart';
 

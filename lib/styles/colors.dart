@@ -5,11 +5,15 @@ const Color kPrimaryColor = Color(0xFF64ffda);
 const Color kPrimaryLightColor = Color(0xFF9effff);
 const Color kPrimaryDarkColor = Color(0xFF14cba8);
 
-const Color kSecondaryColor = Color(0xFFffea00);
-const Color kSecondaryLightColor = Color(0xFFffff56);
-const Color kSecondaryDarkColor = Color(0xFFc7b800);
+// const Color kSecondaryColor = Color(0xFFffea00);
+// const Color kSecondaryLightColor = Color(0xFFffff56);
+// const Color kSecondaryDarkColor = Color(0xFFc7b800);
 
-const Color kPlaceholderColor = Color(0xFFfafafa);
+const Color kSecondaryColor = Color(0xFF37474f);
+const Color kSecondaryLightColor = Color(0xFF62727b);
+const Color kSecondaryDarkColor = Color(0xFF102027);
+
+const Color kPlaceholderColor = Color(0xFFebebeb);
 const Color kPlaceholderLightColor = Color(0xFFffffff);
 const Color kPlaceholderDarkColor = Color(0xFFc7c7c7);
 const Color kDividerColor = Color(0xffc7c7c7);

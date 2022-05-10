@@ -14,12 +14,15 @@ class AppTheme {
       ColorScheme(
         // primary
         primary: kPrimaryColor,
-        primaryContainer: kPrimaryDarkColor,
-        onPrimary: kWhiteColor,
+        primaryContainer: kPrimaryLightColor,
+        onPrimaryContainer: kPrimaryDarkColor,
+        onPrimary: kBlackColor,
         // secondary
         secondary: kSecondaryColor,
-        secondaryContainer: kSecondaryDarkColor,
-        onSecondary: kBlackColor,
+        secondaryContainer: kSecondaryLightColor,
+        onSecondaryContainer: kSecondaryDarkColor,
+        onSecondary: kWhiteColor,
+
         // surface
         surface: kPlaceholderDarkColor,
         onSurface: kPlaceholderColor,

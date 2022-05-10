@@ -3,7 +3,7 @@ import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/home/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/controllers/cart.controller.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/lists/custom_listview.dart';
@@ -12,7 +12,6 @@ import 'package:get/get.dart';
 
 import 'ui/bottom.dart';
 import 'ui/food_in_cart_item.dart';
-import 'ui/header.dart';
 
 class Cart extends StatelessWidget {
   const Cart({

@@ -25,6 +25,12 @@ class _QuantityPriceState extends State<QuantityPrice> {
   int quantity = 1;
 
   @override
+  void initState() {
+    super.initState();
+    quantity = widget.quantity;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -47,6 +53,7 @@ class _QuantityPriceState extends State<QuantityPrice> {
                 fontWeight: FontWeight.w300,
               ),
               QuantityNumberic(
+                initQuantity: quantity,
                 onChanged: (quantity) {
                   setState(() {
                     this.quantity = quantity;

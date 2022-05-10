@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/styles/colors.dart';
-import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/home/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
-import 'package:food_shop/views/home/widgets/cart_button.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:get/get.dart';
 
@@ -31,17 +27,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _controller = PageController(initialPage: _currentPage);
     _iconController = AnimationController(duration: _duration, vsync: this);
     super.initState();
-    Future.wait([
-      Get.find<PopularFoodConroller>().getPopularFoodList(),
-      Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
-    ]);
+    if (mounted) {
+      Future.wait([
+        Get.find<PopularFoodConroller>().getPopularFoodList(),
+        Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
+      ]);
+    }
   }
 
   @override
   void dispose() {
     _controller.dispose();
     _iconController.dispose();
-    Get.find<RecommendedFoodConroller>().dispose();
     super.dispose();
   }
 
@@ -70,24 +67,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           );
         },
       ),
-      floatingActionButton: _cartButton,
     );
-  }
-
-  Widget get _cartButton {
-    return GetBuilder<CartController>(builder: (controller) {
-      return CartButton(
-        backgroundColor: kSecondaryColor,
-        size: Spacing.xxxl,
-        isShowBadge: !controller.isEmpty,
-        quantity: controller.size,
-        onPressed: () {
-          if (!controller.isEmpty) {
-            RouteHelper.goTo(RouteId.cart);
-          }
-        },
-      );
-    });
   }
 
   void _onPressed() {

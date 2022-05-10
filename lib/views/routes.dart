@@ -4,13 +4,15 @@ part of './app.dart';
 
 class RouteId {
   const RouteId();
-  static const String home = '/';
+  static const String main = '/';
+  static const String home = '/home';
   static const String popular = '/popular_food';
   static const String recommended = '/recommended_food';
   static const String cart = '/cart';
 
   static String getHome() => home;
   static String getCart() => cart;
+  static String getMain() => main;
 
   // route need param
   static String getPopularFood(String foodId) => '$popular?foodId=$foodId';
@@ -22,6 +24,10 @@ class RouteHelper {
   const RouteHelper();
 
   static final List<GetPage> _routes = [
+    GetPage(
+      name: RouteId.main,
+      page: () => const Main(),
+    ),
     GetPage(
       name: RouteId.home,
       page: () => const Home(),

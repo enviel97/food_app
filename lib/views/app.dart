@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/theme/app_theme.dart';
+import 'package:food_shop/views/main.dart';
 import 'package:get/get.dart';
 
 import 'home/home.page.dart';
-import 'home/views/cart/cart.page.dart';
+import 'cart/cart.page.dart';
 import 'home/views/popular_food_view/popular_food_detail.page.dart';
 import 'home/views/recomend_food_view/recommened_food_detail.page.dart';
 

@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/home/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/views/home/widgets/cart_button.dart';

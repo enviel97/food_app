@@ -1,4 +1,4 @@
-import 'package:food_shop/views/home/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/controllers/cart.controller.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:get/get.dart';

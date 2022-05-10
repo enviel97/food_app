@@ -53,11 +53,7 @@ class CartButton extends StatelessWidget {
           }
 
           if (!Get.isSnackbarOpen) {
-            Get.snackbar(
-              'Notice',
-              "Don't have any item in cart",
-              snackPosition: SnackPosition.BOTTOM,
-            );
+            Get.snackbar('Notice', "Don't have any item in cart");
           }
         },
       ),
