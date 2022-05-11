@@ -121,7 +121,10 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
 
   void _increase({int step = 1}) {
     if (quantity + step > widget.maxQuantity) {
-      showSnackBar('Item count', "You can't reduce less than 1");
+      showSnackBar(
+        'Item count',
+        "You can't increase more than ${widget.maxQuantity}",
+      );
       return;
     }
     quantity = min(widget.maxQuantity, quantity + step);
@@ -130,7 +133,10 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
 
   void _decrease({int step = 1}) {
     if (quantity - step < widget.minQuantity) {
-      showSnackBar('Item count', "You can't reduce less than 1");
+      showSnackBar(
+        'Item count',
+        "You can't reduce less than ${widget.minQuantity}",
+      );
       return;
     }
     quantity = max(widget.minQuantity, quantity - step);

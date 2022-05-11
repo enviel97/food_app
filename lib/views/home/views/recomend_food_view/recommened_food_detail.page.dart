@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
+import 'package:food_shop/views/home/views/ui/error_load.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class RecommenedFoodDetail extends StatelessWidget {
         builder: (controller) {
           final food = controller.getRecommendedFodd(foodId);
           if (food == null) {
-            return const Center(child: HeaderText('Error on get food'));
+            return const ErrorLoad();
           }
           return CustomScrollView(
             scrollBehavior: RemoveGrow(),
