@@ -78,7 +78,7 @@ class RecommendFoodPurchase extends StatelessWidget {
       controller.removeItem(food.id, food.name);
       return;
     }
-    controller.changeQuantity(
+    controller.addToCart(
       food,
       quantity: quantity,
       pageId: RouteId.getRecommendedFood(food.id),

@@ -10,12 +10,19 @@ import 'package:food_shop/views/home/widgets/quantity_numberic.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
 import 'package:get/get.dart';
 
-class PurchaseHandlerBottom extends StatelessWidget {
+class PurchaseHandlerBottom extends StatefulWidget {
   final Food? food;
   const PurchaseHandlerBottom({
     required this.food,
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<PurchaseHandlerBottom> createState() => _PurchaseHandlerBottomState();
+}
+
+class _PurchaseHandlerBottomState extends State<PurchaseHandlerBottom> {
+  final quantityController = QuantityNumbericController(initQuanity: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +35,43 @@ class PurchaseHandlerBottom extends StatelessWidget {
       height: HomeDimensions.kPopularFoodPurchase,
       child: GetBuilder<CartController>(
         builder: (controller) {
-          final quantityController = QuantityNumbericController(
-            initQuanity: controller.getFoodById(food?.id ?? '')?.quantity ?? 1,
-          );
+          final food = controller.getFoodById(widget.food?.id ?? '');
+
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
-                child: QuantityNumberic(controller: quantityController),
+                child: QuantityNumberic(
+                  controller: quantityController,
+                  initQuantity: food?.quantity ?? 1,
+                ),
               ),
               Spacing.horizantal.xxxl,
               Expanded(
                 child: KTextButton(
                   'Add to cart $kCartSymbol',
                   textColor: kWhiteColor,
-                  disabled: food == null,
+                  disabled: widget.food == null,
                   onPressed: () {
                     final quantity = quantityController.quantity;
                     if (quantity != 0) {
-                      controller.changeQuantity(
-                        food!,
+                      controller.addToCart(
+                        widget.food!,
                         quantity: quantity,
-                        pageId: RouteId.getPopularFood(food!.id),
+                        pageId: RouteId.getPopularFood(widget.food!.id),
                       );
                       return;
                     }
-                    controller.removeItem(food!.id, food!.name);
+                    controller
+                        .removeItem(widget.food!.id, widget.food!.name)
+                        .then(
+                      (isConfrim) {
+                        if (isConfrim) {
+                          quantityController.setQuantity(value: 1);
+                        }
+                      },
+                    );
                   },
                 ),
               )

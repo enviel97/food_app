@@ -28,26 +28,26 @@ class QuantityNumberic extends StatefulWidget {
 
 class _QuantityNumbericState extends State<QuantityNumberic> {
   int quantity = 1;
-  bool isSnackBarActive = false;
+
   @override
   void initState() {
     super.initState();
     if (widget.controller != null) {
       widget.controller!._setState(this);
     }
-    _initQuantity();
+    _init();
   }
 
   @override
   void didUpdateWidget(QuantityNumberic oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.initQuantity != widget.initQuantity) {
-      _initQuantity();
+      _init();
     }
   }
 
-  void _initQuantity() {
-    quantity = widget.controller?.initQuanity ?? widget.initQuantity ?? 1;
+  void _init() {
+    quantity = widget.initQuantity ?? widget.controller?.initQuanity ?? 1;
   }
 
   Widget _buttonControlBuilder({
@@ -113,6 +113,12 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
     }
   }
 
+  void _setQuantity({required int value}) {
+    setState(() {
+      quantity = value;
+    });
+  }
+
   void _increase({int step = 1}) {
     if (quantity + step > widget.maxQuantity) {
       showSnackBar('Item count', "You can't reduce less than 1");
@@ -150,6 +156,10 @@ class QuantityNumbericController {
 
   void _setState(_QuantityNumbericState state) {
     _state = state;
+  }
+
+  void setQuantity({required int value}) {
+    _state!._setQuantity(value: value);
   }
 
   void increase({int step = 1}) {

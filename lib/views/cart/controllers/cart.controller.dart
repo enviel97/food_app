@@ -12,7 +12,7 @@ class CartController extends GetxController {
   final Map<String, FoodInCart> _foods = {};
   double _totalPrice = 0.0;
 
-  Cart get cart => Cart.create(foods: _foods.values.toList());
+  // Cart get cart => Cart.create(foods: _foods.values.toList());
 
   int get size => _foods.values.length;
 
@@ -32,7 +32,7 @@ class CartController extends GetxController {
     update();
   }
 
-  Future<void> changeQuantity(
+  Future<void> addToCart(
     Food food, {
     required int quantity,
     String pageId = '',
@@ -50,11 +50,12 @@ class CartController extends GetxController {
       );
     }
     _calculatorTotalPrice(food.id, prevQuantity);
+    // repo.addToLocal(_foods.values.toList());
     update();
   }
 
-  Future<void> removeItem(String foodId, String name) async {
-    if (_foods.isEmpty || !_foods.containsKey(foodId)) return;
+  Future<bool> removeItem(String foodId, String name) async {
+    if (_foods.isEmpty || !_foods.containsKey(foodId)) return false;
 
     if (!(Get.isDialogOpen ?? false)) {
       final isConfirm = await Get.dialog<bool>(Dialog.confirm(
@@ -65,8 +66,10 @@ class CartController extends GetxController {
         final food = _foods.remove(foodId);
         _totalPrice -= (food?.quantity ?? 0) * (food?.price ?? 0);
         update();
+        return true;
       }
     }
+    return false;
   }
 
   Future<void> _calculatorTotalPrice(String foodId, int quantity) async {
