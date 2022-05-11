@@ -4,20 +4,22 @@ part of './app.dart';
 
 class RouteId {
   const RouteId();
-  static const String main = '/';
-  static const String home = '/home';
-  static const String popular = '/popular_food';
-  static const String recommended = '/recommended_food';
-  static const String cart = '/cart';
+  static const String _splash = '/splash';
+  static const String _main = '/';
+  static const String _home = '/home';
+  static const String _popular = '/popular_food';
+  static const String _recommended = '/recommended_food';
+  static const String _cart = '/cart';
 
-  static String getHome() => home;
-  static String getCart() => cart;
-  static String getMain() => main;
+  static String getHome() => _home;
+  static String getCart() => _cart;
+  static String getMain() => _main;
+  static String getSplash() => _splash;
 
   // route need param
-  static String getPopularFood(String foodId) => '$popular?foodId=$foodId';
+  static String getPopularFood(String foodId) => '$_popular?foodId=$foodId';
   static String getRecommendedFood(String foodId) =>
-      '$recommended?foodId=$foodId';
+      '$_recommended?foodId=$foodId';
 }
 
 class RouteHelper {
@@ -25,23 +27,27 @@ class RouteHelper {
 
   static final List<GetPage> _routes = [
     GetPage(
-      name: RouteId.main,
+      name: RouteId._main,
       page: () => const Main(),
     ),
     GetPage(
-      name: RouteId.home,
+      name: RouteId._splash,
+      page: () => const Splash(),
+    ),
+    GetPage(
+      name: RouteId._home,
       page: () => const Home(),
     ),
     GetPage(
-      name: RouteId.popular,
+      name: RouteId._popular,
       page: () => PopularFoodDetail(foodId: '${Get.parameters['foodId']}'),
     ),
     GetPage(
-      name: RouteId.recommended,
+      name: RouteId._recommended,
       page: () => RecommenedFoodDetail(foodId: '${Get.parameters['foodId']}'),
     ),
     GetPage(
-      name: RouteId.cart,
+      name: RouteId._cart,
       page: () => const Cart(),
     )
   ];

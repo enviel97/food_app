@@ -27,12 +27,6 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     _controller = PageController(initialPage: _currentPage);
     _iconController = AnimationController(duration: _duration, vsync: this);
     super.initState();
-    if (mounted) {
-      Future.wait([
-        Get.find<PopularFoodConroller>().getPopularFoodList(),
-        Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
-      ]);
-    }
   }
 
   @override

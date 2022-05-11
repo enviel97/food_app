@@ -1,6 +1,7 @@
-import '../../../repository/api_client.dart';
-import '../../../repository/base.repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class CartRepo extends BaseRepo {
-  CartRepo({required ApiClient client}) : super(client);
+class CartRepo {
+  final SharedPreferences localStorage;
+
+  const CartRepo({required this.localStorage});
 }

@@ -47,14 +47,14 @@ class _HeaderState extends State<Header> {
           padding: const EdgeInsets.all(8.0),
           child: GetBuilder<CartController>(
             builder: (CartController controller) {
-              if (Get.previousRoute == RouteId.cart) {
+              if (Get.previousRoute == RouteId.getCart()) {
                 return const SizedBox.shrink();
               }
               return CartButton(
                 isShowBadge: !controller.isEmpty,
                 quantity: controller.size,
                 onPressed: () {
-                  RouteHelper.goTo(RouteId.cart);
+                  RouteHelper.goTo(RouteId.getCart());
                 },
               );
             },

@@ -81,7 +81,7 @@ class RecommendFoodPurchase extends StatelessWidget {
     controller.changeQuantity(
       food,
       quantity: quantity,
-      pageId: RouteId.recommended,
+      pageId: RouteId.getRecommendedFood(food.id),
     );
   }
 }

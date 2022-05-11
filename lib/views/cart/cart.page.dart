@@ -28,7 +28,7 @@ class Cart extends StatelessWidget {
         icon: icon,
         size: Spacing.xxl,
         backgroundColor: kSecondaryColor,
-        iconColor: kPlaceholderSuperDarkColor,
+        iconColor: kWhiteColor,
         onPressed: onPressed,
       ),
     );
@@ -54,7 +54,7 @@ class Cart extends StatelessWidget {
           _buildActionButton(
             icon: Icons.home,
             onPressed: () {
-              RouteHelper.goTo(RouteId.home);
+              RouteHelper.goTo(RouteId.getMain());
             },
           ),
           _buildActionButton(
@@ -95,6 +95,6 @@ class Cart extends StatelessWidget {
   }
 
   _onOpenDetail(FoodInCart data) {
-    RouteHelper.goTo('${data.pageId}?foodId=${data.id}');
+    RouteHelper.goTo(data.pageId);
   }
 }

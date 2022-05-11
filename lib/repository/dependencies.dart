@@ -10,6 +10,6 @@ class RepositoryDependencies {
     // inject dependencies
     Get.lazyPut(() => PopularFoodRepo(client: Get.find()), fenix: true);
     Get.lazyPut(() => RecommendedFoodRepo(client: Get.find()), fenix: true);
-    Get.lazyPut(() => CartRepo(client: Get.find()), fenix: true);
+    Get.lazyPut(() => CartRepo(localStorage: Get.find()), fenix: true);
   }
 }

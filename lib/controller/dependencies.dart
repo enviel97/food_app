@@ -10,6 +10,9 @@ class ControllerDependencies {
     // inject dependencies
     Get.lazyPut(() => PopularFoodConroller(repo: Get.find()), fenix: true);
     Get.lazyPut(() => RecommendedFoodConroller(repo: Get.find()), fenix: true);
-    Get.lazyPut(() => CartController(repo: Get.find()), fenix: true);
+    Get.lazyPut(
+      () => CartController(repo: Get.find()),
+      fenix: true,
+    );
   }
 }

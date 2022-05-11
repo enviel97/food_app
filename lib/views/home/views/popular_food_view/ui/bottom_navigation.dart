@@ -50,7 +50,7 @@ class PurchaseHandlerBottom extends StatelessWidget {
                       controller.changeQuantity(
                         food!,
                         quantity: quantity,
-                        pageId: RouteId.popular,
+                        pageId: RouteId.getPopularFood(food!.id),
                       );
                       return;
                     }
