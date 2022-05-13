@@ -63,9 +63,7 @@ class _PurchaseHandlerBottomState extends State<PurchaseHandlerBottom> {
                       );
                       return;
                     }
-                    controller
-                        .removeItem(widget.food!.id, widget.food!.name)
-                        .then(
+                    controller.removeItem(widget.food!.id).then(
                       (isConfrim) {
                         if (isConfrim) {
                           quantityController.setQuantity(value: 1);

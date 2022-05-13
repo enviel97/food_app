@@ -11,7 +11,7 @@ class KIconButton extends StatelessWidget {
   final double? size;
   final IconData icon;
   final Color backgroundColor, iconColor, shadowColor, splashColor;
-  final bool removeSplash;
+  final bool removeSplash, disable;
   final Function()? onPressed;
   final IconButtonShape shape;
   final double elevation, iconScale;
@@ -29,6 +29,7 @@ class KIconButton extends StatelessWidget {
     this.splashColor = kPrimaryDarkColor,
     this.elevation = 0.0,
     this.iconScale = 0.5,
+    this.disable = false,
   }) : super(key: key);
 
   @override
@@ -37,8 +38,9 @@ class KIconButton extends StatelessWidget {
     final radius = size * (shape == IconButtonShape.round ? 0.375 : 2.0).h;
 
     final backgroundColor = this.backgroundColor.withOpacity(
-          onPressed == null ? 0.5 : this.backgroundColor.opacity,
+          disable ? 0.5 : this.backgroundColor.opacity,
         );
+    final iconColor = this.iconColor.withOpacity(disable ? 0.5 : 1.0);
 
     final splashcolor = removeSplash ? kNone : splashColor.withOpacity(0.2);
     return SizedBox.fromSize(
@@ -48,10 +50,11 @@ class KIconButton extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(radius)),
             shadowColor: shadowColor.withOpacity(0.5),
-            color: backgroundColor, // button color
+            color: backgroundColor
+                .withOpacity(disable ? 0.2 : 1.0), // button color
             child: InkWell(
                 splashColor: splashcolor, // splash color
-                onTap: onPressed, //() {}, // button pressed
+                onTap: disable ? null : onPressed, //() {}, // button pressed
                 customBorder: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(radius)),
                 child: Column(

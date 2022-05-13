@@ -4,8 +4,6 @@ import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
 import 'package:food_shop/views/home/views/ui/error_load.dart';
-import 'package:food_shop/widgets/buttons/custom_back_button.dart';
-import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
 
 import 'ui/body.dart';
@@ -34,7 +32,7 @@ class PopularFoodDetail extends StatelessWidget {
               image: DecorationImage(
                 alignment: Alignment.topCenter,
                 image: CachedNetworkImageProvider(food.images.first,
-                    maxHeight: (Dimensions.kHeight * 0.5).h.toInt()),
+                    maxHeight: (Dimensions.kHeight * 0.75).h.toInt()),
                 fit: BoxFit.none,
               ),
             ),

@@ -100,18 +100,22 @@ class _SliderState<T> extends State<Slider<T>> {
     );
   }
 
+  void _scrollTo(int toPage) {
+    final page = toPage >= _dataSize ? 0 : toPage;
+    _controller.animateToPage(
+      page,
+      duration: _duration,
+      curve: Curves.easeIn,
+    );
+  }
+
   void _startSroll() {
     if (timer?.isActive ?? true) {
       timer = Timer.periodic(
         const Duration(seconds: 5),
         (timer) {
-          final page = currentIndex + 1 >= _dataSize ? 0 : currentIndex + 1;
           try {
-            _controller.animateToPage(
-              page,
-              duration: _duration,
-              curve: Curves.easeIn,
-            );
+            _scrollTo(currentIndex + 1);
           } catch (error) {
             debugPrint('Error auto scroll');
           }
@@ -121,9 +125,7 @@ class _SliderState<T> extends State<Slider<T>> {
   }
 
   void _onPageChanged(int index) {
-    setState(() {
-      currentIndex = index;
-    });
+    setState(() => currentIndex = index);
   }
 
   Widget _indicateBuilder(BuildContext context, int index) {
@@ -131,15 +133,20 @@ class _SliderState<T> extends State<Slider<T>> {
     final color = isCurrent ? kPrimaryDarkColor : kPlaceholderDarkColor;
     final width = _indicateSize * (isCurrent ? 2 : 1);
 
-    return AnimatedContainer(
-      duration: _duration,
-      margin: EdgeInsets.symmetric(horizontal: _indicatePadding),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-        color: color,
+    return GestureDetector(
+      onTap: () {
+        _scrollTo(index);
+      },
+      child: AnimatedContainer(
+        duration: _duration,
+        margin: EdgeInsets.symmetric(horizontal: _indicatePadding),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10.0),
+          color: color,
+        ),
+        height: widget.indicateSize,
+        width: width,
       ),
-      height: widget.indicateSize,
-      width: width,
     );
   }
 

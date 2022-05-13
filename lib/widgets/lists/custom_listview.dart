@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/widgets/page/empty.page.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 
 import 'scroll_behavior/disable_grow.dart';
@@ -61,9 +62,7 @@ class KListView<T> extends StatelessWidget {
     if (emptyBuilder != null) {
       return emptyBuilder!();
     }
-    return const Center(
-      child: HeaderText('List is empty'),
-    );
+    return const Empty();
   }
 
   Widget _itemBuilder(BuildContext context, int index) {

@@ -2,8 +2,6 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/views/history/history.page.dart';
-import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
-import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:food_shop/views/home/home.page.dart';
 import 'package:food_shop/views/personal/personal.page.dart';
 import 'package:get/get.dart';

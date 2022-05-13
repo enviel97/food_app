@@ -11,6 +11,7 @@ class QuantityNumberic extends StatefulWidget {
   final QuantityNumbericController? controller;
   final void Function(int number)? onChanged;
   final int maxQuantity, minQuantity, step;
+  final bool disableAction;
   final int? initQuantity;
   const QuantityNumberic({
     Key? key,
@@ -20,6 +21,7 @@ class QuantityNumberic extends StatefulWidget {
     this.minQuantity = 0,
     this.step = 1,
     this.initQuantity = 1,
+    this.disableAction = false,
   }) : super(key: key);
 
   @override
@@ -56,6 +58,7 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
   }) {
     return KIconButton(
       icon: icon,
+      disable: widget.disableAction,
       backgroundColor: kWhiteColor,
       size: Spacing.lg,
       onPressed: () => setState(onPressed),
@@ -88,6 +91,7 @@ class _QuantityNumbericState extends State<QuantityNumberic> {
           Spacing.horizantal.m,
           BodyText(
             '$quantity',
+            color: kBlackColor.withOpacity(widget.disableAction ? 0.2 : 1.0),
             fontSize: Spacing.sm,
             fontWeight: FontWeight.bold,
           ),

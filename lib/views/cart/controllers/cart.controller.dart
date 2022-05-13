@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/cart/repository/cart.repo.dart';
@@ -6,13 +7,25 @@ import 'package:get/get.dart';
 
 class CartController extends GetxController {
   final CartRepo repo;
-
-  CartController({required this.repo});
-
   final Map<String, FoodInCart> _foods = {};
+
   double _totalPrice = 0.0;
 
-  // Cart get cart => Cart.create(foods: _foods.values.toList());
+  CartController({required this.repo}) {
+    final cart = repo.getTemp();
+    if (cart.isEmpty) return;
+    _foods.addAll({for (FoodInCart food in cart) food.id: food});
+    calculatorTotalPrice(cart);
+  }
+
+  void calculatorTotalPrice(List<FoodInCart> cart) {
+    _totalPrice = cart.fold<double>(
+      0.0,
+      (sum, food) => sum + (food.price * food.quantity),
+    );
+  }
+
+  FoodInCart? getFoodById(String id) => _foods[id];
 
   int get size => _foods.values.length;
 
@@ -20,16 +33,20 @@ class CartController extends GetxController {
 
   double get totalPrice => _totalPrice;
 
-  List<FoodInCart> get getFoods => _foods.values.toList();
-
-  FoodInCart? getFoodById(String id) => _foods[id];
+  List<FoodInCart> getFoods({String? cartId}) {
+    if (cartId != null) {
+      final cart = repo.getCartHistory(cartId);
+      calculatorTotalPrice(cart.foods);
+      return cart.foods;
+    }
+    return _foods.values.toList();
+  }
 
   Future<void> changeQuantityById(String id, {required int quantity}) async {
     if (!_foods.containsKey(id)) throw Exception('@FoodId $id is not exits');
     final int prevQuantity = _foods[id]!.quantity;
     _foods[id]!.quantity = quantity;
-    _calculatorTotalPrice(id, prevQuantity);
-    update();
+    _updateCart(_foods[id], prevQuantity);
   }
 
   Future<void> addToCart(
@@ -49,35 +66,65 @@ class CartController extends GetxController {
         pageId: pageId,
       );
     }
-    _calculatorTotalPrice(food.id, prevQuantity);
-    // repo.addToLocal(_foods.values.toList());
+    _updateCart(_foods[food.id], prevQuantity);
+  }
+
+  Future<bool> removeItem(String foodId) async {
+    if (_foods.isEmpty || !_foods.containsKey(foodId)) return false;
+    final isConfirm = await showConfirmDialog(
+      title: 'Remove',
+      content: Text.rich(
+        TextSpan(
+          text: 'You want to reject',
+          children: [
+            TextSpan(
+                text: ' ${_foods[foodId]?.name ?? '@food$foodId'}',
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+            const TextSpan(text: ' out of cart')
+          ],
+        ),
+      ),
+      onConfirm: () {
+        final food = _foods.remove(foodId);
+        _updateCart(food, (food?.quantity ?? 0) * 2);
+      },
+    );
+    return isConfirm;
+  }
+
+  Future<void> _updateCart(FoodInCart? food, int prevQuantity) async {
+    int diff = 0;
+    if ((food?.quantity ?? 0) != prevQuantity) {
+      diff = (food?.quantity ?? 0) - prevQuantity;
+    }
+    _totalPrice += diff * (food?.price ?? 0.0);
+    repo.storeTemp(_foods.values.toList());
     update();
   }
 
-  Future<bool> removeItem(String foodId, String name) async {
-    if (_foods.isEmpty || !_foods.containsKey(foodId)) return false;
-
-    if (!(Get.isDialogOpen ?? false)) {
-      final isConfirm = await Get.dialog<bool>(Dialog.confirm(
-        title: 'Remove',
-        content: 'You want to reject $name out of cart',
-      ));
-      if (isConfirm ?? false) {
-        final food = _foods.remove(foodId);
-        _totalPrice -= (food?.quantity ?? 0) * (food?.price ?? 0);
-        update();
-        return true;
-      }
+  Future<bool> payment(List<FoodInCart> carts) async {
+    try {
+      return await showConfirmDialog(
+        title: 'Payment',
+        content: Text.rich(
+          TextSpan(
+            text: 'Pay your cart with total payment amount of ',
+            children: [
+              TextSpan(
+                text: '$_totalPrice \$',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        ),
+        onConfirm: () {
+          repo.storeHistory(Cart.create(foods: carts));
+          _foods.clear();
+          _totalPrice = 0.0;
+        },
+      );
+    } catch (e) {
+      return false;
     }
-    return false;
-  }
-
-  Future<void> _calculatorTotalPrice(String foodId, int quantity) async {
-    int diff = 0;
-    final food = _foods[foodId];
-    if ((food?.quantity ?? 0) != quantity) {
-      diff = (food?.quantity ?? 0) - quantity;
-    }
-    _totalPrice += diff * (food?.price ?? 0.0);
   }
 }

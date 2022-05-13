@@ -14,13 +14,16 @@ import 'ui/bottom.dart';
 import 'ui/food_in_cart_item.dart';
 
 class Cart extends StatelessWidget {
+  final String? cartId;
   const Cart({
     Key? key,
+    this.cartId,
   }) : super(key: key);
 
-  Widget _buildActionButton({
-    required IconData icon,
+  Widget _buildActionButton(
+    IconData icon, {
     required Function() onPressed,
+    bool disable = false,
   }) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -30,6 +33,7 @@ class Cart extends StatelessWidget {
         backgroundColor: kSecondaryColor,
         iconColor: kWhiteColor,
         onPressed: onPressed,
+        disable: disable,
       ),
     );
   }
@@ -37,35 +41,12 @@ class Cart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: kWhiteColor,
-        leading: const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: KBackButton(backgroundColor: kPrimaryColor),
-        ),
-        centerTitle: false,
-        title: const HeaderText(
-          'Cart',
-          fontSize: Spacing.xl,
-          fontWeight: FontWeight.w500,
-          color: kBlackColor,
-        ),
-        actions: [
-          _buildActionButton(
-            icon: Icons.home,
-            onPressed: () {
-              RouteHelper.goTo(RouteId.getMain());
-            },
-          ),
-          _buildActionButton(
-            icon: Icons.payment_rounded,
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: _buildHeader(),
       body: GetBuilder<CartController>(builder: (controller) {
+        final datas = controller.getFoods(cartId: cartId);
+
         return KListView<FoodInCart>(
-          datas: controller.getFoods,
+          datas: datas,
           itemBuilder: (data, _) {
             return GestureDetector(
               onTap: () => _onOpenDetail(data),
@@ -73,14 +54,12 @@ class Cart extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: FoodInCartItem(
                   food: data,
+                  disableAction: cartId != null,
                   onQuanityChange: (quantity) {
-                    controller.changeQuantityById(
-                      data.id,
-                      quantity: quantity,
-                    );
+                    controller.changeQuantityById(data.id, quantity: quantity);
                   },
                   removeItem: () {
-                    controller.removeItem(data.id, data.name);
+                    controller.removeItem(data.id);
                   },
                 ),
               ),
@@ -94,7 +73,45 @@ class Cart extends StatelessWidget {
     );
   }
 
-  _onOpenDetail(FoodInCart data) {
+  void _onOpenDetail(FoodInCart data) {
     RouteHelper.goTo(data.pageId);
+  }
+
+  AppBar _buildHeader() {
+    return AppBar(
+      backgroundColor: kWhiteColor,
+      leading: const Padding(
+        padding: EdgeInsets.all(8.0),
+        child: KBackButton(backgroundColor: kPrimaryColor),
+      ),
+      centerTitle: false,
+      title: const HeaderText(
+        'Cart',
+        fontSize: Spacing.xl,
+        fontWeight: FontWeight.w500,
+        color: kBlackColor,
+      ),
+      actions: [
+        _buildActionButton(
+          Icons.home,
+          onPressed: () {
+            RouteHelper.goTo(RouteId.getMain());
+          },
+        ),
+        GetBuilder<CartController>(builder: (controller) {
+          final foods = controller.getFoods(cartId: cartId);
+          return _buildActionButton(
+            Icons.payment_rounded,
+            disable: foods.isEmpty,
+            onPressed: () async {
+              final confirm = await controller.payment(foods);
+              if (confirm) {
+                RouteHelper.replace(RouteId.getMain());
+              }
+            },
+          );
+        }),
+      ],
+    );
   }
 }

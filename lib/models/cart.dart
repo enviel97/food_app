@@ -41,19 +41,43 @@ class FoodInCart {
       price: json['price'] ?? -1.0,
       options: json['options'],
       time: json['time'] ?? 0,
+      pageId: json['pageId'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'image': image,
+      'quantity': quantity,
+      'price': price,
+      'options': options,
+      'time': time,
+      'pageId': pageId,
+    };
+  }
+}
+
+enum CartStatus {
+  accept,
+  prepair,
+  shipping,
+  done,
+  reject,
 }
 
 class Cart {
   final String id;
   final DateTime? createDate;
   final List<FoodInCart> foods;
+  final CartStatus status;
 
   Cart(
     this.id, {
     this.foods = const [],
     this.createDate,
+    this.status = CartStatus.accept,
   });
 
   static String get _generatorCartIs {
@@ -66,6 +90,7 @@ class Cart {
       Cart._generatorCartIs,
       foods: foods,
       createDate: DateTime.now(),
+      status: CartStatus.accept,
     );
   }
 
@@ -84,5 +109,17 @@ class Cart {
       foods: foods,
       createDate: DateTime.tryParse(json['createDate'] ?? ''),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    final json = {
+      'id': id,
+      'foods': foods.map((food) {
+        return food.toJson();
+      }).toList(),
+      'createDate': createDate?.toIso8601String() ?? '',
+      'status': status.name,
+    };
+    return json;
   }
 }

@@ -1,9 +1,17 @@
+import 'dart:convert';
+
 import 'package:food_shop/helpers/constants.dart';
 
 List<T> mapToList<T>(
     dynamic json, T Function(Map<String, dynamic> json) create) {
   if (json == null || json.isEmpty) {
     return [];
+  }
+  if (json is List<String>) {
+    return List<T>.generate(
+      json.length,
+      (index) => create(jsonDecode(json[index])),
+    );
   }
   final jsons = json as List;
   return List<T>.generate(jsons.length, (index) => create(jsons[index]));
@@ -21,4 +29,8 @@ String? getImageUrl(String image) {
     return null;
   }
   return '${AppConstants.BASE_URL}/uploads/$image';
+}
+
+String getAssetImagePath(String image) {
+  return 'assets/images/$image.png';
 }

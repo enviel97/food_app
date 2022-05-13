@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:get/get.dart';
 
 class KTextButton extends StatelessWidget {
   final double height, width, radius, fontSize;
@@ -10,7 +11,7 @@ class KTextButton extends StatelessWidget {
   final Color textColor, backgroundColor;
   final void Function()? onPressed;
   final Alignment textAlign;
-  final bool disabled;
+  final bool disabled, isOutline;
 
   const KTextButton(
     this.text, {
@@ -25,19 +26,25 @@ class KTextButton extends StatelessWidget {
     this.radius = 12,
     this.fontSize = Spacing.sm,
     this.disabled = false,
+    this.isOutline = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColor =
+        isOutline ? Get.theme.scaffoldBackgroundColor : this.backgroundColor;
+    final textColor = isOutline ? this.backgroundColor : kWhiteColor;
+
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
-      primary: textColor,
+      primary: this.textColor,
       backgroundColor: backgroundColor,
       minimumSize: Size(width.w, height.h),
       padding: padding,
       elevation: 5.0,
       alignment: textAlign,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius),
+        borderRadius: BorderRadius.circular(radius.h),
+        side: BorderSide(color: this.backgroundColor),
       ),
     );
 
@@ -47,7 +54,7 @@ class KTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          color: kWhiteColor.withOpacity(disabled ? .85 : 1),
+          color: textColor.withOpacity(disabled ? .85 : 1),
           fontSize: fontSize.h,
           fontWeight: FontWeight.w600,
         ),

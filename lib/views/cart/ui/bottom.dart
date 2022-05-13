@@ -2,8 +2,8 @@ import 'package:bordered_text/bordered_text.dart';
 import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 
 class Bottom extends StatelessWidget {
@@ -16,7 +16,7 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: HomeDimensions.kHeader100 * 0.75.h,
+      height: Dimensions.kBottom100 * 0.75.h,
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
       alignment: Alignment.centerRight,
       decoration: const BoxDecoration(

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/views/home/widgets/quantity_numberic.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
@@ -11,6 +11,7 @@ import 'package:food_shop/widgets/texts/body_text.dart';
 
 class FoodInCartItem extends StatelessWidget {
   final FoodInCart food;
+  final bool disableAction;
   final void Function(int quantity) onQuanityChange;
   final void Function() removeItem;
 
@@ -19,6 +20,7 @@ class FoodInCartItem extends StatelessWidget {
     required this.food,
     required this.removeItem,
     Key? key,
+    this.disableAction = false,
   }) : super(key: key);
 
   @override
@@ -37,15 +39,15 @@ class FoodInCartItem extends StatelessWidget {
           ),
         ],
       ),
-      height: HomeDimensions.kHeader100,
+      height: Dimensions.kHeader100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           LazzyImages(
             food.image,
-            width: HomeDimensions.kHeader100,
-            height: HomeDimensions.kHeader100,
+            width: Dimensions.kHeader100,
+            height: Dimensions.kHeader100,
             radius: radius,
           ),
           Expanded(
@@ -71,7 +73,8 @@ class FoodInCartItem extends StatelessWidget {
                       ),
                       KIconButton(
                         icon: Icons.remove_shopping_cart_rounded,
-                        backgroundColor: kNone,
+                        backgroundColor: kPlaceholderColor,
+                        disable: disableAction,
                         size: Spacing.lg,
                         onPressed: removeItem,
                       ),
@@ -96,6 +99,7 @@ class FoodInCartItem extends StatelessWidget {
                         ),
                         QuantityNumberic(
                           initQuantity: food.quantity,
+                          disableAction: disableAction,
                           onChanged: onQuanityChange,
                           minQuantity: 1,
                         ),

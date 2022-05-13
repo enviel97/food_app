@@ -12,7 +12,6 @@ class RouteId {
   static const String _cart = '/cart';
 
   static String getHome() => _home;
-  static String getCart() => _cart;
   static String getMain() => _main;
   static String getSplash() => _splash;
 
@@ -20,6 +19,7 @@ class RouteId {
   static String getPopularFood(String foodId) => '$_popular?foodId=$foodId';
   static String getRecommendedFood(String foodId) =>
       '$_recommended?foodId=$foodId';
+  static String getCart({String? cartId}) => '$_cart?cartId=$cartId';
 }
 
 class RouteHelper {
@@ -48,7 +48,7 @@ class RouteHelper {
     ),
     GetPage(
       name: RouteId._cart,
-      page: () => const Cart(),
+      page: () => Cart(cartId: '${Get.parameters['cartId']}'),
     )
   ];
 

@@ -75,7 +75,7 @@ class RecommendFoodPurchase extends StatelessWidget {
     );
     if (quantity == null) return;
     if (quantity == 0) {
-      controller.removeItem(food.id, food.name);
+      controller.removeItem(food.id);
       return;
     }
     controller.addToCart(
