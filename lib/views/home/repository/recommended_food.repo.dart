@@ -9,4 +9,8 @@ class RecommendedFoodRepo extends BaseRepo {
   Future<Response> getRecommendedFoodList() async {
     return await client.getData(AppConstants.RECOMMENDED_PRODUCT_URI);
   }
+
+  Future<Response> getRecommendedFood(String foodId) async {
+    return await client.getData(AppConstants.GET_PRODUCT, params: [foodId]);
+  }
 }
