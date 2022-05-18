@@ -29,7 +29,7 @@ class _HistoryState extends State<History> {
       body: GetBuilder<HistoryController>(builder: (controller) {
         return KListView<Cart>(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          datas: [], //controller.carts,
+          datas: controller.carts,
           itemBuilder: (data, _) => _itemBuilder(data),
         );
       }),

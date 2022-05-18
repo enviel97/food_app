@@ -11,18 +11,27 @@ class ApiClient extends GetConnect implements GetxService {
   ApiClient(this.appBaseUrl) {
     baseUrl = appBaseUrl;
     timeout = const Duration(seconds: 30);
-    token = AppConstants.TOKEN;
+    token = AppConstants.API_KEY;
     _mainHeader = {
       'Content-type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer $token'
+      'authenticate': token,
     };
   }
 
-  Future<Response> getData(String uri) async {
+  Future<Response> getData(
+    String uri, {
+    List<String>? params,
+    Map<String, dynamic>? query,
+  }) async {
     try {
+      String _uri = uri;
+      if (params != null && params.isNotEmpty) {
+        _uri = '$uri/${params.join('/')}';
+      }
       final response = await get(
-        uri,
+        _uri,
         headers: _mainHeader,
+        query: query,
       );
       return response;
     } catch (e) {

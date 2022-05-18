@@ -15,19 +15,16 @@ class RecommendedFoodConroller extends ApiBaseController {
   List<Food> get recommendedFoodList => _recommendedFoodList;
 
   Future<void> getRecommendedFoodList({bool isRefresh = false}) async {
-    inject(
-      recommendedFoodListId,
-      connect: () async => const Response(
-        statusCode: 200,
-        statusText: 'faker',
-      ), // repo.getPopularFoodList,
-      onSuccess: (res) {
-        _recommendedFoodList.clear();
-        // final paginate = Pagination<Food>.fromJson(res.body, Food.fromJson);
-        _recommendedFoodList.addAll(List.generate(6, (index) => Food.faker()));
-        // _recommendedFoodList.addAll(paginate.datas);
-      },
-    );
+    // lazy(
+    //   recommendedFoodListId,
+    //   connect:, // repo.getPopularFoodList,
+    //   onSuccess: (res) {
+    //     _recommendedFoodList.clear();
+    //     // final paginate = Pagination<Food>.fromJson(res.body, Food.fromJson);
+    //     _recommendedFoodList.addAll(List.generate(6, (index) => Food.faker()));
+    //     // _recommendedFoodList.addAll(paginate.datas);
+    //   },
+    // );
   }
 
   Food? getRecommendedFodd(String foodId) {

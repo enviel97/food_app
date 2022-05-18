@@ -19,7 +19,8 @@ class RouteId {
   static String getPopularFood(String foodId) => '$_popular?foodId=$foodId';
   static String getRecommendedFood(String foodId) =>
       '$_recommended?foodId=$foodId';
-  static String getCart({String? cartId}) => '$_cart?cartId=$cartId';
+  static String getCart({String? cartId}) =>
+      _cart + ((cartId?.isEmpty ?? true) ? '' : '?cartId=$cartId');
 }
 
 class RouteHelper {
@@ -47,9 +48,7 @@ class RouteHelper {
       page: () => RecommenedFoodDetail(foodId: '${Get.parameters['foodId']}'),
     ),
     GetPage(
-      name: RouteId._cart,
-      page: () => Cart(cartId: '${Get.parameters['cartId']}'),
-    )
+        name: RouteId._cart, page: () => Cart(cartId: Get.parameters['cartId']))
   ];
 
   // Methods

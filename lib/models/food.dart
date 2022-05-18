@@ -1,10 +1,16 @@
 import 'package:faker/faker.dart';
+import 'package:food_shop/helpers/functions.dart';
 import 'package:food_shop/models/comment.dart';
 
 enum FoodStatus { empty, normal, little }
 
+extension _FoodStatusX on FoodStatus {
+  static get enumToMap =>
+      {for (FoodStatus value in FoodStatus.values) value.name: value};
+}
+
 class Food {
-  final String name, banner, description, id;
+  final String name, description, id;
   final List<Comment> comments;
   final double finalRate, price;
   final List<String> images;
@@ -15,7 +21,6 @@ class Food {
     this.id, {
     required this.name,
     required this.images,
-    required this.banner,
     required this.comments,
     required this.finalRate,
     required this.timePrepare,
@@ -27,14 +32,13 @@ class Food {
   factory Food.fromJson(Map<String, dynamic> json) {
     final faker = Food.faker();
     return Food(
-      '${json['id']}',
+      '${json['id'] ?? json['_id']}',
       name: json['name'],
-      images: faker.images,
-      banner: faker.banner, // getImageUrl(json['img']) ?? ,
+      images: List.from(json['imgs']),
       comments: faker.comments,
-      finalRate: faker.finalRate,
-      timePrepare: faker.timePrepare,
-      status: faker.status,
+      finalRate: (json['finalRate'] as int).toDouble(),
+      timePrepare: json['timePrepare'],
+      status: _FoodStatusX.enumToMap[json['status']],
       description: json['description'],
       price: (json['price'] as int).toDouble(),
     );
@@ -45,12 +49,6 @@ class Food {
 
     final food = faker.food.dish();
 
-    final banner = faker.image.image(
-      width: 336,
-      height: 280,
-      keywords: ['food', 'foods', 'culinary', food],
-      random: true,
-    );
     final images = List<String>.generate(
       faker.randomGenerator.integer(5, min: 3),
       (index) => faker.image.image(
@@ -76,7 +74,6 @@ class Food {
       faker.randomGenerator.fromPatternToHex(['##########']),
       name: food,
       images: images,
-      banner: banner,
       comments: comments,
       finalRate: finalRate,
       timePrepare: timePrepaire,

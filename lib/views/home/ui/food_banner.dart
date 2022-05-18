@@ -35,13 +35,13 @@ class FoodBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PopularFoodConroller>(
       builder: (controller) {
-        final connection = controller.reject(popularFoodListID);
-        if (!connection.isLoaded && !connection.isError) {
+        final status = controller.status(popularFoodListID);
+        if (!status.isLoaded && !status.isError) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (connection.isError) {
+        if (status.isError) {
           return Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +86,7 @@ class FoodBanner extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 padding: const EdgeInsets.only(bottom: 25.0),
                 child: LazzyImages(
-                  item.banner,
+                  item.images.first,
                   radius: 25.0,
                   height: height * .90,
                 ),

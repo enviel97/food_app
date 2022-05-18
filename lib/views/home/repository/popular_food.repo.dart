@@ -9,4 +9,8 @@ class PopularFoodRepo extends BaseRepo {
   Future<Response> getPopularFoodList() async {
     return await client.getData(AppConstants.POPULAR_PRODUCT_URI);
   }
+
+  Future<Response> getPopularFood(String foodId) async {
+    return await client.getData(AppConstants.GET_PRODUCT, params: [foodId]);
+  }
 }

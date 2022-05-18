@@ -19,6 +19,7 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.bottomCenter,
       height: HomeDimensions.kPopularFoodCard,
       decoration: const BoxDecoration(
           color: kWhiteColor,
@@ -64,7 +65,12 @@ class Body extends StatelessWidget {
           ),
           Spacing.vertical.m,
           Expanded(
-            child: CollapsableText(food.description),
+            child: LayoutBuilder(builder: (context, constraints) {
+              return CollapsableText(
+                food.description,
+                minimumHeight: constraints.maxHeight * 0.5,
+              );
+            }),
           ),
         ],
       ),

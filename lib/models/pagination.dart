@@ -1,13 +1,12 @@
 import '../helpers/functions.dart';
 
 class Pagination<T> {
-  final int totalSize, offset;
-  final String id;
+  final int total, offset, limit;
   final List<T> datas;
 
-  Pagination(
-    this.id, {
-    required this.totalSize,
+  Pagination({
+    required this.limit,
+    required this.total,
     required this.offset,
     required this.datas,
   });
@@ -17,9 +16,9 @@ class Pagination<T> {
     T Function(Map<String, dynamic>) create,
   ) =>
       Pagination(
-        json['id'] ?? 'Null',
-        totalSize: json['total_size'] ?? 0,
-        offset: json['offset'],
-        datas: mapToList<T>(json['products'], create),
+        limit: json['limit'] ?? 20,
+        total: json['total'] ?? 0,
+        offset: json['offset'] ?? 0,
+        datas: mapToList<T>(json['datas'], create),
       );
 }

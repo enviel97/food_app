@@ -44,6 +44,7 @@ class _PurchaseHandlerBottomState extends State<PurchaseHandlerBottom> {
               Expanded(
                 child: QuantityNumberic(
                   controller: quantityController,
+                  disableAction: widget.food == null,
                   initQuantity: food?.quantity ?? 1,
                 ),
               ),
