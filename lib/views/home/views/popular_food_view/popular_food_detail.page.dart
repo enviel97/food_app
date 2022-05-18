@@ -32,6 +32,11 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
     _fetchFood();
   }
 
+  Future<void> _fetchFood() async {
+    food = await Get.find<PopularFoodConroller>().getPopularFood(widget.foodId);
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,10 +66,5 @@ class _PopularFoodDetailState extends State<PopularFoodDetail> {
                   : const CircularProgressIndicator());
         }),
         bottomNavigationBar: PurchaseHandlerBottom(food: food));
-  }
-
-  Future<void> _fetchFood() async {
-    food = await Get.find<PopularFoodConroller>().getPopularFood(widget.foodId);
-    if (mounted) setState(() {});
   }
 }

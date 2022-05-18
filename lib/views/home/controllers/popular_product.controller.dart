@@ -11,7 +11,6 @@ class PopularFoodConroller extends ApiControllerBase {
   @override
   void onDispose() {
     _catche.clear();
-    super.onInitState();
   }
 
   final List<Food> _popularFoodList = [];

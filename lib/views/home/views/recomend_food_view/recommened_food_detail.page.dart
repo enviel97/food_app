@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
@@ -20,45 +21,48 @@ class RecommenedFoodDetail extends StatefulWidget {
 }
 
 class _RecommenedFoodDetailState extends State<RecommenedFoodDetail> {
-  final controller = Get.find<RecommendedFoodConroller>();
+  Food? food;
 
   @override
   void initState() {
     super.initState();
-    controller.getRecommendedFodd(widget.foodId);
+    _fetchFood();
+  }
+
+  Future<void> _fetchFood() async {
+    food = await Get.find<RecommendedFoodConroller>()
+        .getRecommendedFood(widget.foodId);
+    if (mounted) setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(() {
-        final food = controller.selectedFood;
-        final status = controller.status(recommendedFoodId);
+      body: GetBuilder<RecommendedFoodConroller>(builder: (controller) {
         if (food != null) {
           return CustomScrollView(
             scrollBehavior: RemoveGrow(),
             slivers: [
               Header(
-                imageFood: food.images[0],
-                nameFood: food.name,
+                imageFood: food!.images.first,
+                nameFood: food!.name,
               ),
               Body(
-                decription: food.description,
-                price: food.price,
-                rating: food.finalRate,
-                comments: food.comments,
+                decription: food!.description,
+                price: food!.price,
+                rating: food!.finalRate,
+                comments: food!.comments,
               ),
             ],
           );
         }
 
         return Center(
-            child: status.isError
+            child: controller.isError
                 ? const HeaderText('Error loading food')
                 : const CircularProgressIndicator());
       }),
-      bottomNavigationBar:
-          Obx(() => RecommendFoodPurchase(food: controller.selectedFood)),
+      bottomNavigationBar: RecommendFoodPurchase(food: food),
     );
   }
 }

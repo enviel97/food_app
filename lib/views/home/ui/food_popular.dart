@@ -38,11 +38,10 @@ class FoodPopular extends StatelessWidget {
           Flexible(
             child: GetBuilder<RecommendedFoodConroller>(
               builder: (RecommendedFoodConroller controller) {
-                final status = controller.status(recommendedFoodListId);
-                if (!status.isLoaded && !status.isError) {
+                if (!controller.isLoaded && !controller.isError) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                if (status.isError) {
+                if (controller.isError) {
                   return const Center(child: HeaderText('Error get foods'));
                 }
                 return KListView<Food>(
@@ -95,6 +94,7 @@ class FoodPopular extends StatelessWidget {
                   children: [
                     BodyText(
                       data.name,
+                      maxLines: 2,
                       fontWeight: FontWeight.bold,
                     ),
                     BodyText(
