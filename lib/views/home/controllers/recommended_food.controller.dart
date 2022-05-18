@@ -5,7 +5,7 @@ import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
 import 'package:get/get.dart';
 
 const recommendedFoodListId = 'RecommendedFoodList';
-const recommendedFoodId = 'RecommendedFoodList';
+const recommendedFoodId = 'RecommendedFood';
 
 class RecommendedFoodConroller extends ApiBaseController {
   final RecommendedFoodRepo repo;
@@ -50,6 +50,7 @@ class RecommendedFoodConroller extends ApiBaseController {
   }
 
   void getRecommendedFodd(String foodId) async {
+    _selectedFood.value = null;
     try {
       if (catche.containsKey(foodId)) {
         _selectedFood.value = catche[foodId];

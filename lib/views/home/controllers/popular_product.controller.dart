@@ -2,59 +2,45 @@ import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/models/pagination.dart';
 import 'package:food_shop/views/home/repository/popular_food.repo.dart';
-import 'package:get/get.dart';
 
-const popularFoodListID = 'PopularFoodList';
-const popularFoodID = 'PopularFoodId';
-
-class PopularFoodConroller extends ApiBaseController {
+class PopularFoodConroller extends ApiControllerBase {
   final PopularFoodRepo repo;
 
-  PopularFoodConroller({required this.repo}) : super(connects: {});
+  PopularFoodConroller({required this.repo});
+
+  @override
+  void onDispose() {
+    _catche.clear();
+    super.onInitState();
+  }
 
   final List<Food> _popularFoodList = [];
-  final Map<String, Food> catche = {};
-  final Rx<Food?> _selectedFood = Rx(null);
+  final Map<String, Food> _catche = {};
 
   List<Food> get popularFoodList => _popularFoodList;
-  Food? get selectedFood => _selectedFood.value;
-
-  @override
-  void init() {
-    lazy(
-      popularFoodListID,
-      connect: ({dynamic data}) => repo.getPopularFoodList(),
-      onSuccess: (res) {
-        _popularFoodList.clear();
-        final paginate = Pagination<Food>.fromJson(res.body, Food.fromJson);
-        _popularFoodList.addAll(paginate.datas);
-        catche.addAll({for (Food food in _popularFoodList) food.id: food});
-      },
-    );
-    lazy(
-      popularFoodID,
-      connect: ({dynamic data}) => repo.getPopularFood(data),
-      onSuccess: (res) {
-        _selectedFood.value = Food.fromJson(res.body);
-      },
-    );
-  }
-
-  @override
-  void close() {
-    catche.clear();
-  }
 
   Future<void> getPopularFoodList() async {
-    request(popularFoodListID);
+    final response = await request(repo.getPopularFoodList);
+    if (response != null) {
+      _popularFoodList.clear();
+      _catche.clear();
+
+      final pagination = Pagination.fromJson(response, Food.fromJson);
+      _popularFoodList.addAll(pagination.datas);
+      _catche.addAll({for (Food food in pagination.datas) food.id: food});
+    }
   }
 
-  void getPopularFood(String foodId) async {
+  Future<Food?> getPopularFood(String foodId) async {
     try {
-      if (catche.containsKey(foodId)) {
-        _selectedFood.value = catche[foodId];
+      if (_catche.containsKey(foodId)) {
+        return _catche[foodId];
       }
-      request(popularFoodListID, data: foodId);
+      final response = await request(() => repo.getPopularFood(foodId));
+      if (response != null) {
+        final food = Food.fromJson(response);
+        return food;
+      }
       return null;
     } catch (error) {
       return null;

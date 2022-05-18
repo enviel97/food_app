@@ -110,7 +110,7 @@ class CartItem extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           LazzyImages(data.foods[i].image, radius: 15.0.h),
-          if (!diff.isNegative && i == 2)
+          if (diff < 0 && i == 2)
             ClipRRect(
               borderRadius: BorderRadius.circular(15.0.h),
               child: BackdropFilter(

@@ -64,12 +64,17 @@ class FoodInCartItem extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      BodyText(
-                        food.name,
-                        maxLines: 1,
-                        fontSize: Spacing.m,
-                        textOverflow: TextOverflow.fade,
-                        softWrap: false,
+                      Expanded(
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: BodyText(
+                            food.name,
+                            maxLines: 1,
+                            fontSize: Spacing.m,
+                            textOverflow: TextOverflow.fade,
+                            softWrap: false,
+                          ),
+                        ),
                       ),
                       KIconButton(
                         icon: Icons.remove_shopping_cart_rounded,

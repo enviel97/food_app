@@ -35,13 +35,12 @@ class FoodBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<PopularFoodConroller>(
       builder: (controller) {
-        final status = controller.status(popularFoodListID);
-        if (!status.isLoaded && !status.isError) {
+        if (!controller.isLoaded && !controller.isError) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (status.isError) {
+        if (controller.isError) {
           return Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
