@@ -13,11 +13,13 @@ const Color kSecondaryColor = Color(0xFF37474f);
 const Color kSecondaryLightColor = Color(0xFF62727b);
 const Color kSecondaryDarkColor = Color(0xFF102027);
 
+const Color kTertiaryColor = Color(0xFF0b8343);
+
 const Color kPlaceholderColor = Color(0xFFebebeb);
 const Color kPlaceholderLightColor = Color(0xFFffffff);
 const Color kPlaceholderDarkColor = Color(0xFFc7c7c7);
 const Color kDividerColor = Color(0xffc7c7c7);
-const Color kPlaceholderSuperDarkColor = Color(0xFF3a3a3a);
+const Color kPlaceholderSuperDarkColor = Color(0xFFb2b2b2);
 
 const Color kDarkBackgroundColor = Color(0xFF35393F);
 const Color kLightBackgoundColor = Color(0xFFfafaf9);

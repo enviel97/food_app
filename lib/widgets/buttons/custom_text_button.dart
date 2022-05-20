@@ -18,7 +18,7 @@ class KTextButton extends StatelessWidget {
     Key? key,
     this.padding,
     this.backgroundColor = kPrimaryDarkColor,
-    this.textColor = kBlackColor,
+    this.textColor = kWhiteColor,
     this.onPressed,
     this.textAlign = Alignment.center,
     this.height = 36,
@@ -33,7 +33,7 @@ class KTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final backgroundColor =
         isOutline ? Get.theme.scaffoldBackgroundColor : this.backgroundColor;
-    final textColor = isOutline ? this.backgroundColor : kWhiteColor;
+    final textColor = isOutline ? this.backgroundColor : this.textColor;
 
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       primary: this.textColor,

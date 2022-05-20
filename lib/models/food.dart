@@ -30,59 +30,16 @@ class Food {
   });
 
   factory Food.fromJson(Map<String, dynamic> json) {
-    final faker = Food.faker();
     return Food(
       '${json['id'] ?? json['_id']}',
       name: json['name'],
       images: List.from(json['imgs']),
-      comments: faker.comments,
+      comments: mapToList(json['comments'], Comment.fromJson),
       finalRate: (json['finalRate'] as int).toDouble(),
       timePrepare: json['timePrepare'],
       status: _FoodStatusX.enumToMap[json['status']],
       description: json['description'],
       price: (json['price'] as int).toDouble(),
-    );
-  }
-
-  factory Food.faker() {
-    final faker = Faker();
-
-    final food = faker.food.dish();
-
-    final images = List<String>.generate(
-      faker.randomGenerator.integer(5, min: 3),
-      (index) => faker.image.image(
-        keywords: ['food', 'foods', 'culinary', food],
-        random: true,
-      ),
-    );
-
-    final comments = List<Comment>.generate(
-      faker.randomGenerator.integer(5, min: 3),
-      (index) => Comment.faker(),
-    );
-    final finalRate = comments.fold<double>(0.0, (sum, comt) {
-      return sum + comt.stars / comments.length;
-    });
-
-    final timePrepaire = faker.randomGenerator.element([15, 20, 30, 45, 60]);
-
-    final status = faker.randomGenerator
-        .element([FoodStatus.normal, FoodStatus.little, FoodStatus.empty]);
-
-    return Food(
-      faker.randomGenerator.fromPatternToHex(['##########']),
-      name: food,
-      images: images,
-      comments: comments,
-      finalRate: finalRate,
-      timePrepare: timePrepaire,
-      status: status,
-      description: faker.lorem
-          .sentences(faker.randomGenerator.integer(20, min: 10))
-          .join(' '),
-      price: double.tryParse(faker.randomGenerator.fromPattern(['##.##'])) ??
-          99.99,
     );
   }
 }

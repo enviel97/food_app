@@ -6,12 +6,7 @@ import '../styles/colors.dart';
 class AppTheme {
   AppTheme._();
   static final AppTheme theme = AppTheme._();
-  ColorScheme scheme({
-    required Color backgroundColor,
-    required Color onBack,
-    required Brightness brightness,
-  }) =>
-      ColorScheme(
+  ColorScheme scheme() => ColorScheme(
         // primary
         primary: kPrimaryColor,
         primaryContainer: kPrimaryLightColor,
@@ -26,14 +21,19 @@ class AppTheme {
         // surface
         surface: kPlaceholderDarkColor,
         onSurface: kPlaceholderColor,
+
+        // teriaty
+        tertiary: kTertiaryColor,
+        onTertiary: kWhiteColor,
+
         //
-        background: backgroundColor,
-        onBackground: onBack,
+        background: kLightBackgoundColor,
+        onBackground: kBlackColor,
         //
         error: kErrorColor,
         onError: kErrorColor.withOpacity(.7),
         //
-        brightness: brightness,
+        brightness: Brightness.light,
       );
 
   final ThemeData defaultTheme = ThemeData(
@@ -77,11 +77,7 @@ class AppTheme {
 
   static ThemeData lightTheme(context) {
     return theme.defaultTheme.copyWith(
-      colorScheme: theme.scheme(
-        backgroundColor: kLightBackgoundColor,
-        brightness: Brightness.light,
-        onBack: kBlackColor,
-      ),
+      colorScheme: theme.scheme(),
       dialogBackgroundColor: kBlackColor,
       scaffoldBackgroundColor: kLightBackgoundColor,
       backgroundColor: kLightBackgoundColor,
@@ -92,36 +88,15 @@ class AppTheme {
         bodyColor: kBlackColor,
         displayColor: kBlackColor,
       ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: kTertiaryColor,
+        selectionColor: kTertiaryColor.withOpacity(.2),
+        selectionHandleColor: kTertiaryColor.withOpacity(.2),
+      ),
       appBarTheme: theme._appBarTheme.copyWith(
         backgroundColor: kPrimaryLightColor,
       ),
       cardColor: kLightBackgoundColor,
-    );
-  }
-
-  static ThemeData darkTheme(context) {
-    return theme.defaultTheme.copyWith(
-      colorScheme: theme.scheme(
-        backgroundColor: kDarkBackgroundColor,
-        brightness: Brightness.dark,
-        onBack: kWhiteColor,
-      ),
-      dialogBackgroundColor: kBlackColor,
-      scaffoldBackgroundColor: kDarkBackgroundColor,
-      backgroundColor: kDarkBackgroundColor,
-      hintColor: kPlaceholderColor,
-      dividerColor: kDividerColor,
-      iconTheme: Theme.of(context).iconTheme.copyWith(color: kWhiteColor),
-      textTheme: defaultFonts(context).apply(
-        decorationColor: kWhiteColor,
-        bodyColor: kWhiteColor,
-        displayColor: kWhiteColor,
-      ),
-      selectedRowColor: kBlackColor,
-      appBarTheme: theme._appBarTheme.copyWith(
-        backgroundColor: kDarkBackgroundColor,
-      ),
-      cardColor: kDarkBackgroundColor,
     );
   }
 }

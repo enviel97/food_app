@@ -2,6 +2,7 @@ import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/models/pagination.dart';
 import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
+import 'package:get/get.dart';
 
 class RecommendedFoodConroller extends ApiControllerBase {
   final RecommendedFoodRepo repo;
@@ -19,14 +20,18 @@ class RecommendedFoodConroller extends ApiControllerBase {
   }
 
   Future<void> getRecommendedFoodList() async {
-    final response = await request(repo.getRecommendedFoodList);
-    if (response != null) {
-      _recommendedFoodList.clear();
-      _catche.clear();
+    try {
+      final response = await request(repo.getRecommendedFoodList);
+      if (response != null) {
+        _recommendedFoodList.clear();
+        _catche.clear();
 
-      final pagination = Pagination.fromJson(response, Food.fromJson);
-      _recommendedFoodList.addAll(pagination.datas);
-      _catche.addAll({for (Food food in pagination.datas) food.id: food});
+        final pagination = Pagination.fromJson(response, Food.fromJson);
+        _recommendedFoodList.addAll(pagination.datas);
+        _catche.addAll({for (Food food in pagination.datas) food.id: food});
+      }
+    } on ResponseError catch (error) {
+      Get.snackbar('Get popular', error.cause['message'] ?? 'Error server');
     }
   }
 
@@ -41,7 +46,8 @@ class RecommendedFoodConroller extends ApiControllerBase {
         return food;
       }
       return null;
-    } catch (error) {
+    } on ResponseError catch (error) {
+      Get.snackbar('Get popular', error.cause['message'] ?? 'Error server');
       return null;
     }
   }

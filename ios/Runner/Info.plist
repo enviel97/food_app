@@ -4,6 +4,18 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+
+  <!-- New rule  -->
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>We need to connect photo library to get images from this</string>
+  
+  <key>NSCameraUsageDescription </key>
+  <string>We need to connect the camera to take pictures</string>
+  
+  <key>NSMicrophoneUsageDescription </key>
+  <string>We need to connect a microphone to get the video</string>
+  <!-- New rule  -->
+  
 	<key>CFBundleDisplayName</key>
 	<string>Food Shop</string>
 	<key>CFBundleExecutable</key>

@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'helper.d.dart';
+class ResponseError implements Exception {
+  final dynamic cause;
+  const ResponseError(this.cause);
+}
 
 class ApiControllerBase extends GetxController {
   bool _isLoaded = false, _isError = false;
@@ -50,6 +52,6 @@ class ApiControllerBase extends GetxController {
       return response.body;
     }
     _onError();
-    return null;
+    throw ResponseError(response.body);
   }
 }
