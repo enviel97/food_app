@@ -37,11 +37,11 @@ class _SignupState extends State<Signup> {
 
   @override
   void initState() {
-    email = TextEditingController(text: 'admin1@gmail.com');
-    password = TextEditingController(text: '123QWEasd?!');
-    passwordConfirm = TextEditingController(text: '123QWEasd?!');
+    email = TextEditingController();
+    password = TextEditingController();
+    passwordConfirm = TextEditingController();
     birth = TextEditingController();
-    name = TextEditingController(text: 'Admin');
+    name = TextEditingController();
     super.initState();
   }
 

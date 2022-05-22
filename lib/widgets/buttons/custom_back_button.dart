@@ -24,7 +24,7 @@ class KBackButton<T> extends StatelessWidget {
     return KIconButton(
       size: size.h,
       icon: Icons.arrow_back_ios_rounded,
-      iconColor: iconColor ?? kPlaceholderSuperDarkColor,
+      iconColor: iconColor ?? kBlackColor,
       backgroundColor: backgroundColor ?? kWhiteColor.withOpacity(0.6),
       onPressed: () => _onPressed(context),
     );

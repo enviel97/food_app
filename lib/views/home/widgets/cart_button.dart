@@ -26,7 +26,7 @@ class CartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final backgroundColor =
         this.backgroundColor ?? kWhiteColor.withOpacity(0.6);
-    final iconColor = this.iconColor ?? kPlaceholderSuperDarkColor;
+    final iconColor = this.iconColor ?? kBlackColor;
 
     return Badge(
       toAnimate: false,
