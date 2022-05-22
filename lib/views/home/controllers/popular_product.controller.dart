@@ -19,8 +19,12 @@ class PopularFoodConroller extends ApiControllerBase {
 
   List<Food> get popularFoodList => _popularFoodList;
 
-  Future<void> getPopularFoodList() async {
+  Future<void> getPopularFoodList({bool isRestart = false}) async {
     try {
+      if (isRestart) {
+        restart();
+        update();
+      }
       final response = await request(repo.getPopularFoodList);
       if (response != null) {
         _popularFoodList.clear();

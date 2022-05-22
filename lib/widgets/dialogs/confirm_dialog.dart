@@ -10,6 +10,8 @@ class _Dialog {
   static Widget confirm({
     required String title,
     required Widget content,
+    bool canncelButton = true,
+    bool confirmButton = true,
   }) {
     return AlertDialog(
       backgroundColor: kWhiteColor,
@@ -29,23 +31,41 @@ class _Dialog {
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TextButton(
-                onPressed: () => Get.back(result: false),
-                child: const Text(
-                  'CANCEL',
-                  style: TextStyle(color: kBlackColor),
+              if (canncelButton)
+                TextButton(
+                  onPressed: () => Get.back(result: false),
+                  child: const Text(
+                    'CANCEL',
+                    style: TextStyle(color: kBlackColor),
+                  ),
                 ),
-              ),
-              TextButton(
-                onPressed: () => Get.back(result: true),
-                child: const Text(
-                  'ACCEPT',
-                  style: TextStyle(color: kPrimaryDarkColor),
+              if (confirmButton)
+                TextButton(
+                  onPressed: () => Get.back(result: true),
+                  child: const Text(
+                    'ACCEPT',
+                    style: TextStyle(color: kPrimaryDarkColor),
+                  ),
                 ),
-              ),
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+Future<void> showNoticeDialog({
+  required String title,
+  required Widget content,
+  void Function()? onConfirm,
+}) async {
+  if (!(Get.isDialogOpen ?? false)) {
+    Get.dialog(
+      _Dialog.confirm(
+        title: title,
+        content: content,
+        canncelButton: false,
       ),
     );
   }

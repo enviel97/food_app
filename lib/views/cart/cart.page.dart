@@ -95,7 +95,7 @@ class Cart extends StatelessWidget {
         _buildActionButton(
           Icons.home,
           onPressed: () {
-            RouteHelper.goTo(RouteId.getMain());
+            RouteHelper.replace(RouteId.getMain());
           },
         ),
         GetBuilder<CartController>(builder: (controller) {

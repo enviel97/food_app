@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/cart.dart';
+import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/views/history/controllers/history.controller.dart';
 import 'package:food_shop/widgets/lists/custom_listview.dart';
+import 'package:food_shop/widgets/page/empty.page.dart';
 import 'package:get/get.dart';
 
 import 'ui/cart_item.dart';
@@ -30,6 +32,7 @@ class _HistoryState extends State<History> {
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           datas: controller.carts,
           itemBuilder: (data, _) => _itemBuilder(data),
+          emptyBuilder: _buildEmptyBuilder,
         );
       }),
     );
@@ -37,5 +40,14 @@ class _HistoryState extends State<History> {
 
   Widget _itemBuilder(Cart data) {
     return CartItem(data: data);
+  }
+
+  Widget _buildEmptyBuilder() {
+    return GetBuilder<AuthController>(builder: (controller) {
+      final message = controller.user == null
+          ? 'Please sign in to use this feature'
+          : "You don't have any history cart";
+      return Empty(title: message);
+    });
   }
 }

@@ -30,4 +30,5 @@ class AppConstants {
   static const AUTH_SIGNUP = '/user/create';
   static const AUTH_VERIFY = '/user/verify';
   static const AUTH_CHANGE_PASSWORD = '/user/change_passord';
+  static const AUTH_GET_USER = '/user/get';
 }

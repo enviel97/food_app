@@ -5,6 +5,7 @@ import 'package:food_shop/views/home/controllers/recommended_food.controller.dar
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
+import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/images/lazy_images.dart';
 import 'package:food_shop/widgets/lists/custom_listview.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
@@ -42,7 +43,22 @@ class FoodPopular extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (controller.isError) {
-                  return const Center(child: HeaderText('Error get foods'));
+                  return Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const HeaderText('Service error'),
+                        Spacing.horizantal.xs,
+                        KIconButton(
+                          icon: Icons.refresh_rounded,
+                          onPressed: () async {
+                            await controller.getRecommendedFoodList(
+                                isRestart: true);
+                          },
+                        )
+                      ],
+                    ),
+                  );
                 }
                 return KListView<Food>(
                   physics: const ClampingScrollPhysics(),

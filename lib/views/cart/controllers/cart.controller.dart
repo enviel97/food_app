@@ -3,6 +3,7 @@ import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/views/cart/repository/cart.repo.dart';
 import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -11,7 +12,11 @@ class CartController extends GetxController {
 
   double _totalPrice = 0.0;
 
-  CartController({required this.repo}) {
+  CartController({required this.repo});
+
+  @override
+  void onInit() {
+    super.onInit();
     final cart = repo.getTemp();
     if (cart.isEmpty) return;
     _foods.addAll({for (FoodInCart food in cart) food.id: food});
@@ -49,11 +54,8 @@ class CartController extends GetxController {
     _updateCart(_foods[id], prevQuantity);
   }
 
-  Future<void> addToCart(
-    Food food, {
-    required int quantity,
-    String pageId = '',
-  }) async {
+  Future<void> addToCart(Food food,
+      {required int quantity, String pageId = ''}) async {
     if (quantity.isNegative) throw Exception('Quantity is negative');
     int prevQuantity = 0;
     if (_foods.containsKey(food.id)) {
@@ -103,20 +105,27 @@ class CartController extends GetxController {
   }
 
   Future<bool> payment(List<FoodInCart> carts) async {
+    final isAuth = repo.checkAuth();
+    if (!isAuth) {
+      await showNoticeDialog(
+        title: 'Payment',
+        content: const Center(
+          child: BodyText('You must sign in to checkout this'),
+        ),
+      );
+      return false;
+    }
+
     try {
       return await showConfirmDialog(
         title: 'Payment',
-        content: Text.rich(
-          TextSpan(
+        content: Text.rich(TextSpan(
             text: 'Pay your cart with total payment amount of ',
             children: [
               TextSpan(
-                text: '$_totalPrice \$',
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
+                  text: '$_totalPrice \$',
+                  style: const TextStyle(fontWeight: FontWeight.bold))
+            ])),
         onConfirm: () {
           repo.storeHistory(Cart.create(foods: carts));
           _foods.clear();

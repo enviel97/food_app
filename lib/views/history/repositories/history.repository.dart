@@ -2,26 +2,28 @@ import 'dart:convert';
 
 import 'package:food_shop/helpers/constants.dart';
 import 'package:food_shop/models/cart.dart';
+import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HistoryRepo extends GetxService {
-  late SharedPreferences _localStorage;
+  final SharedPreferences localStorage;
+  final AuthController authController;
 
-  HistoryRepo({required SharedPreferences localStorage}) {
-    _localStorage = localStorage;
-  }
+  HistoryRepo({required this.localStorage, required this.authController});
 
   // Get History bill and auto clean garbage
   List<Cart> getHistory() {
-    const key = AppConstants.CART_HISTORY;
+    if (authController.user == null) return [];
     final List<Cart> carts = [];
     final List<String> garbage = [];
     try {
-      final cartIds = _localStorage.getStringList(key) ?? [];
+      final key = authController.user!.id;
+      final cartIds = localStorage.getStringList(key) ?? [];
       if (cartIds.isEmpty) return carts;
+
       for (String id in cartIds) {
-        final json = _localStorage.getString(id);
+        final json = localStorage.getString(id);
         if (json != null) {
           carts.add(Cart.fromJson(jsonDecode(json)));
         } else {
@@ -33,9 +35,9 @@ class HistoryRepo extends GetxService {
       if (garbage.isNotEmpty) {
         for (String id in garbage) {
           cartIds.remove(id);
-          _localStorage.remove(id);
+          localStorage.remove(id);
         }
-        _localStorage.setStringList(key, cartIds);
+        localStorage.setStringList(key, cartIds);
       }
       return carts;
     } catch (e) {
@@ -44,12 +46,12 @@ class HistoryRepo extends GetxService {
   }
 
   void remove(String id) async {
-    final cartIds = _localStorage.getStringList(AppConstants.CART_HISTORY);
+    final cartIds = localStorage.getStringList(AppConstants.CART_HISTORY);
     if (cartIds?.isEmpty ?? true) return;
     cartIds!.remove(id);
     await Future.wait([
-      _localStorage.setStringList(AppConstants.CART_HISTORY, cartIds),
-      _localStorage.remove(id)
+      localStorage.setStringList(AppConstants.CART_HISTORY, cartIds),
+      localStorage.remove(id)
     ]);
   }
 }

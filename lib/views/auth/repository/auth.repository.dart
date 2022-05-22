@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/helpers/constants.dart';
+import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/repository/api_client.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,6 +45,10 @@ class AuthRepo extends GetxService {
     );
   }
 
+  Future<Response> getUser(String id) async {
+    return await client.getData(AppConstants.AUTH_GET_USER, params: [id]);
+  }
+
   Future<Response> verify(String email) async {
     return await client.postData(
       AppConstants.AUTH_VERIFY,
@@ -58,30 +64,25 @@ class AuthRepo extends GetxService {
   }
 
   Future<void> storeToken({required String id, required String token}) async {
-    final results = await Future.wait([
-      local.setString(AppConstants.TOKEN, token),
-      local.setString(token, id),
-    ]);
-    if (results[0] && results[1]) return;
-    throw Exception("Can't store to local");
+    final results = await local.setString(AppConstants.TOKEN, token);
+    if (results) return;
+    throw const ResponseError("Can't store to local");
   }
 
-  Future<bool> checkAuth() async {
+  Future<String?> checkAuth() async {
     final token = local.getString(AppConstants.TOKEN);
-    if (token == null) return false;
-    if (Jwt.isExpired(token)) return false;
-    return true;
+    if (token == null) return null;
+    if (Jwt.isExpired(token)) return null;
+    return token;
   }
 
   Future<bool> removeToken() async {
-    final token = local.getString(AppConstants.TOKEN);
-    if (token != null) {
-      await Future.wait([
-        local.remove(AppConstants.TOKEN),
-        local.remove(token),
-      ]);
+    try {
+      await local.remove(AppConstants.TOKEN);
       return true;
+    } catch (error) {
+      showError('Unknown');
+      return false;
     }
-    return false;
   }
 }

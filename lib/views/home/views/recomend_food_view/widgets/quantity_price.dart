@@ -96,7 +96,7 @@ class _QuantityPriceState extends State<QuantityPrice> {
               iconScale: .5,
               elevation: 20.0,
               iconColor: kPrimaryLightColor,
-              backgroundColor: kPlaceholderSuperDarkColor,
+              backgroundColor: kSecondaryDarkColor,
               onPressed: () {
                 Navigator.of(context).maybePop(quantity);
               },

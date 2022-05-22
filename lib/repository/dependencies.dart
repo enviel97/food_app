@@ -10,11 +10,15 @@ class RepositoryDependencies {
 
   static void inject() {
     // inject dependencies
-    Get.lazyPut(() => CartRepo(localStorage: Get.find()), fenix: true);
-    Get.lazyPut(() => HistoryRepo(localStorage: Get.find()), fenix: true);
     Get.lazyPut(() => PopularFoodRepo(client: Get.find()), fenix: true);
     Get.lazyPut(() => RecommendedFoodRepo(client: Get.find()), fenix: true);
     Get.lazyPut(() => AuthRepo(client: Get.find(), local: Get.find()),
+        fenix: true);
+    Get.lazyPut(
+        () => CartRepo(localStorage: Get.find(), authController: Get.find()),
+        fenix: true);
+    Get.lazyPut(
+        () => HistoryRepo(localStorage: Get.find(), authController: Get.find()),
         fenix: true);
   }
 }

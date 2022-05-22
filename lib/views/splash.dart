@@ -20,8 +20,9 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
-  final _durationAnimation = const Duration(seconds: 2);
-  final _durationNavigation = const Duration(seconds: 3);
+  final _durationAnimation = const Duration(seconds: 3);
+  final _durationNavigation = const Duration(seconds: 4);
+  final _durationCrossFade = const Duration(microseconds: 500);
   late Animation<double> _animation;
   late AnimationController _controller;
 
@@ -39,48 +40,77 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  Widget _buildWelcomeUser() {
+    return Column(children: [
+      Text('Food App',
+          style: GoogleFonts.lobster(
+              fontSize: Spacing.xl * 1.2, fontWeight: FontWeight.bold)),
+      Text('Fresher - Bester - Happier',
+          style: GoogleFonts.lobster(
+              fontSize: Spacing.lg, color: kPlaceholderDarkColor))
+    ]);
+  }
+
+  Widget _bulildWelcomeNew(String name) {
+    return Column(children: [
+      Text('Welcome back',
+          style: GoogleFonts.lobster(
+            fontSize: Spacing.xl * 1.2,
+            fontWeight: FontWeight.bold,
+            color: kPlaceholderSuperDarkColor,
+          )),
+      Text(name,
+          style: GoogleFonts.lobster(fontSize: Spacing.lg, color: kBlackColor))
+    ]);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-      ScaleTransition(
-          scale: _animation,
-          child: Center(
-              child: Image.asset('assets/images/logo.png',
-                  height: Dimensions.kWidth / 2,
-                  width: Dimensions.kWidth / 2,
-                  fit: BoxFit.fitHeight))),
-      Spacing.vertical.xxxl,
-      GetBuilder<AuthController>(builder: (controller) {
-        if (controller.user == null) {
-          return Column(children: [
-            Text('Food App',
-                style: GoogleFonts.lobster(
-                    fontSize: Spacing.xl * 1.2, fontWeight: FontWeight.bold)),
-            Text('Fresher - Bester - Happier',
-                style: GoogleFonts.lobster(
-                    fontSize: Spacing.lg, color: kPlaceholderDarkColor))
-          ]);
-        }
-        return Column(children: [
-          Text('Welcome back',
-              style: GoogleFonts.lobster(
-                fontSize: Spacing.xl * 1.2,
-                fontWeight: FontWeight.bold,
-                color: kPlaceholderSuperDarkColor,
-              )),
-          Text(controller.user!.name,
-              style:
-                  GoogleFonts.lobster(fontSize: Spacing.lg, color: kBlackColor))
-        ]);
-      })
-    ]));
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ScaleTransition(
+            scale: _animation,
+            child: Center(
+              child: Image.asset(
+                'assets/images/logo.png',
+                height: Dimensions.kWidth / 2,
+                width: Dimensions.kWidth / 2,
+                fit: BoxFit.fitHeight,
+              ),
+            ),
+          ),
+          Spacing.vertical.xxxl,
+          GetBuilder<AuthController>(
+            builder: (controller) {
+              return AnimatedCrossFade(
+                crossFadeState: controller.user == null
+                    ? CrossFadeState.showFirst
+                    : CrossFadeState.showSecond,
+                secondChild:
+                    _bulildWelcomeNew(controller.user?.name ?? 'loading'),
+                firstChild: _buildWelcomeUser(),
+                duration: _durationCrossFade,
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 
   Future<void> _loadResource() async {
     if (mounted) {
-      Future.wait([
+      await Future.wait([
         Get.find<PopularFoodConroller>().getPopularFoodList(),
         Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
+        Get.find<AuthController>().getUser(),
       ]);
     }
   }

@@ -44,6 +44,10 @@ class ApiControllerBase extends GetxController {
     _isError = false;
   }
 
+  void restart() {
+    _onStart();
+  }
+
   Future<T?> request<T>(Future<Response> Function() fetch) async {
     _onStart();
     final response = await fetch();

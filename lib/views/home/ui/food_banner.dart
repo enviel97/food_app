@@ -50,7 +50,7 @@ class FoodBanner extends StatelessWidget {
                 KIconButton(
                   icon: Icons.refresh_rounded,
                   onPressed: () async {
-                    await controller.getPopularFoodList();
+                    await controller.getPopularFoodList(isRestart: true);
                   },
                 )
               ],

@@ -4,6 +4,7 @@ import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/models/user.dart';
 import 'package:food_shop/views/auth/repository/auth.repository.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class Verify {
   final String message;
@@ -22,6 +23,25 @@ class AuthController extends ApiControllerBase {
 
   // USer
   User? user;
+
+  Future<void> getUser() async {
+    final token = await repo.checkAuth();
+    if (token?.isEmpty ?? true) return;
+    final datas = Jwt.parseJwt(token!);
+    final data = datas['data'];
+    if (data != null) {
+      try {
+        final result = await request(() => repo.getUser(data));
+        if (result != null) {
+          final user = User.fromJson(result);
+          this.user = user;
+          update();
+        }
+      } on ResponseError catch (error) {
+        showError(error.cause);
+      }
+    }
+  }
 
   // sigin
   Future<void> signIn(String email, String password) async {
@@ -101,8 +121,6 @@ class AuthController extends ApiControllerBase {
       return Verify('$message', false);
     }
   }
-
-  // storeage
 
   // logout
   Future<void> signOut() async {
