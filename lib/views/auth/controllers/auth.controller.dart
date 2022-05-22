@@ -1,12 +1,9 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:food_shop/controller/base.controller.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/views/auth/repository/auth.repository.dart';
-import 'package:get/get.dart';
 
 class Verify {
   final String message;

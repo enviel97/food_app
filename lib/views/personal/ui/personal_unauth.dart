@@ -5,7 +5,6 @@ import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/app.dart';
 import 'package:food_shop/widgets/buttons/custom_text_button.dart';
-import 'package:get/get.dart';
 
 class PersonalUnauth extends StatelessWidget {
   const PersonalUnauth({Key? key}) : super(key: key);
