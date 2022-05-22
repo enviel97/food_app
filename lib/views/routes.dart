@@ -22,10 +22,11 @@ class RouteId {
 
   // route need param
   static String getForgotPassword(String initEmail) =>
-      '$_forgotPassword?initEmail=$initEmail';
-  static String getPopularFood(String foodId) => '$_popular?foodId=$foodId';
+      '$_signin$_forgotPassword?initEmail=$initEmail';
+  static String getPopularFood(String foodId) =>
+      '/home$_popular?foodId=$foodId';
   static String getRecommendedFood(String foodId) =>
-      '$_recommended?foodId=$foodId';
+      '/home$_recommended?foodId=$foodId';
   static String getCart({String? cartId}) =>
       _cart + ((cartId?.isEmpty ?? true) ? '' : '?cartId=$cartId');
 }
@@ -59,20 +60,19 @@ class RouteHelper {
     ),
     // auth
     GetPage(
-      name: RouteId._signin,
-      page: () => const Signin(),
-      transition: Transition.fade,
-    ),
+        name: RouteId._signin,
+        page: () => const Signin(),
+        transition: Transition.fade,
+        children: [
+          GetPage(
+            name: RouteId._forgotPassword,
+            page: () => ForgotPassword(Get.parameters['initEmail'] ?? ''),
+          )
+        ]),
     GetPage(
       name: RouteId._signup,
       page: () => const Signup(),
-      transition: Transition.fade,
     ),
-    GetPage(
-      name: RouteId._forgotPassword,
-      page: () => ForgotPassword(Get.parameters['initEmail'] ?? ''),
-      transition: Transition.fade,
-    )
   ];
 
   // Methods

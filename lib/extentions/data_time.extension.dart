@@ -12,4 +12,8 @@ extension DateTimeX on DateTime {
   String withFormat({required String format}) {
     return DateFormat(format).format(this);
   }
+
+  static DateTime fromString(String value, {String format = 'MMM, dd yyyy'}) {
+    return DateFormat(format).parse(value);
+  }
 }

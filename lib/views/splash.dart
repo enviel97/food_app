@@ -5,6 +5,7 @@ import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/app.dart';
+import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,38 +41,39 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ScaleTransition(
-            scale: _animation,
-            child: Center(
-              child: Image.asset(
-                'assets/images/logo.png',
-                height: Dimensions.kWidth / 2,
-                width: Dimensions.kWidth / 2,
-                fit: BoxFit.fitHeight,
-              ),
-            ),
-          ),
-          Spacing.vertical.xxxl,
-          Text(
-            'Food App',
-            style: GoogleFonts.lobster(
-              fontSize: Spacing.xl * 1.2,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Fresher - Bester - Happier',
-            style: GoogleFonts.lobster(
-              fontSize: Spacing.lg,
-              color: kPlaceholderDarkColor,
-            ),
-          )
-        ],
-      ),
-    );
+        body: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      ScaleTransition(
+          scale: _animation,
+          child: Center(
+              child: Image.asset('assets/images/logo.png',
+                  height: Dimensions.kWidth / 2,
+                  width: Dimensions.kWidth / 2,
+                  fit: BoxFit.fitHeight))),
+      Spacing.vertical.xxxl,
+      GetBuilder<AuthController>(builder: (controller) {
+        if (controller.user == null) {
+          return Column(children: [
+            Text('Food App',
+                style: GoogleFonts.lobster(
+                    fontSize: Spacing.xl * 1.2, fontWeight: FontWeight.bold)),
+            Text('Fresher - Bester - Happier',
+                style: GoogleFonts.lobster(
+                    fontSize: Spacing.lg, color: kPlaceholderDarkColor))
+          ]);
+        }
+        return Column(children: [
+          Text('Welcome back',
+              style: GoogleFonts.lobster(
+                fontSize: Spacing.xl * 1.2,
+                fontWeight: FontWeight.bold,
+                color: kPlaceholderSuperDarkColor,
+              )),
+          Text(controller.user!.name,
+              style:
+                  GoogleFonts.lobster(fontSize: Spacing.lg, color: kBlackColor))
+        ]);
+      })
+    ]));
   }
 
   Future<void> _loadResource() async {

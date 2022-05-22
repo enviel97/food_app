@@ -24,11 +24,14 @@ T mapToModel<T>(dynamic json, T Function(Map<String, dynamic> json) create) {
   return create(json);
 }
 
-String? getImageUrl(String image) {
+String getImageUrl(String image) {
   if (image.isEmpty || image == 'null') {
-    return null;
+    return '';
   }
-  return '${AppConstants.BASE_URL}/uploads/$image';
+  // TODO: faker data catch
+  if (image.contains('i.pravatar.cc')) return image;
+
+  return '${AppConstants.BASE_URL}$image';
 }
 
 String getAssetImagePath(String image) {

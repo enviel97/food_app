@@ -41,20 +41,18 @@ class _MainState extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<CartController>(
-          builder: (controller) => _items.elementAt(_currentPage).view),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      floatingActionButton: _cartButton,
-      bottomNavigationBar: KBottomAppBar(
-        currentIndex: _currentPage,
-        items: _items.map((prop) => prop.toView),
-        onChangePage: (int? index) {
-          setState(() {
-            _currentPage = index ?? 1;
-          });
-        },
-      ),
-    );
+        body: GetBuilder<CartController>(
+            builder: (controller) => _items.elementAt(_currentPage).view),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+        floatingActionButton: _cartButton,
+        bottomNavigationBar: KBottomAppBar(
+            currentIndex: _currentPage,
+            items: _items.map((prop) => prop.toView),
+            onChangePage: (int? index) {
+              setState(() {
+                _currentPage = index ?? 1;
+              });
+            }));
   }
 
   Widget get _cartButton {

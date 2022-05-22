@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/styles/colors.dart';
+import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/views/auth/ui/background.dart';
 import 'package:food_shop/views/auth/views/forgot/ui/controll_step.dart';
 import 'package:get/get.dart';
@@ -98,32 +100,26 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     );
   }
 
-  Future<bool?> _fetch(String text) async {
-    await Future<bool?>.delayed(const Duration(seconds: 2));
-    print('_fetch data $text');
-    Get.back();
-    return true;
-  }
-
   Future<void> _checkValidation(
     FormState? state, {
-    required Future<bool?> Function() fetch,
+    required Future<Verify> Function() fetch,
     required void Function() onSuccess,
   }) async {
     if (!(state?.validate() ?? false)) return;
-    Get.dialog(
-      const Center(child: CircularProgressIndicator()),
-      barrierDismissible: false,
-    );
 
-    final user = await fetch();
-    if (user ?? false) onSuccess();
+    final verify = await showLoading(fetch);
+    if (verify?.status ?? false) {
+      onSuccess();
+    } else {
+      showError(verify?.message ?? 'Unknown');
+    }
   }
 
   Future<void> _verifyEmail() async {
     await _checkValidation(
       emailState.currentState,
-      fetch: () => _fetch('Verify'),
+      fetch: () async =>
+          await Get.find<AuthController>().verifyUsername(email.text),
       onSuccess: () => setState(() => _currentStep += 1),
     );
   }
@@ -131,7 +127,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   void _forgotSubmitted() async {
     await _checkValidation(
       passwordState.currentState,
-      fetch: () => _fetch('Change password'),
+      fetch: () async => await Get.find<AuthController>()
+          .changePassword(email.text, password.text),
       onSuccess: () => Get.back(result: {
         'email': email.text,
         'password': password.text,

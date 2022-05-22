@@ -1,4 +1,3 @@
-import 'package:faker/faker.dart';
 import 'package:food_shop/helpers/functions.dart';
 import 'package:food_shop/models/comment.dart';
 

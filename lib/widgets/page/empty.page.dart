@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:food_shop/helpers/functions.dart';
 import 'package:food_shop/styles/colors.dart';
@@ -11,7 +10,7 @@ class Empty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const HeaderText(

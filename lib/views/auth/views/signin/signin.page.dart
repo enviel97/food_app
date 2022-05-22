@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/views/app.dart';
+import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/views/auth/ui/background.dart';
 import 'package:food_shop/views/auth/views/signin/ui/action_buttons.dart';
 import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
+import 'package:get/get.dart';
 
 import 'ui/sign_in_form.dart';
 
@@ -21,10 +23,10 @@ class _SigninState extends State<Signin> {
 
   @override
   void initState() {
-    usernameController = TextEditingController(text: '');
-    passwordController = TextEditingController(text: '');
-
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
     super.initState();
+    _initController();
   }
 
   @override
@@ -62,25 +64,45 @@ class _SigninState extends State<Signin> {
     );
   }
 
-  void _onSignin() {
+  Future<void> _onSignin() async {
     if (_formState.currentState?.validate() ?? false) {
-      print('Valid');
-      return;
+      final controller = Get.find<AuthController>();
+      await Get.showOverlay(
+          asyncFunction: () async => await controller.signIn(
+                usernameController.text,
+                passwordController.text,
+              ),
+          loadingWidget: const Center(
+            child: CircularProgressIndicator(),
+          ));
+      if (!controller.isError && controller.isLoaded) {
+        RouteHelper.goTo(RouteId.getSplash());
+        return;
+      }
     }
-    print('Invalid');
   }
 
   Future<void> _goToForgotPassword() async {
     final user = await RouteHelper.goTo(
       RouteId.getForgotPassword(usernameController.text),
     );
-    if (user != null) {
+    _configController(user);
+  }
+
+  Future<void> _goToSignUp() async {
+    final user = await RouteHelper.goTo(RouteId.getSignUp());
+    _configController(user);
+  }
+
+  void _configController(dynamic user) {
+    if (user == null) return;
+    if (user is Map) {
       usernameController.text = user['email'] ?? '';
       passwordController.text = user['password'] ?? '';
     }
   }
 
-  Future<void> _goToSignUp() async {
-    final user = await RouteHelper.goTo(RouteId.getSignUp());
+  void _initController() {
+    _configController(Get.arguments);
   }
 }

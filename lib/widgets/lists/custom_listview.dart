@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/widgets/page/empty.page.dart';
-import 'package:food_shop/widgets/texts/header_text.dart';
-
 import 'scroll_behavior/disable_grow.dart';
 
 class KListView<T> extends StatelessWidget {

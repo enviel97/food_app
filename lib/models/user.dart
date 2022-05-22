@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-
 enum Gender {
   male,
   female,
@@ -35,7 +33,7 @@ class User {
       name: json['name'],
       email: json['email'] ?? '',
       birth: DateTime.tryParse('${json['birth']}') ?? DateTime.now(),
-      gender: _GenderX.enumToMap['${json['status']}'.toLowerCase()] ??
+      gender: _GenderX.enumToMap['${json['gender']}'.toLowerCase()] ??
           Gender.private,
       updatedAt: DateTime.tryParse('${json['updatedAt']}') ?? DateTime.now(),
     );
