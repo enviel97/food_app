@@ -23,7 +23,7 @@ class SignInForm extends StatelessWidget {
           controller: username,
           label: 'Email',
           icon: Icons.email_rounded,
-          onValidation: const Validation('Email').isEmail,
+          onValidation: const Validation('Email').require,
           textInputAction: TextInputAction.next,
           nextNode: passFocus,
         ),

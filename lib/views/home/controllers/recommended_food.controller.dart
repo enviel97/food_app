@@ -1,8 +1,8 @@
 import 'package:food_shop/controller/base.controller.dart';
+import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/models/food.dart';
 import 'package:food_shop/models/pagination.dart';
 import 'package:food_shop/views/home/repository/recommended_food.repo.dart';
-import 'package:get/get.dart';
 
 class RecommendedFoodConroller extends ApiControllerBase {
   final RecommendedFoodRepo repo;
@@ -35,7 +35,7 @@ class RecommendedFoodConroller extends ApiControllerBase {
         _catche.addAll({for (Food food in pagination.datas) food.id: food});
       }
     } on ResponseError catch (error) {
-      Get.snackbar('Get popular', error.cause['message'] ?? 'Error server');
+      showError(error.cause);
     }
   }
 
@@ -51,7 +51,7 @@ class RecommendedFoodConroller extends ApiControllerBase {
       }
       return null;
     } on ResponseError catch (error) {
-      Get.snackbar('Get popular', error.cause['message'] ?? 'Error server');
+      showError(error.cause);
       return null;
     }
   }

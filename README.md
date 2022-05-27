@@ -10,8 +10,8 @@ Backlog:
 
 | Name feature     | Priority |
 | ---------------- | -------: |
-| Main screen      |        0 |
-| Auth             |        1 |
+| Main screen      |        1 |
+| Auth             |        0 |
 | Cart             |        2 |
 | Purchase history |        3 |
 | Order online     |        4 |
@@ -73,7 +73,7 @@ Pre prepair:
 | timePrepare |    int    | more than 5                                        |
 | status      |  string   | include [normal, empty, little], default is normal |
 | description |  string   | not null                                           |
-| prica       |  double   | not null                                           |
+| price       |  double   | not null                                           |
 
 - Food in cart: match with food model data
 

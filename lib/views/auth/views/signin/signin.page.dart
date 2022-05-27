@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/views/auth/ui/background.dart';
@@ -23,6 +24,7 @@ class _SigninState extends State<Signin> {
 
   @override
   void initState() {
+    // TODO: must remove
     usernameController = TextEditingController(text: 'admin1@gmail.com');
     passwordController = TextEditingController(text: '123QWEasd?!');
     super.initState();
@@ -42,7 +44,7 @@ class _SigninState extends State<Signin> {
       title: 'Sign In',
       form: Form(
         key: _formState,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+        autovalidateMode: AutovalidateMode.disabled,
         child: KSingleChildScrollView(
           padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 40.0),
           child: Column(
@@ -67,13 +69,9 @@ class _SigninState extends State<Signin> {
   Future<void> _onSignin() async {
     if (_formState.currentState?.validate() ?? false) {
       final controller = Get.find<AuthController>();
-      await Get.showOverlay(
-          asyncFunction: () async => await controller.signIn(
-                usernameController.text,
-                passwordController.text,
-              ),
-          loadingWidget: const Center(
-            child: CircularProgressIndicator(),
+      await showLoading(() async => await controller.signIn(
+            usernameController.text,
+            passwordController.text,
           ));
       if (!controller.isError && controller.isLoaded) {
         RouteHelper.goTo(RouteId.getSplash());
