@@ -16,8 +16,8 @@ class AppConstants {
 
   /// [BASIC SERVER]
   /// [https://be-food-app.herokuapp.com - clound host];
-  /// [http://192.168.27.27 - local host];
-  static const BASE_URL = 'https://be-food-app.herokuapp.com';
+  /// [http://192.168.27.27:3000 - local host];
+  static const BASE_URL = 'http://192.168.27.27:3000';
   static const PHOTOS = '$BASE_URL/photos';
 
   /// [FOOD ROUTE]
