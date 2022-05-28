@@ -11,7 +11,6 @@ import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'home/controllers/popular_product.controller.dart';
