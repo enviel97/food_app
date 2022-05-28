@@ -153,12 +153,13 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       await Future.wait([
         Get.find<PopularFoodConroller>().getPopularFoodList(),
         Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
-        Get.find<AuthController>().getUser(),
       ]).then(
         (value) {
-          Timer(_durationCrossFade, () {
-            setState(() => isLoaded = true);
-            RouteHelper.replace(RouteId.getMain());
+          Get.find<AuthController>().getUser().then((value) {
+            Timer(_durationCrossFade, () {
+              setState(() => isLoaded = true);
+              RouteHelper.replace(RouteId.getMain());
+            });
           });
         },
       );
