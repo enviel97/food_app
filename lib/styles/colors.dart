@@ -5,10 +5,6 @@ const Color kPrimaryColor = Color(0xFF64ffda);
 const Color kPrimaryLightColor = Color(0xFF9effff);
 const Color kPrimaryDarkColor = Color(0xFF14cba8);
 
-// const Color kSecondaryColor = Color(0xFFffea00);
-// const Color kSecondaryLightColor = Color(0xFFffff56);
-// const Color kSecondaryDarkColor = Color(0xFFc7b800);
-
 const Color kSecondaryColor = Color(0xFF37474f);
 const Color kSecondaryLightColor = Color(0xFF62727b);
 const Color kSecondaryDarkColor = Color(0xFF102027);

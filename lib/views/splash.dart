@@ -1,13 +1,18 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
 import 'package:food_shop/views/app.dart';
 import 'package:food_shop/views/auth/controllers/auth.controller.dart';
+import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
+import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 import 'home/controllers/popular_product.controller.dart';
 import 'home/controllers/recommended_food.controller.dart';
@@ -21,10 +26,12 @@ class Splash extends StatefulWidget {
 
 class _SplashState extends State<Splash> with TickerProviderStateMixin {
   final _durationAnimation = const Duration(seconds: 3);
-  final _durationNavigation = const Duration(seconds: 4);
   final _durationCrossFade = const Duration(microseconds: 500);
+  final _durationOpacity = const Duration(milliseconds: 3500);
   late Animation<double> _animation;
+
   late AnimationController _controller;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -34,8 +41,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     _controller = AnimationController(vsync: this, duration: _durationAnimation)
       ..forward();
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    Timer(_durationNavigation, () {
-      RouteHelper.replace(RouteId.getMain());
+    Timer(_durationOpacity, () {
+      if (mounted) setState(() {});
     });
   }
 
@@ -60,10 +67,9 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     return Column(children: [
       Text('Welcome back',
           style: GoogleFonts.lobster(
-            fontSize: Spacing.xl * 1.2,
-            fontWeight: FontWeight.bold,
-            color: kPlaceholderSuperDarkColor,
-          )),
+              fontSize: Spacing.xl * 1.2,
+              fontWeight: FontWeight.bold,
+              color: kPlaceholderSuperDarkColor)),
       Text(name,
           style: GoogleFonts.lobster(fontSize: Spacing.lg, color: kBlackColor))
     ]);
@@ -93,25 +99,74 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
                 crossFadeState: controller.user == null
                     ? CrossFadeState.showFirst
                     : CrossFadeState.showSecond,
-                secondChild:
-                    _bulildWelcomeNew(controller.user?.name ?? 'loading'),
+                secondChild: _bulildWelcomeNew(controller.user?.name ?? ''),
                 firstChild: _buildWelcomeUser(),
                 duration: _durationCrossFade,
               );
             },
+          ),
+          AnimatedOpacity(
+            duration: const Duration(microseconds: 200),
+            opacity:
+                !isLoaded && _controller.isCompleted && !_controller.isAnimating
+                    ? 1
+                    : 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const BodyText('Loading'),
+                  Spacing.horizantal.m,
+                  const SizedBox.square(
+                    dimension: 16.0,
+                    child: CircularProgressIndicator(color: kTertiaryColor),
+                  ),
+                ],
+              ),
+            ),
           )
         ],
       ),
     );
   }
 
+  Future<bool> checkPermission() async {
+    final checked = await InternetConnectionChecker().hasConnection;
+    return checked;
+  }
+
   Future<void> _loadResource() async {
     if (mounted) {
+      final isPermission = await checkPermission();
+      if (!isPermission) {
+        showNoticeDialog(
+            title: 'Error',
+            content: const BodyText(
+              '''This app is required open internet to get data. App will be exit right now''',
+            ),
+            onConfirm: () {
+              if (Platform.isAndroid) {
+                SystemNavigator.pop();
+              } else {
+                exit(0);
+              }
+            });
+        return;
+      }
       await Future.wait([
         Get.find<PopularFoodConroller>().getPopularFoodList(),
         Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
         Get.find<AuthController>().getUser(),
-      ]);
+      ]).then(
+        (value) {
+          Timer(_durationCrossFade, () {
+            setState(() => isLoaded = true);
+            RouteHelper.replace(RouteId.getMain());
+          });
+        },
+      );
     }
   }
 }
