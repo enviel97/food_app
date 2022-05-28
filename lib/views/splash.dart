@@ -52,24 +52,30 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
 
   Widget _buildWelcomeUser() {
     return Column(children: [
-      Text('Food App',
-          style: GoogleFonts.lobster(
-              fontSize: Spacing.xl * 1.2, fontWeight: FontWeight.bold)),
-      Text('Fresher - Bester - Happier',
-          style: GoogleFonts.lobster(
-              fontSize: Spacing.lg, color: kPlaceholderDarkColor))
+      const Text('Food App',
+          style: TextStyle(
+              fontFamily: 'Decorate',
+              fontSize: Spacing.xl * 1.2,
+              fontWeight: FontWeight.bold)),
+      const Text('Fresher - Bester - Happier',
+          style: TextStyle(
+              fontFamily: 'Decorate',
+              fontSize: Spacing.lg,
+              color: kPlaceholderDarkColor))
     ]);
   }
 
   Widget _bulildWelcomeNew(String name) {
     return Column(children: [
-      Text('Welcome back',
-          style: GoogleFonts.lobster(
+      const Text('Welcome back',
+          style: TextStyle(
+              fontFamily: 'Decorate',
               fontSize: Spacing.xl * 1.2,
               fontWeight: FontWeight.bold,
               color: kPlaceholderSuperDarkColor)),
       Text(name,
-          style: GoogleFonts.lobster(fontSize: Spacing.lg, color: kBlackColor))
+          style: const TextStyle(
+              fontFamily: 'Decorate', fontSize: Spacing.lg, color: kBlackColor))
     ]);
   }
 
@@ -154,7 +160,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         Get.find<PopularFoodConroller>().getPopularFoodList(),
         Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
       ]).then(
-        (value) {
+        (_) {
           Get.find<AuthController>().getUser().then((value) {
             Timer(_durationCrossFade, () {
               setState(() => isLoaded = true);
