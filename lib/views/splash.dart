@@ -31,7 +31,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   late Animation<double> _animation;
 
   late AnimationController _controller;
-  bool isLoaded = false;
+  bool isLoaded = false, needShowLoading = false;
 
   @override
   void initState() {
@@ -41,9 +41,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     _controller = AnimationController(vsync: this, duration: _durationAnimation)
       ..forward();
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    Timer(_durationOpacity, () {
-      if (mounted) setState(() {});
-    });
+    _showLoading();
   }
 
   @override
@@ -107,10 +105,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           ),
           AnimatedOpacity(
             duration: const Duration(microseconds: 200),
-            opacity:
-                !isLoaded && _controller.isCompleted && !_controller.isAnimating
-                    ? 1
-                    : 0,
+            opacity: _animation.isCompleted ? 1 : 0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -168,5 +163,13 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
         },
       );
     }
+  }
+
+  void _showLoading() {
+    Timer(_durationOpacity, () {
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
 }
