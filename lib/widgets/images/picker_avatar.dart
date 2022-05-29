@@ -123,7 +123,7 @@ class _PickerAvatarState extends State<PickerAvatar> {
   }
 
   Future<void> _onPickPicture() async {
-    final image = await Get.bottomSheet<File>(
+    final image = await Get.bottomSheet<File?>(
       Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -138,9 +138,9 @@ class _PickerAvatarState extends State<PickerAvatar> {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0.h)),
       ),
     );
-    widget.onChanged(image);
-    if (image == null) return;
 
+    if (image == null) return;
+    widget.onChanged(image);
     setState(() => this.image = image);
   }
 
@@ -148,7 +148,10 @@ class _PickerAvatarState extends State<PickerAvatar> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-      if (image == null) return;
+      if (image == null) {
+        Get.back(result: null);
+        return;
+      }
 
       final imageTemp = File(image.path);
 
@@ -164,7 +167,10 @@ class _PickerAvatarState extends State<PickerAvatar> {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
-      if (image == null) return;
+      if (image == null) {
+        Get.back(result: null);
+        return;
+      }
 
       final imageTemp = File(image.path);
 

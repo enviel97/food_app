@@ -24,7 +24,7 @@ class Validation {
     final hasUpper = RegExp(r'[A-Z]');
     final hasLower = RegExp(r'[a-z]');
     final hasDigit = RegExp(r'\d');
-    final hasPunct = RegExp(r'[!.@#\$&*~-]');
+    final hasPunct = RegExp(r'[!?.@#\$&*~-]');
     // 2
     if (!RegExp(r'.{8,}').hasMatch(value!)) {
       return '$fieldName must have at least 8 characters';

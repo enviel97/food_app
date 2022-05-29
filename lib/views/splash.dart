@@ -161,8 +161,8 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
       ]).then(
         (_) {
           Get.find<AuthController>().getUser().then((value) {
-            Timer(_durationCrossFade, () {
-              setState(() => isLoaded = true);
+            setState(() => isLoaded = true);
+            Timer(_durationOpacity, () {
               RouteHelper.replace(RouteId.getMain());
             });
           });
