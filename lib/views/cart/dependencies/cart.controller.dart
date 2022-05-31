@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:food_shop/models/cart.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/cart/repository/cart.repo.dart';
+import 'package:food_shop/views/cart/dependencies/cart.repo.dart';
 import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';

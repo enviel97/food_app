@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/cart/controllers/cart.controller.dart';
+import 'package:food_shop/routes/routes.dart';
+import 'package:food_shop/views/cart/dependencies/cart.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/constant.dart';

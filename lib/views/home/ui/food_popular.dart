@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
+import 'package:food_shop/routes/helpers/route.helpers.dart';
+import 'package:food_shop/routes/routes.dart';
+import 'package:food_shop/views/home/dependencies/popular_product/recommended_food.controller.dart';
 import 'package:food_shop/views/home/styles/dimensions.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';

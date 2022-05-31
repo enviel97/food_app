@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/styles/colors.dart';
-import 'package:food_shop/views/auth/controllers/auth.controller.dart';
+import 'package:food_shop/views/auth/dependencies/auth.controller.dart';
 import 'package:food_shop/views/auth/ui/background.dart';
 import 'package:food_shop/views/auth/views/forgot/ui/controll_step.dart';
 import 'package:get/get.dart';

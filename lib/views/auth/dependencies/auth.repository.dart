@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:food_shop/controller/base.controller.dart';
+import 'package:food_shop/dependencies/controller/base.controller.dart';
+import 'package:food_shop/dependencies/repository/api_client.dart';
 import 'package:food_shop/helpers/constants.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
-import 'package:food_shop/repository/api_client.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';

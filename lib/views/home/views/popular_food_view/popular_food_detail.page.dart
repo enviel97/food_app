@@ -4,7 +4,7 @@ import 'package:food_shop/extentions/double.extension.dart';
 import 'package:food_shop/models/food.dart';
 
 import 'package:food_shop/styles/dimensions.dart';
-import 'package:food_shop/views/home/controllers/popular_product.controller.dart';
+import 'package:food_shop/views/home/dependencies/common_produtcts/popular_product.controller.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';
 
