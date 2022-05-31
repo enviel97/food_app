@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/food.dart';
-import 'package:food_shop/views/home/controllers/recommended_food.controller.dart';
+import 'package:food_shop/views/home/dependencies/popular_product/recommended_food.controller.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:food_shop/widgets/texts/header_text.dart';
 import 'package:get/get.dart';

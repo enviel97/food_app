@@ -1,10 +1,11 @@
 import 'dart:io';
 
-import 'package:food_shop/controller/base.controller.dart';
+import 'package:food_shop/dependencies/controller/base.controller.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/models/user.dart';
-import 'package:food_shop/views/auth/repository/auth.repository.dart';
 import 'package:jwt_decode/jwt_decode.dart';
+
+import 'auth.repository.dart';
 
 class Verify {
   final String message;

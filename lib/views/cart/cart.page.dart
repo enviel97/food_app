@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/models/cart.dart';
+import 'package:food_shop/routes/helpers/route.helpers.dart';
+import 'package:food_shop/routes/routes.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/cart/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/dependencies/cart.controller.dart';
 import 'package:food_shop/widgets/buttons/custom_back_button.dart';
 import 'package:food_shop/widgets/buttons/custom_icon_button.dart';
 import 'package:food_shop/widgets/lists/custom_listview.dart';

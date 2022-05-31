@@ -3,18 +3,19 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_shop/routes/helpers/route.helpers.dart';
+import 'package:food_shop/routes/routes.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/styles/dimensions.dart';
 import 'package:food_shop/styles/spacing.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/auth/controllers/auth.controller.dart';
 import 'package:food_shop/widgets/dialogs/confirm_dialog.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
-import 'home/controllers/popular_product.controller.dart';
-import 'home/controllers/recommended_food.controller.dart';
+import 'auth/dependencies/auth.controller.dart';
+import 'home/dependencies/common_produtcts/popular_product.controller.dart';
+import 'home/dependencies/popular_product/recommended_food.controller.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);

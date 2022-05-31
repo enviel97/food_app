@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_shop/helpers/widget_functions.dart';
-import 'package:food_shop/views/app.dart';
-import 'package:food_shop/views/auth/controllers/auth.controller.dart';
+import 'package:food_shop/routes/helpers/route.helpers.dart';
+import 'package:food_shop/routes/routes.dart';
+import 'package:food_shop/views/auth/dependencies/auth.controller.dart';
 import 'package:food_shop/views/auth/ui/background.dart';
 import 'package:food_shop/views/auth/views/signin/ui/action_buttons.dart';
 import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
@@ -24,9 +25,8 @@ class _SigninState extends State<Signin> {
 
   @override
   void initState() {
-    // TODO: must remove
-    usernameController = TextEditingController(text: 'admin1@gmail.com');
-    passwordController = TextEditingController(text: '123QWEasd?!');
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
     super.initState();
     _initController();
   }

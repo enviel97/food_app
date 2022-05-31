@@ -1,13 +1,14 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:food_shop/routes/helpers/route.helpers.dart';
+import 'package:food_shop/routes/routes.dart';
 import 'package:food_shop/styles/colors.dart';
 import 'package:food_shop/views/history/history.page.dart';
 import 'package:food_shop/views/home/home.page.dart';
 import 'package:food_shop/views/personal/personal.page.dart';
 import 'package:get/get.dart';
 
-import 'app.dart';
-import 'cart/controllers/cart.controller.dart';
+import 'cart/dependencies/cart.controller.dart';
 import 'widgets/bottom_navigator.dart';
 
 class Main extends StatefulWidget {

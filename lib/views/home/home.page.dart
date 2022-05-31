@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_shop/views/cart/controllers/cart.controller.dart';
+import 'package:food_shop/views/cart/dependencies/cart.controller.dart';
 import 'package:food_shop/widgets/lists/scroll_behavior/disable_grow.dart';
 import 'package:get/get.dart';
 

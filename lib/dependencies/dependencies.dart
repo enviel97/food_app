@@ -1,10 +1,10 @@
-import 'package:food_shop/controller/dependencies.dart';
 import 'package:food_shop/helpers/constants.dart';
-import 'package:food_shop/repository/dependencies.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'controller/dependencies.dart';
 import 'repository/api_client.dart';
+import 'repository/dependencies.dart';
 
 Future<void> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();

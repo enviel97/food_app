@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:food_shop/helpers/constants.dart';
 import 'package:food_shop/models/cart.dart';
-import 'package:food_shop/views/auth/controllers/auth.controller.dart';
+import 'package:food_shop/views/auth/dependencies/auth.controller.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
