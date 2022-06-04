@@ -16,7 +16,7 @@ class Bottom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: Dimensions.kBottom100 * 0.75.h,
+      height: Dimensions.kHeight100 * 0.75.h,
       padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
       alignment: Alignment.centerRight,
       decoration: const BoxDecoration(

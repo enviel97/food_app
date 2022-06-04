@@ -37,20 +37,21 @@ class _PersonalState extends State<Personal> {
                   gender: controller.user?.gender ?? Gender.private,
                 );
               }),
-              GetBuilder<AuthController>(builder: (controller) {
-                if (controller.user != null) {
-                  final user = controller.user!;
-                  return Expanded(
-                    child: PesonalInfo(
+              Expanded(
+                child: GetBuilder<AuthController>(builder: (controller) {
+                  if (controller.user != null) {
+                    final user = controller.user!;
+                    return PesonalInfo(
+                      user.id,
                       email: user.email,
                       name: user.name,
                       updateAt: DateTime.now(),
                       birth: user.birth,
-                    ),
-                  );
-                }
-                return const PersonalUnauth();
-              })
+                    );
+                  }
+                  return const PersonalUnauth();
+                }),
+              )
             ],
           ),
         ),

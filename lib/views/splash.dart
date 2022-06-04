@@ -3,6 +3,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:food_shop/extentions/future.extension.dart';
+import 'package:food_shop/helpers/functions.dart';
+import 'package:food_shop/helpers/widget_functions.dart';
 import 'package:food_shop/routes/helpers/route.helpers.dart';
 import 'package:food_shop/routes/routes.dart';
 import 'package:food_shop/styles/colors.dart';
@@ -31,7 +34,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
   late Animation<double> _animation;
 
   late AnimationController _controller;
-  bool isLoaded = false, needShowLoading = false;
+  bool needMoreTime = false;
 
   @override
   void initState() {
@@ -41,7 +44,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
     _controller = AnimationController(vsync: this, duration: _durationAnimation)
       ..forward();
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _showLoading();
+    _animation.addListener(_showLoading);
   }
 
   @override
@@ -111,7 +114,7 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
           ),
           AnimatedOpacity(
             duration: const Duration(microseconds: 200),
-            opacity: _animation.isCompleted ? 1 : 0,
+            opacity: needMoreTime ? 1 : 0,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -156,27 +159,38 @@ class _SplashState extends State<Splash> with TickerProviderStateMixin {
             });
         return;
       }
-      await Future.wait([
+      await FutureX.separateRequest([
         Get.find<PopularFoodConroller>().getPopularFoodList(),
         Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
-      ]).then(
-        (_) {
-          Get.find<AuthController>().getUser().then((value) {
-            setState(() => isLoaded = true);
-            Timer(_durationOpacity, () {
-              RouteHelper.replace(RouteId.getMain());
-            });
-          });
-        },
-      );
+        Get.find<AuthController>().getUser(),
+      ]).then((_) {
+        Timer(_durationOpacity, () {
+          _animation.removeListener(_showLoading);
+          RouteHelper.replace(RouteId.getMain());
+        });
+      });
+
+      // await Future.wait([
+      //   Get.find<PopularFoodConroller>().getPopularFoodList(),
+      //   Get.find<RecommendedFoodConroller>().getRecommendedFoodList(),
+      // ]).then(
+      //   (_) {
+      //     Get.find<AuthController>().getUser().then((value) {
+      //       Timer(_durationOpacity, () {
+      //         _animation.removeListener(_showLoading);
+      //         RouteHelper.replace(RouteId.getMain());
+      //       });
+      //     });
+      //   },
+      // );
     }
   }
 
   void _showLoading() {
-    Timer(_durationOpacity, () {
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    if (_animation.isCompleted && mounted) {
+      setState(() {
+        needMoreTime = true;
+      });
+    }
   }
 }

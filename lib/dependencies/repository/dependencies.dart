@@ -3,6 +3,7 @@ import 'package:food_shop/views/history/dependencies/history.repository.dart';
 import 'package:food_shop/views/home/dependencies/common_produtcts/popular_food.repo.dart';
 import 'package:food_shop/views/home/dependencies/popular_product/recommended_food.repo.dart';
 import 'package:food_shop/views/cart/dependencies/cart.repo.dart';
+import 'package:food_shop/views/personal/dependencies/address/address.repository.dart';
 import 'package:get/get.dart';
 
 class RepositoryDependencies {
@@ -19,6 +20,8 @@ class RepositoryDependencies {
         fenix: true);
     Get.lazyPut(
         () => HistoryRepo(localStorage: Get.find(), authController: Get.find()),
+        fenix: true);
+    Get.lazyPut(() => AddressRepo(client: Get.find(), local: Get.find()),
         fenix: true);
   }
 }

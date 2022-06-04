@@ -105,8 +105,8 @@ class CartItem extends StatelessWidget {
 
   Widget _buildImage({required int i, required int diff}) {
     return SizedBox(
-      height: (Dimensions.kHeader100 * .65).h,
-      width: (Dimensions.kHeader100 * .65).h,
+      height: (Dimensions.kHeight100 * .65).h,
+      width: (Dimensions.kHeight100 * .65).h,
       child: Stack(
         fit: StackFit.expand,
         children: [

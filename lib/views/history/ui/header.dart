@@ -32,5 +32,5 @@ class Header extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(Dimensions.kHeader100);
+  Size get preferredSize => Size.fromHeight(Dimensions.kHeight100);
 }

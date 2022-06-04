@@ -11,10 +11,13 @@ import 'package:food_shop/widgets/lists/custom_single_child_scrollview.dart';
 import 'package:food_shop/widgets/texts/body_text.dart';
 import 'package:get/get.dart';
 
+import 'personal_address/personal_address.dart';
+
 class PesonalInfo extends StatelessWidget {
-  final String name, email;
+  final String id, name, email;
   final DateTime birth, updateAt;
-  const PesonalInfo({
+  const PesonalInfo(
+    this.id, {
     required this.name,
     required this.email,
     required this.birth,
@@ -31,9 +34,9 @@ class PesonalInfo extends StatelessWidget {
           Info(label: 'Email', value: email),
           Info(label: 'Name', value: name),
           Info(label: 'Birth', value: birth.toDate),
-          Info(label: 'Birth', value: birth.toDate),
+          // PersonalAddress(userId: id),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 32.0),
+            padding: EdgeInsets.symmetric(vertical: 16.0.h),
             child: Column(
               children: [
                 const BodyText('last update', color: kPlaceholderDarkColor),

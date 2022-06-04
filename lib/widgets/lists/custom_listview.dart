@@ -45,6 +45,7 @@ class KListView<T> extends StatelessWidget {
 
   Widget get _listview {
     return ListView.builder(
+      reverse: reverse,
       controller: controller,
       primary: primary,
       physics: physics,

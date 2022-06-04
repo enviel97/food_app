@@ -23,10 +23,8 @@ class RecommendedFoodConroller extends ApiControllerBase {
 
   Future<void> getRecommendedFoodList({bool isRestart = false}) async {
     try {
-      if (isRestart) {
-        restart();
-        update();
-      }
+      if (isRestart) restart();
+
       final response = await request(repo.getRecommendedFoodList);
       if (response != null) {
         _recommendedFoodList.clear();

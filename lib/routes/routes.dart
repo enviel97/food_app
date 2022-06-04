@@ -1,4 +1,5 @@
 // ignore_for_file: unused_element
+
 import 'package:food_shop/views/auth/views/forgot/forgot_password.dart';
 import 'package:food_shop/views/auth/views/signin/signin.page.dart';
 import 'package:food_shop/views/auth/views/signup/signup.page.dart';
@@ -7,6 +8,7 @@ import 'package:food_shop/views/home/home.page.dart';
 import 'package:food_shop/views/home/views/popular_food_view/popular_food_detail.page.dart';
 import 'package:food_shop/views/home/views/recomend_food_view/recommened_food_detail.page.dart';
 import 'package:food_shop/views/main.dart';
+import 'package:food_shop/views/personal/views/address/address.page.dart';
 import 'package:food_shop/views/splash.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +42,6 @@ class Routes {
         cartId: Get.parameters['cartId'],
       ),
     ),
-    // auth
     GetPage(
         name: _signin,
         page: () => const Signin(),
@@ -55,5 +56,12 @@ class Routes {
       name: _signup,
       page: () => const Signup(),
     ),
+    GetPage(
+      name: _address,
+      page: () => Address(
+        latitude: double.tryParse(Get.parameters['latitude'] ?? '0.0'),
+        longitude: double.tryParse(Get.parameters['longitude'] ?? '0.0'),
+      ),
+    )
   ];
 }

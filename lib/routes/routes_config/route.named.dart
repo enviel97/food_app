@@ -7,7 +7,6 @@ class RouteId {
   static String getSplash() => _splash;
   static String getSignIn() => _signin;
   static String getSignUp() => _signup;
-
   // route need param
   static String getForgotPassword(String initEmail) =>
       '$_signin$_forgotPassword?initEmail=$initEmail';
@@ -17,4 +16,6 @@ class RouteId {
       '/home$_recommended?foodId=$foodId';
   static String getCart({String? cartId}) =>
       _cart + ((cartId?.isEmpty ?? true) ? '' : '?cartId=$cartId');
+  static String getAddress({double? longitude, double? latitude}) =>
+      '$_address?longitude=${longitude ?? ''}&latitude=${longitude ?? ''}';
 }

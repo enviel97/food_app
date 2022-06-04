@@ -39,15 +39,15 @@ class FoodInCartItem extends StatelessWidget {
           ),
         ],
       ),
-      height: Dimensions.kHeader100,
+      height: Dimensions.kHeight100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           LazzyImages(
             food.image,
-            width: Dimensions.kHeader100,
-            height: Dimensions.kHeader100,
+            width: Dimensions.kHeight100,
+            height: Dimensions.kHeight100,
             radius: radius,
           ),
           Expanded(

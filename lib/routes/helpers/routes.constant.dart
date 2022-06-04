@@ -8,4 +8,5 @@ const String _recommended = '/recommended_food';
 const String _cart = '/cart';
 const String _signin = '/signin';
 const String _signup = '/signup';
+const String _address = '/address';
 const String _forgotPassword = '/forgot_password';

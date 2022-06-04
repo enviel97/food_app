@@ -25,8 +25,8 @@ class _SigninState extends State<Signin> {
 
   @override
   void initState() {
-    usernameController = TextEditingController();
-    passwordController = TextEditingController();
+    usernameController = TextEditingController(text: 'admin1@gmail.vom');
+    passwordController = TextEditingController(text: '123QWEasd?!');
     super.initState();
     _initController();
   }

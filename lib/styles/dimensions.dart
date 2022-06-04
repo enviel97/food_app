@@ -10,7 +10,7 @@ class Dimensions {
   static double kHeight = Get.context!.height;
   static double kWidth = Get.context!.width;
 
-  static final kHeader100 = 100.0.h;
-  static final kBottom100 = 100.0.h;
-  static final kHeader125 = 125.0.h;
+  static final kHeight100 = 100.0.h;
+  static final kHeight125 = 100.0.h;
+  static final kHeight150 = 125.0.h;
 }
